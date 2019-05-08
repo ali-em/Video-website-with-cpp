@@ -2,7 +2,7 @@
 #define FILM_H
 #include <string>
 #include <vector>
-
+#include "purchase.h"
 class Film {
    public:
    private:
@@ -15,7 +15,7 @@ class Film {
     double price;
     int totalScore;
     int numberOfScores;
-    //std::vector<Purchased*> purchases;
+    std::vector<Purchase*> purchases;
 };
 
 #endif

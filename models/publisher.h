@@ -5,7 +5,7 @@
 class Publisher : public User {
    public:
    private:
-    //std::vector<Film*> publishedFilms;
+    std::vector<Film*> publishedFilms;
     std::vector<User*> followers;
 };
 
