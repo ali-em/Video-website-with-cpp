@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include "notification.h"
 class User {
    public:
    private:
@@ -13,6 +13,7 @@ class User {
     std::string email;
     std::vector<User*> following;
     double money;
+    // std::vector<Notification*> notifications;
     // std::vector<Film*> purchasedFilms;
 };
 
