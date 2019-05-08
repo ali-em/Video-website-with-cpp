@@ -10,6 +10,7 @@ class App {
     Database database;
     inputHandler req;
     View res;
+    User* user;
 };
 
 #endif
