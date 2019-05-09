@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "../models/types.h"
+#include "../models/modelHeaders.h"
 #define SPACE ' '
 class InputHandler {
    public:
@@ -12,6 +12,10 @@ class InputHandler {
    private:
     std::vector<std::string> split(std::string);
     std::string trim(std::string);
+    Request parseToRequest(std::vector<std::string>);
+    RequestType getReqType(std::vector<std::string>);
+    bool hasWord(std::vector<std::string>, std::string);
+    RequestType getRequestType(std::string str);
 };
 
 #endif
