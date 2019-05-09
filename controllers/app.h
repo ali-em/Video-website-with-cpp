@@ -8,7 +8,7 @@ class App {
    public:
    private:
     Database database;
-    inputHandler req;
+    InputHandler req;
     View res;
     User* user;
 };
