@@ -64,7 +64,7 @@ vector<string> InputHandler::getReqPart(vector<string> splitted) {
 }
 void InputHandler::validateRequest(vector<string> params, RequestType rt) {
     if (params.size() % 2 == 1)
-        throw;
+        throw BadRequest();
 }
 RequestType InputHandler::getReqType(vector<string> splitted) {
     string type;
@@ -73,7 +73,14 @@ RequestType InputHandler::getReqType(vector<string> splitted) {
             break;
         type += req + " ";
     }
-    return getRequestType(type);
+    if (splitted[0] != "PUT" && splitted[0] != "POST" &&
+        splitted[0] != "DELETE" && splitted[0] != "GET")
+        throw BadRequest();
+    try {
+        return getRequestType(type);
+    } catch (...) {
+        throw NotFound();
+    }
 }
 bool InputHandler::hasWord(vector<string> src, string target) {
     for (auto w : src)

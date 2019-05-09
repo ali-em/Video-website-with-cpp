@@ -2,14 +2,20 @@
 using namespace std;
 void App::run() {
     while (1) {
-        Request req = Req.get();
-        handleRequest(req);
-        if (!isLoggedIn) continue;
+        try {
+            Request req = Req.get();
+            handleRequest(req);
+            if (!isLoggedIn) continue;
+        } catch (exception& err) {
+            Res.sendError(err);
+        }
     }
 }
 void App::handleRequest(Request req) {
     if (req.command == P_SIGN_UP)
         signUp(req);
+    // if (req.command == P_LOGIN)
+    //     login(req);
 }
 void App::signUp(Request req) {
     validateSignUp(req);
