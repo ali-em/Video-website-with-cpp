@@ -17,3 +17,4 @@ User::User(string _email, string _username, string _password, string _age) : ema
 void User::setId(int _id) {
     id = _id;
 }
+bool User::isPublisher() { return publisher; }
