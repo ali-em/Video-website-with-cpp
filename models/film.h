@@ -3,15 +3,19 @@
 #include <string>
 #include <vector>
 #include "purchase.h"
+#include "request_type.h"
 class Film {
    public:
+    Film(Request& req);
+    void setId(int);
+
    private:
     int id;
     std::string name;
     std::string summary;
     std::string director;
+    std::string length;
     int year;
-    double length;
     double price;
     int totalScore;
     int numberOfScores;
