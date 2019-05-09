@@ -1,9 +1,9 @@
-#ifndef STRUCTS_H
-#define STRUCTS_H
+#ifndef REQUEST_TYPE_H
+#define REQUEST_TYPE_H
 #include <map>
 #include <string>
 
-enum RequestCommand {
+enum RequestType {
     P_SIGN_UP = 0,
     P_LOGIN,
     P_FILMS,
@@ -23,7 +23,7 @@ enum RequestCommand {
     P_BUY
 };
 struct Request {
-    RequestCommand command;
+    RequestType command;
     std::map<std::string, std::string> params;
 };
 
