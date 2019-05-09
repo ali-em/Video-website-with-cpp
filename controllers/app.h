@@ -5,7 +5,10 @@
 #include "../database/database.h"
 #include "../views/view.h"
 #include "input_handler.h"
+#include "login.h"
 #include "signup.h"
+#include "tools.h"
+
 class App {
    public:
     void run();
@@ -13,15 +16,11 @@ class App {
    private:
     void handleRequest(Request);
 
-    bool isInMap(std::map<std::string, std::string> m, int counter, const char* v...);
-    void handleLogin(Request);
-    void login(User* user);
     Database DB;
     InputHandler Req;
     View Res;
     SignUp* signUp;
-    User* currentUser;
-    bool isLoggedIn = false;
+    Login* login;
 };
 
 #endif

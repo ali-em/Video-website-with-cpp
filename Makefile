@@ -28,7 +28,9 @@ DATABASE := database/database
 #controllers
 APP := controllers/app
 INPUT := controllers/input_handler
-
+LOGIN := controllers/login
+SIGN_UP := controllers/signup
+TOOLS := controllers/tools
 #others
 MAIN = main.cpp
 
@@ -41,7 +43,7 @@ app.out:main.o
 main.o:main.cpp app.o
 	${OC} main.cpp
 
-app.o:${APP}.h ${APP}.cpp database.o input_handler.o view.o
+app.o:${APP}.h ${APP}.cpp database.o input_handler.o view.o tools.o login.o signup.o
 	${OC} ${APP}.cpp
 
 database.o:user.o publisher.o ${DATABASE}.cpp ${DATABASE}.h ${ALL_MODELS}
@@ -58,6 +60,16 @@ publisher.o:${PUBLISHER_MODEL} ${PUB_CPP} ${USER_MODEL}
 
 user.o:${USER_CPP} ${USER_MODEL}
 	${OC} ${USER_CPP}
+
+signup.o:${SIGN_UP}.h ${SIGN_UP}.cpp login.o
+	${OC} ${SIGN_UP}.cpp
+
+login.o:${LOGIN}.h ${LOGIN}.cpp tools.o
+	${OC} ${LOGIN}.cpp
+
+tools.o:${TOOLS}.h ${TOOLS}.cpp
+	${OC} ${TOOLS}.cpp
+
 
 .PHONY: clean
 
