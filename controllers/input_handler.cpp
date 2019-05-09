@@ -45,10 +45,8 @@ map<string, string> InputHandler::getReqParams(vector<string> splitted, RequestT
     map<string, string> result;
     vector<string> parameters = getReqPart(splitted);
     validateRequest(parameters, rt);
-    for (int i = 0; i < parameters.size(); i += 2) {
-        cout << parameters[i] << " : " << parameters[i + 1] << endl;
+    for (int i = 0; i < parameters.size(); i += 2)
         result[parameters[i]] = parameters[i + 1];
-    }
     return result;
 }
 vector<string> InputHandler::getReqPart(vector<string> splitted) {

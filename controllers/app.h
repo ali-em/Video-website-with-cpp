@@ -14,6 +14,7 @@ class App {
     void signUp(Request);
     void validateSignUp(Request req);
     bool isInMap(std::map<std::string, std::string> m, int counter, const char* v...);
+    void printSuccess();
     Database DB;
     InputHandler Req;
     View Res;

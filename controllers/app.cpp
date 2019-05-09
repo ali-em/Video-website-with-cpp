@@ -20,6 +20,7 @@ void App::signUp(Request req) {
         User* newUser = new User(req.params);
         DB.addUser(newUser);
     }
+    printSuccess();
 }
 void App::validateSignUp(Request req) {
     if (!isInMap(req.params, 4, "email", "username", "password", "age"))
@@ -40,4 +41,7 @@ bool App::isInMap(std::map<string, string> m, int counter, const char* keys...) 
             return false;
     }
     return true;
+}
+void App::printSuccess() {
+    cout << "OK" << endl;
 }
