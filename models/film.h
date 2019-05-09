@@ -16,6 +16,7 @@ class Film {
     int totalScore;
     int numberOfScores;
     std::vector<Purchase*> purchases;
+    bool deleted = false;
 };
 
 #endif

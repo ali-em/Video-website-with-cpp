@@ -10,6 +10,7 @@ class Comment {
     int filmId;
     std::vector<Comment*> replies;
     std::string content;
+    bool deleted = false;
 };
 
 #endif
