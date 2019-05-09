@@ -6,6 +6,8 @@
 
 class App {
    public:
+    void run(){};
+
    private:
     Database database;
     InputHandler req;
