@@ -22,4 +22,6 @@ void App::handleRequest(Request req) {
         login->handleLogin(req);
     else if (req.command == P_FILMS)
         fm->handleAddFilm(req);
+    else if (req.command == PU_FILMS)
+        fm->handleEditFilm(req);
 }
