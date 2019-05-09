@@ -5,7 +5,6 @@
 #include <vector>
 #include "film.h"
 #include "notification.h"
-class Film;
 class User {
    public:
    private:
