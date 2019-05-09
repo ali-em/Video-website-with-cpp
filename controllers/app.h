@@ -4,11 +4,11 @@
 #include <map>
 #include "../database/database.h"
 #include "../views/view.h"
+#include "film_manager.h"
 #include "input_handler.h"
 #include "login.h"
 #include "signup.h"
 #include "tools.h"
-
 class App {
    public:
     void run();
@@ -21,6 +21,7 @@ class App {
     View Res;
     SignUp* signUp;
     Login* login;
+    FilmManager* fm;
 };
 
 #endif

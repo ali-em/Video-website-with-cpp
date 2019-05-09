@@ -3,6 +3,7 @@ using namespace std;
 void App::run() {
     login = new Login(&DB, &Res);
     signUp = new SignUp(&DB, &Res, login);
+    fm = new FilmManager(&DB, &Res, login);
     while (1) {
         try {
             Request req = Req.get();
@@ -17,8 +18,8 @@ void App::run() {
 void App::handleRequest(Request req) {
     if (req.command == P_SIGN_UP)
         signUp->handleSignUp(req);
-    if (req.command == P_LOGIN)
+    else if (req.command == P_LOGIN)
         login->handleLogin(req);
+    else if (req.command == P_FILMS)
+        fm->handleAddFilm(req);
 }
-
-
