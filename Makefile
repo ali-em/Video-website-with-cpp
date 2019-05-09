@@ -13,8 +13,8 @@ FILM := models/film.h
 NOTIF := models/notification.h
 COMMENT := models/comment.h
 PURCHASE := models/purchase.h
-
-ALL_MODELS := ${USER_MODEL} ${PUBLISHER_MODEL} ${FILM} ${NOTIF} ${COMMENT} ${PURCHASE}
+REQUEST_TYPE := models/request_type.h
+ALL_MODELS := ${REQUEST_TYPE} ${USER_MODEL} ${PUBLISHER_MODEL} ${FILM} ${NOTIF} ${COMMENT} ${PURCHASE}
 #views
 VIEW := views/view
 DATABASE := database/database
@@ -42,7 +42,7 @@ app.o:${APP}.h ${APP}.cpp database.o input_handler.o view.o
 database.o:${DATABASE}.cpp ${DATABASE}.h ${ALL_MODELS}
 	${OC} ${DATABASE}.cpp
 
-input_handler.o: ${INPUT}.cpp ${INPUT}.h
+input_handler.o: ${INPUT}.cpp ${INPUT}.h ${ALL_MODELS}
 	${OC} ${INPUT}.cpp
 
 view.o:${VIEW}.h ${VIEW}.cpp
