@@ -11,3 +11,9 @@ void Database::addUser(User* user) {
     users.push_back(user);
     user->setId(userId++);
 }
+User* Database::findUserByUsernameAndPassword(std::string username, std::string password) {
+    for (auto user : users)
+        if (user->getUsername() == username && user->getPassword() == password)
+            return user;
+    return NULL;
+}
