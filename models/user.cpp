@@ -4,6 +4,9 @@ using namespace std;
 string User::getUsername() {
     return username;
 }
+string User::getPassword() {
+    return password;
+}
 User::User(map<string, string> params) {
     username = params["username"];
     password = params["password"];

@@ -10,6 +10,7 @@ class Film;
 class User {
    public:
     std::string getUsername();
+    std::string getPassword();
     User(std::map<std::string, std::string>);
     User(std::string email, std::string username, std::string password, std::string age);
     void setId(int id);
