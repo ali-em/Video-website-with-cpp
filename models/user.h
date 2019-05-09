@@ -1,6 +1,7 @@
 #ifndef USER_H
 #define USER_H
 #include <iostream>
+#include <map>
 #include <string>
 #include <vector>
 #include "film.h"
@@ -9,12 +10,15 @@ class Film;
 class User {
    public:
     std::string getUsername();
+    User(std::map<std::string, std::string>);
+    User(std::string email, std::string username, std::string password, std::string age);
 
    private:
     int id;
     std::string username;
     std::string password;
     std::string email;
+    int age;
     std::vector<User*> following;
     double money;
     std::vector<Notification*> notifications;

@@ -13,15 +13,19 @@ void App::handleRequest(Request req) {
 }
 void App::signUp(Request req) {
     validateSignUp(req);
+    bool isPublisher = false;
+    if (isInMap(req.params, 1, "publisher") && req.params["publisher"] == "true") {
+        isPublisher = true;
+    } else {
+        User* newUser = new User(req.params);
+        DB.addUser(newUser);
+    }
 }
 void App::validateSignUp(Request req) {
-    // cout << req.params["email"];
-    if (!isInMap(req.params, 4, "email", "username", "password", "age")) {
+    if (!isInMap(req.params, 4, "email", "username", "password", "age"))
         throw;
-    }
-    if (DB.findUserByUsername(req.params["username"])) {
+    if (DB.findUserByUsername(req.params["username"]))
         throw;
-    }
 }
 bool App::isInMap(std::map<string, string> m, int counter, const char* keys...) {
     va_list args;
