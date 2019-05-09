@@ -6,6 +6,8 @@
 
 class Database {
    public:
+    User* findUserByUsername(std::string);
+
    private:
     std::vector<User*> users;
     std::vector<Film*> films;
