@@ -2,6 +2,7 @@
 #define APP_H
 #include <map>
 #include "../database/database.h"
+#include "../models/types.h"
 #include "../views/view.h"
 #include "input_handler.h"
 class App {
