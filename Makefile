@@ -15,6 +15,9 @@ COMMENT := models/comment.h
 PURCHASE := models/purchase.h
 REQUEST_TYPE := models/request_type.h
 ALL_MODELS := ${REQUEST_TYPE} ${USER_MODEL} ${PUBLISHER_MODEL} ${FILM} ${NOTIF} ${COMMENT} ${PURCHASE}
+
+USER_CPP := models/user.cpp
+
 #views
 VIEW := views/view
 DATABASE := database/database
@@ -39,7 +42,7 @@ main.o:main.cpp app.o
 app.o:${APP}.h ${APP}.cpp database.o input_handler.o view.o
 	${OC} ${APP}.cpp
 
-database.o:${DATABASE}.cpp ${DATABASE}.h ${ALL_MODELS}
+database.o:user.o ${DATABASE}.cpp ${DATABASE}.h ${ALL_MODELS}
 	${OC} ${DATABASE}.cpp
 
 input_handler.o: ${INPUT}.cpp ${INPUT}.h ${ALL_MODELS}
@@ -48,6 +51,8 @@ input_handler.o: ${INPUT}.cpp ${INPUT}.h ${ALL_MODELS}
 view.o:${VIEW}.h ${VIEW}.cpp
 	${OC} ${VIEW}.cpp
 
+user.o:${USER_CPP} ${USER_MODEL}
+	${OC} ${USER_CPP}
 
 .PHONY: clean
 
