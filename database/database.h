@@ -10,6 +10,7 @@ class Database {
     void addUser(User*);
 
    private:
+    int userId = 1, filmId = 1, commentId = 1, purchaseId = 1, notificationId = 1;
     std::vector<User*> users;
     std::vector<Film*> films;
     std::vector<Comment*> comments;

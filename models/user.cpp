@@ -11,3 +11,6 @@ User::User(map<string, string> params) {
     age = stoi(params["age"]);
 }
 User::User(string _email, string _username, string _password, string _age) : email(_email), username(_username), password(_password), age(stoi(_age)) {}
+void User::setId(int _id) {
+    id = _id;
+}

@@ -12,6 +12,7 @@ class User {
     std::string getUsername();
     User(std::map<std::string, std::string>);
     User(std::string email, std::string username, std::string password, std::string age);
+    void setId(int id);
 
    protected:
     int id;
