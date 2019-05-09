@@ -7,7 +7,7 @@ Request InputHandler::get() {
     getline(cin, pure);
     vector<string> splitted = split(pure);
     Request result = parseToRequest(splitted);
-    return Request{};
+    return result;
 }
 vector<string> InputHandler::split(string line) {
     vector<string> result;
@@ -39,7 +39,7 @@ string InputHandler::trim(string str) {
 Request InputHandler::parseToRequest(vector<string> splitted) {
     RequestType rt = getReqType(splitted);
     map<std::string, std::string> params = getReqParams(splitted, rt);
-    return Request{};
+    return Request{rt, params};
 }
 map<string, string> InputHandler::getReqParams(vector<string> splitted, RequestType rt) {
     map<string, string> result;
