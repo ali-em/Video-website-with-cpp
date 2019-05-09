@@ -1,15 +1,16 @@
 #ifndef Login_H
 #define Login_H
-#include "../database/database.h"
 #include "../models/modelHeaders.h"
 #include "../views/view.h"
 #include "tools.h"
+class Database;
 class Login {
    public:
-    Login(Database*, View*);
+    Login(Database* db, View* view);
     void handleLogin(Request);
     void login(User* user);
-    bool isLoggedIn() { return _isLoggedIn; }
+    bool isLoggedIn();
+    User* getCurrentUser() { return currentUser; }
 
    private:
     Database* DB;

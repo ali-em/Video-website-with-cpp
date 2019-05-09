@@ -1,4 +1,6 @@
 #include "login.h"
+#include "../database/database.h"
+
 using namespace std;
 
 Login::Login(Database* db, View* view) : DB(db), Res(view) {}
@@ -16,3 +18,4 @@ void Login::handleLogin(Request req) {
     } else
         throw BadRequest();
 }
+bool Login::isLoggedIn() { return _isLoggedIn; }
