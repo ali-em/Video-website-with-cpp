@@ -8,6 +8,8 @@
 class Film;
 class User {
    public:
+    std::string getUsername();
+
    private:
     int id;
     std::string username;
