@@ -18,7 +18,7 @@ ALL_MODELS := ${REQUEST_TYPE} ${USER_MODEL} ${PUBLISHER_MODEL} ${FILM} ${NOTIF} 
 
 USER_CPP := models/user.cpp
 PUB_CPP := models/publisher.cpp
-
+FILM_CPP := models/film.cpp
 
 #views
 VIEW := views/view
@@ -31,6 +31,8 @@ INPUT := controllers/input_handler
 LOGIN := controllers/login
 SIGN_UP := controllers/signup
 TOOLS := controllers/tools
+FILM_MANAGER := controllers/film_manager
+
 #others
 MAIN = main.cpp
 
@@ -43,10 +45,10 @@ app.out:main.o
 main.o:main.cpp app.o
 	${OC} main.cpp
 
-app.o:${APP}.h ${APP}.cpp database.o input_handler.o view.o tools.o login.o signup.o
+app.o:${APP}.h ${APP}.cpp database.o input_handler.o view.o tools.o login.o signup.o film_manager.o
 	${OC} ${APP}.cpp
 
-database.o:user.o publisher.o ${DATABASE}.cpp ${DATABASE}.h ${ALL_MODELS}
+database.o:user.o publisher.o ${DATABASE}.cpp ${DATABASE}.h ${ALL_MODELS} film_manager.o film.o
 	${OC} ${DATABASE}.cpp
 
 input_handler.o: ${INPUT}.cpp ${INPUT}.h ${ALL_MODELS}
@@ -66,6 +68,12 @@ signup.o:${SIGN_UP}.h ${SIGN_UP}.cpp login.o
 
 login.o:${LOGIN}.h ${LOGIN}.cpp tools.o
 	${OC} ${LOGIN}.cpp
+
+film.o:${FILM_CPP} ${ALL_MODELS}
+	${OC} ${FILM_CPP}
+	
+film_manager.o:${FILM_MANAGER}.h ${FILM_MANAGER}.cpp tools.o
+	${OC} ${FILM_MANAGER}.cpp
 
 tools.o:${TOOLS}.h ${TOOLS}.cpp
 	${OC} ${TOOLS}.cpp
