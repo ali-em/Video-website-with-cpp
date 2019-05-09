@@ -16,6 +16,8 @@ class InputHandler {
     RequestType getReqType(std::vector<std::string>);
     bool hasWord(std::vector<std::string>, std::string);
     RequestType getRequestType(std::string str);
+    std::vector<std::string> getReqPart(std::vector<std::string> splitted);
+    std::map<std::string, std::string> getReqParams(std::vector<std::string>, RequestType);
+    void validateRequest(std::vector<std::string>, RequestType);
 };
-
 #endif

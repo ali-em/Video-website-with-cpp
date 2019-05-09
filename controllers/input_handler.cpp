@@ -37,9 +37,36 @@ string InputHandler::trim(string str) {
 }
 
 Request InputHandler::parseToRequest(vector<string> splitted) {
-    RequestType rc = getReqType(splitted);
-
+    RequestType rt = getReqType(splitted);
+    map<std::string, std::string> params = getReqParams(splitted, rt);
     return Request{};
+}
+map<string, string> InputHandler::getReqParams(vector<string> splitted, RequestType rt) {
+    map<string, string> result;
+    vector<string> parameters = getReqPart(splitted);
+    validateRequest(parameters, rt);
+    for (int i = 0; i < parameters.size(); i += 2) {
+        cout << parameters[i] << " : " << parameters[i + 1] << endl;
+        result[parameters[i]] = parameters[i + 1];
+    }
+    return result;
+}
+vector<string> InputHandler::getReqPart(vector<string> splitted) {
+    bool foundQMark = false;
+    vector<string> result;
+    for (int i = 0; i < splitted.size(); i++) {
+        if (splitted[i] == "?") {
+            foundQMark = true;
+            continue;
+        }
+        if (foundQMark)
+            result.push_back(splitted[i]);
+    }
+    return result;
+}
+void InputHandler::validateRequest(vector<string> params, RequestType rt) {
+    if (params.size() % 2 == 1)
+        throw;
 }
 RequestType InputHandler::getReqType(vector<string> splitted) {
     string type;
