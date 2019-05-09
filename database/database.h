@@ -8,6 +8,7 @@ class Database {
    public:
     User* findUserByUsername(std::string);
     void addUser(User*);
+    User* findUserByUsernameAndPassword(std::string, std::string);
 
    private:
     int userId = 1, filmId = 1, commentId = 1, purchaseId = 1, notificationId = 1;

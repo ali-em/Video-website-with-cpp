@@ -14,25 +14,27 @@ void App::run() {
 void App::handleRequest(Request req) {
     if (req.command == P_SIGN_UP)
         signUp(req);
-    // if (req.command == P_LOGIN)
-    //     login(req);
+    if (req.command == P_LOGIN)
+        handleLogin(req);
 }
 void App::signUp(Request req) {
     validateSignUp(req);
     if (isInMap(req.params, 1, "publisher") && req.params["publisher"] == "true") {
         Publisher* newPub = new Publisher(req.params);
         DB.addUser(newPub);
+        login(newPub);
     } else {
         User* newUser = new User(req.params);
         DB.addUser(newUser);
+        login(newUser);
     }
     Res.send("OK");
 }
 void App::validateSignUp(Request req) {
     if (!isInMap(req.params, 4, "email", "username", "password", "age"))
-        throw;
+        throw BadRequest();
     if (DB.findUserByUsername(req.params["username"]))
-        throw;
+        throw BadRequest();
 }
 bool App::isInMap(std::map<string, string> m, int counter, const char* keys...) {
     va_list args;
@@ -47,4 +49,18 @@ bool App::isInMap(std::map<string, string> m, int counter, const char* keys...) 
             return false;
     }
     return true;
+}
+void App::login(User* user) {
+    currentUser = user;
+    isLoggedIn = true;
+}
+void App::handleLogin(Request req) {
+    if (!isInMap(req.params, 2, "username", "password"))
+        throw BadRequest();
+    User* user = DB.findUserByUsernameAndPassword(req.params["username"], req.params["password"]);
+    if (user) {
+        login(user);
+        Res.send("OK");
+    } else
+        throw BadRequest();
 }

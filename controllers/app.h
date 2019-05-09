@@ -14,10 +14,12 @@ class App {
     void signUp(Request);
     void validateSignUp(Request req);
     bool isInMap(std::map<std::string, std::string> m, int counter, const char* v...);
+    void handleLogin(Request);
+    void login(User* user);
     Database DB;
     InputHandler Req;
     View Res;
-    User* user;
+    User* currentUser;
     bool isLoggedIn = false;
 };
 
