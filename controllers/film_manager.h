@@ -9,7 +9,9 @@ class FilmManager {
    public:
     FilmManager(Database*, View*, Login*);
     void handleAddFilm(Request&);
-    void validate(Request&);
+    void validateAdd(Request&);
+    void handleEditFilm(Request&);
+    void validateEdit(Request&);
 
    private:
     Database* DB;
