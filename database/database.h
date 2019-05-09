@@ -2,13 +2,14 @@
 #define DATABASE_H
 
 #include <vector>
+#include "../controllers/film_manager.h"
 #include "../models/modelHeaders.h"
-
 class Database {
    public:
     User* findUserByUsername(std::string);
     void addUser(User*);
     User* findUserByUsernameAndPassword(std::string, std::string);
+    void addFilm(Film*);
 
    private:
     int userId = 1, filmId = 1, commentId = 1, purchaseId = 1, notificationId = 1;

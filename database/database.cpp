@@ -17,3 +17,7 @@ User* Database::findUserByUsernameAndPassword(std::string username, std::string 
             return user;
     return NULL;
 }
+void Database::addFilm(Film* newFilm) {
+    films.push_back(newFilm);
+    newFilm->setId(filmId++);
+}
