@@ -17,6 +17,8 @@ REQUEST_TYPE := models/request_type.h
 ALL_MODELS := ${REQUEST_TYPE} ${USER_MODEL} ${PUBLISHER_MODEL} ${FILM} ${NOTIF} ${COMMENT} ${PURCHASE}
 
 USER_CPP := models/user.cpp
+PUB_CPP := models/publisher.cpp
+
 
 #views
 VIEW := views/view
@@ -42,7 +44,7 @@ main.o:main.cpp app.o
 app.o:${APP}.h ${APP}.cpp database.o input_handler.o view.o
 	${OC} ${APP}.cpp
 
-database.o:user.o ${DATABASE}.cpp ${DATABASE}.h ${ALL_MODELS}
+database.o:user.o publisher.o ${DATABASE}.cpp ${DATABASE}.h ${ALL_MODELS}
 	${OC} ${DATABASE}.cpp
 
 input_handler.o: ${INPUT}.cpp ${INPUT}.h ${ALL_MODELS}
@@ -50,6 +52,9 @@ input_handler.o: ${INPUT}.cpp ${INPUT}.h ${ALL_MODELS}
 
 view.o:${VIEW}.h ${VIEW}.cpp
 	${OC} ${VIEW}.cpp
+
+publisher.o:${PUBLISHER_MODEL} ${PUB_CPP} ${USER_MODEL}
+	${OC} ${PUB_CPP}
 
 user.o:${USER_CPP} ${USER_MODEL}
 	${OC} ${USER_CPP}

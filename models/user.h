@@ -13,7 +13,7 @@ class User {
     User(std::map<std::string, std::string>);
     User(std::string email, std::string username, std::string password, std::string age);
 
-   private:
+   protected:
     int id;
     std::string username;
     std::string password;
@@ -23,6 +23,7 @@ class User {
     double money;
     std::vector<Notification*> notifications;
     std::vector<Film*> purchasedFilms;
+    bool isPublisher = false;
 };
 
 #endif

@@ -5,6 +5,8 @@
 
 class Publisher : public User {
    public:
+    Publisher(std::map<std::string, std::string>);
+
    private:
     std::vector<Film*> publishedFilms;
     std::vector<User*> followers;

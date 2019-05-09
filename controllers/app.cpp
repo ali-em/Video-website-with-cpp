@@ -13,9 +13,9 @@ void App::handleRequest(Request req) {
 }
 void App::signUp(Request req) {
     validateSignUp(req);
-    bool isPublisher = false;
     if (isInMap(req.params, 1, "publisher") && req.params["publisher"] == "true") {
-        isPublisher = true;
+        Publisher* newPub = new Publisher(req.params);
+        DB.addUser(newPub);
     } else {
         User* newUser = new User(req.params);
         DB.addUser(newUser);
