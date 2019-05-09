@@ -1,7 +1,7 @@
 #ifndef PUBLISHER_H
 #define PUBLISHER_H
-#include "user.h"
 #include "film.h"
+#include "user.h"
 
 class Publisher : public User {
    public:
