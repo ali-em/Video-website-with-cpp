@@ -6,6 +6,7 @@
 #include "notification.h"
 #include "publisher.h"
 #include "purchase.h"
+#include "request_type.h"
 #include "user.h"
 
 #endif
