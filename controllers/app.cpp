@@ -17,9 +17,10 @@ void App::signUp(Request req) {
 void App::validateSignUp(Request req) {
     // cout << req.params["email"];
     if (!isInMap(req.params, 4, "email", "username", "password", "age")) {
-        if (DB.findUserByUsername(req.params["username"])) {
-            throw;
-        }
+        throw;
+    }
+    if (DB.findUserByUsername(req.params["username"])) {
+        throw;
     }
 }
 bool App::isInMap(std::map<string, string> m, int counter, const char* keys...) {
