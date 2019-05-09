@@ -7,3 +7,6 @@ User* Database::findUserByUsername(string username) {
             return user;
     return NULL;
 }
+void Database::addUser(User* user) {
+    users.push_back(user);
+}

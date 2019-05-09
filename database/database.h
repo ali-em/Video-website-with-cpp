@@ -7,6 +7,7 @@
 class Database {
    public:
     User* findUserByUsername(std::string);
+    void addUser(User*);
 
    private:
     std::vector<User*> users;
