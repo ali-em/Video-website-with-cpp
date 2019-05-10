@@ -8,6 +8,7 @@ class Publisher : public User {
     Publisher(std::map<std::string, std::string>);
     void addFilm(Film*);
     bool hasFilm(int);
+    std::vector<Film*> getFilms();
 
    private:
     std::vector<Film*> publishedFilms;

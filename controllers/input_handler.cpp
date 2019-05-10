@@ -5,15 +5,15 @@ using namespace std;
 Request InputHandler::get() {
     string pure;
     getline(cin, pure);
-    vector<string> splitted = split(pure);
+    WordsList splitted = split(pure);
     Request result = parseToRequest(splitted);
     return result;
 }
-vector<string> InputHandler::split(string line) {
-    vector<string> result;
+WordsList InputHandler::split(string line) {
+    WordsList result;
     string temp;
     if (line.size() == 0)
-        return vector<string>(0);
+        return WordsList(0);
     for (int i = 0; i < line.length(); i++) {
         if (line[i] == SPACE) {
             if (temp != " " && temp.length() > 0)
@@ -36,22 +36,22 @@ string InputHandler::trim(string str) {
     return result;
 }
 
-Request InputHandler::parseToRequest(vector<string> splitted) {
+Request InputHandler::parseToRequest(WordsList splitted) {
     RequestType rt = getReqType(splitted);
     map<std::string, std::string> params = getReqParams(splitted, rt);
     return Request{rt, params};
 }
-map<string, string> InputHandler::getReqParams(vector<string> splitted, RequestType rt) {
-    map<string, string> result;
-    vector<string> parameters = getReqPart(splitted);
+Parameters InputHandler::getReqParams(WordsList splitted, RequestType rt) {
+    Parameters result;
+    WordsList parameters = getReqPart(splitted);
     validateRequest(parameters, rt);
     for (int i = 0; i < parameters.size(); i += 2)
         result[parameters[i]] = parameters[i + 1];
     return result;
 }
-vector<string> InputHandler::getReqPart(vector<string> splitted) {
+WordsList InputHandler::getReqPart(WordsList splitted) {
     bool foundQMark = false;
-    vector<string> result;
+    WordsList result;
     for (int i = 0; i < splitted.size(); i++) {
         if (splitted[i] == "?") {
             foundQMark = true;
@@ -62,11 +62,11 @@ vector<string> InputHandler::getReqPart(vector<string> splitted) {
     }
     return result;
 }
-void InputHandler::validateRequest(vector<string> params, RequestType rt) {
+void InputHandler::validateRequest(WordsList params, RequestType rt) {
     if (params.size() % 2 == 1)
         throw BadRequest();
 }
-RequestType InputHandler::getReqType(vector<string> splitted) {
+RequestType InputHandler::getReqType(WordsList splitted) {
     string type;
     for (auto req : splitted) {
         if (req == "?")
@@ -82,7 +82,7 @@ RequestType InputHandler::getReqType(vector<string> splitted) {
         throw NotFound();
     }
 }
-bool InputHandler::hasWord(vector<string> src, string target) {
+bool InputHandler::hasWord(WordsList src, string target) {
     for (auto w : src)
         if (w == target)
             return true;

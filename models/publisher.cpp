@@ -12,3 +12,6 @@ bool Publisher::hasFilm(int id) {
             return true;
     return false;
 }
+vector<Film*> Publisher::getFilms() {
+    return publishedFilms;
+}

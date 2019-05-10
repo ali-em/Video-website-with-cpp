@@ -10,14 +10,14 @@ class InputHandler {
     Request get();
 
    private:
-    std::vector<std::string> split(std::string);
+    WordsList split(std::string);
     std::string trim(std::string);
-    Request parseToRequest(std::vector<std::string>);
-    RequestType getReqType(std::vector<std::string>);
-    bool hasWord(std::vector<std::string>, std::string);
+    Request parseToRequest(WordsList);
+    RequestType getReqType(WordsList);
+    bool hasWord(WordsList, std::string);
     RequestType getRequestType(std::string str);
-    std::vector<std::string> getReqPart(std::vector<std::string> splitted);
-    std::map<std::string, std::string> getReqParams(std::vector<std::string>, RequestType);
-    void validateRequest(std::vector<std::string>, RequestType);
+    WordsList getReqPart(WordsList splitted);
+    Parameters getReqParams(WordsList, RequestType);
+    void validateRequest(WordsList, RequestType);
 };
 #endif

@@ -22,9 +22,11 @@ enum RequestType {
     G_NOTIFICATION_READ,
     P_BUY
 };
+typedef std::vector<std::string> WordsList;
+typedef std::map<std::string, std::string> Parameters;
 struct Request {
     RequestType command;
-    std::map<std::string, std::string> params;
+    Parameters params;
 };
 
 #endif
