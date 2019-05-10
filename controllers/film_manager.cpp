@@ -21,6 +21,17 @@ void FilmManager::validateAdd(Request& req) {
         throw BadRequest();
 }
 void FilmManager::handleEditFilm(Request& req) {
+    validateEdit(req);
+    Film* film = DB->getFilmById(stoi(req.params["film_id"]));
+    film->edit(req);
+    Res->send("OK");
 }
 void FilmManager::validateEdit(Request& req) {
+    if (!Tools::isInMap(req.params, 1, "film_id"))
+        throw BadRequest();
+    if (!login->isLoggedIn() || !login->getCurrentUser()->isPublisher())
+        throw PermissionDenied();
+    Publisher* pub = static_cast<Publisher*>(login->getCurrentUser());
+    if (!pub->hasFilm(stoi(req.params["film_id"])))
+        throw PermissionDenied();
 }
