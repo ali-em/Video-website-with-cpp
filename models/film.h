@@ -1,8 +1,10 @@
 #ifndef FILM_H
 #define FILM_H
+#include <sstream>
 #include <string>
 #include <vector>
 #include "../controllers/tools.h"
+#include "../views/view.h"
 #include "purchase.h"
 #include "request_type.h"
 class Film {
@@ -13,6 +15,8 @@ class Film {
     void edit(Request&);
     bool isDeleted();
     void _delete();
+    bool isMatch(Parameters&);
+    std::string getInfo();
 
    private:
     int id;
@@ -26,6 +30,7 @@ class Film {
     int numberOfScores;
     std::vector<Purchase*> purchases;
     bool deleted = false;
+    int rate;
 };
 
 #endif

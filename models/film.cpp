@@ -31,3 +31,21 @@ bool Film::isDeleted() {
 void Film::_delete() {
     deleted = true;
 }
+
+bool Film::isMatch(Parameters& params) {
+    if (Tools::isInMap(params, 1, "name") && name != params["name"] ||
+        Tools::isInMap(params, 1, "year") && year != stoi(params["year"]) ||
+        Tools::isInMap(params, 1, "length") && length != stoi(params["length"]) ||
+        Tools::isInMap(params, 1, "summary") && summary != params["summary"] ||
+        Tools::isInMap(params, 1, "director") && summary != params["director"])
+        return false;
+    return true;
+}
+
+string Film::getInfo() {
+    stringstream result;
+    result << id << DIVIDER << name << DIVIDER << length
+           << DIVIDER << price << DIVIDER << rate << DIVIDER << year
+           << DIVIDER << director;
+    return result.str();
+}
