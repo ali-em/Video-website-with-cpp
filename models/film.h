@@ -17,9 +17,9 @@ class Film {
     std::string name;
     std::string summary;
     std::string director;
-    std::string length;
+    int length;
     int year;
-    double price;
+    int price;
     int totalScore;
     int numberOfScores;
     std::vector<Purchase*> purchases;
