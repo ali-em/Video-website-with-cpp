@@ -26,4 +26,5 @@ Film* Database::getFilmById(int id) {
     for (auto f : films)
         if (f->getId() == id)
             return f;
+    return NULL;
 }
