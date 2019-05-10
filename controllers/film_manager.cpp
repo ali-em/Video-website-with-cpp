@@ -46,6 +46,8 @@ void FilmManager::handleDeleteFilm(Request& req) {
 void FilmManager::validateDelete(Request& req) {
     if (!Tools::isInMap(req.params, 1, "film_id"))
         throw BadRequest();
+    if (!DB->getFilmById(stoi(req.params["film_id"])))
+        throw NotFound();
     if (!login->isLoggedIn() || !login->getCurrentUser()->isPublisher())
         throw PermissionDenied();
     Publisher* pub = static_cast<Publisher*>(login->getCurrentUser());

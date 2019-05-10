@@ -13,6 +13,7 @@ class Film {
     void edit(Request&);
     bool isDeleted();
     void _delete();
+
    private:
     int id;
     std::string name;
