@@ -11,6 +11,7 @@ class Database {
     User* findUserByUsernameAndPassword(std::string, std::string);
     void addFilm(Film*);
     Film* getFilmById(int id);
+    std::vector<Film*> getFilms();
 
    private:
     int userId = 1, filmId = 1, commentId = 1, purchaseId = 1, notificationId = 1;

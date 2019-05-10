@@ -28,3 +28,6 @@ Film* Database::getFilmById(int id) {
             return f;
     return NULL;
 }
+vector<Film*> Database::getFilms() {
+    return films;
+}
