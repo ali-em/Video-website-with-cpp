@@ -6,7 +6,6 @@
 #include <map>
 #include <string>
 #include "../models/modelHeaders.h"
-#define DIVIDER " | "
 class View {
    public:
     std::map<std::string, std::string> get();

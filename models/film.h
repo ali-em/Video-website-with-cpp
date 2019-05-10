@@ -4,9 +4,10 @@
 #include <string>
 #include <vector>
 #include "../controllers/tools.h"
-#include "../views/view.h"
 #include "purchase.h"
 #include "request_type.h"
+#define DIVIDER " | "
+
 class Film {
    public:
     Film(Request& req);
