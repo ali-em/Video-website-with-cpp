@@ -10,6 +10,7 @@ class Database {
     void addUser(User*);
     User* findUserByUsernameAndPassword(std::string, std::string);
     void addFilm(Film*);
+    Film* getFilmById(int id);
 
    private:
     int userId = 1, filmId = 1, commentId = 1, purchaseId = 1, notificationId = 1;

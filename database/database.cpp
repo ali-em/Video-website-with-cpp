@@ -21,3 +21,9 @@ void Database::addFilm(Film* newFilm) {
     films.push_back(newFilm);
     newFilm->setId(filmId++);
 }
+
+Film* Database::getFilmById(int id) {
+    for (auto f : films)
+        if (f->getId() == id)
+            return f;
+}
