@@ -9,14 +9,16 @@ class FilmManager {
    public:
     FilmManager(Database*, View*, Login*);
     void handleAddFilm(Request&);
-    void validateAdd(Request&);
     void handleEditFilm(Request&);
-    void validateEdit(Request&);
+    void handleDeleteFilm(Request&);
 
    private:
     Database* DB;
     View* Res;
     Login* login;
+    void validateEdit(Request&);
+    void validateAdd(Request&);
+    void validateDelete(Request&);
 };
 
 #endif
