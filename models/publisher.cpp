@@ -8,7 +8,7 @@ void Publisher::addFilm(Film* film) {
 }
 bool Publisher::hasFilm(int id) {
     for (auto f : publishedFilms)
-        if (f->getId() == id)
+        if (f->getId() == id && !f->isDeleted())
             return true;
     return false;
 }
