@@ -23,3 +23,11 @@ void Film::edit(Request& req) {
     if (Tools::isInMap(req.params, 1, "director"))
         summary = req.params["director"];
 }
+
+bool Film::isDeleted() {
+    return deleted;
+}
+
+void Film::_delete() {
+    deleted = true;
+}
