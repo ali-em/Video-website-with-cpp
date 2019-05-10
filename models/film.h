@@ -2,12 +2,15 @@
 #define FILM_H
 #include <string>
 #include <vector>
+#include "../controllers/tools.h"
 #include "purchase.h"
 #include "request_type.h"
 class Film {
    public:
     Film(Request& req);
     void setId(int);
+    int getId();
+    void edit(Request&);
 
    private:
     int id;

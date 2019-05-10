@@ -9,3 +9,7 @@ Film::Film(Request& req) {
     director = req.params["director"];
 }
 void Film::setId(int _id) { id = _id; }
+int Film::getId() { return id; }
+
+void Film::edit(Request& req) {
+}
