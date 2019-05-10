@@ -26,4 +26,6 @@ void App::handleRequest(Request req) {
         fm->handleEditFilm(req);
     else if (req.command == D_FILMS)
         fm->handleDeleteFilm(req);
+    else if (req.command == G_FILMS)
+        fm->handleGetFilms(req);
 }
