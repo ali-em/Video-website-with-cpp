@@ -54,3 +54,28 @@ void FilmManager::validateDelete(Request& req) {
     if (!pub->hasFilm(stoi(req.params["film_id"])))
         throw PermissionDenied();
 }
+void FilmManager::handleGetFilms(Request& req) {
+    validateGet();
+    vector<Film*> filtered;
+    User* currentUser = login->getCurrentUser();
+    if (!currentUser->isPublisher())
+        filtered = filterFilms(req, DB->getFilms());
+    else {
+        Publisher* pub = static_cast<Publisher*>(currentUser);
+        filtered = filterFilms(req, pub->getFilms());
+    }
+    Res->printFilms(filtered);
+}
+
+void FilmManager::validateGet() {
+    if (!login->isLoggedIn())
+        throw PermissionDenied();
+}
+
+vector<Film*> FilmManager::filterFilms(Request& req, vector<Film*> films) {
+    vector<Film*> result;
+    for (auto f : films)
+        if (f->isMatch(req.params))
+            result.push_back(f);
+    return result;
+}

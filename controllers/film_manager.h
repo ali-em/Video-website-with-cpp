@@ -11,6 +11,7 @@ class FilmManager {
     void handleAddFilm(Request&);
     void handleEditFilm(Request&);
     void handleDeleteFilm(Request&);
+    void handleGetFilms(Request&);
 
    private:
     Database* DB;
@@ -19,6 +20,8 @@ class FilmManager {
     void validateEdit(Request&);
     void validateAdd(Request&);
     void validateDelete(Request&);
+    void validateGet();
+    std::vector<Film*> filterFilms(Request&, std::vector<Film*>);
 };
 
 #endif
