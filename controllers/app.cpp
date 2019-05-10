@@ -24,4 +24,6 @@ void App::handleRequest(Request req) {
         fm->handleAddFilm(req);
     else if (req.command == PU_FILMS)
         fm->handleEditFilm(req);
+    else if (req.command == D_FILMS)
+        fm->handleDeleteFilm(req);
 }
