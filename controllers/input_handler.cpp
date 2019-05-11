@@ -100,6 +100,7 @@ RequestType InputHandler::getRequestType(string str) {
         {"GET followers ", G_FOLLOWERS},
         {"POST buy ", P_BUY},
         {"POST comments ", P_COMMENTS},
+        {"POST money ", P_MONEY},
         {"GET purchased ", G_PURCHASED},
         {"GET notification ", G_NOTIFICATION},
         {"GET notification read ", G_NOTIFICATION_READ},
