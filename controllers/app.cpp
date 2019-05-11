@@ -5,6 +5,7 @@ void App::run() {
     signUp = new SignUp(&DB, &Res, login);
     fm = new FilmManager(&DB, &Res, login);
     fh = new FollowerHandler(&DB, &Res, login);
+    mh = new MoneyHandler(&DB, &Res, login);
     while (1) {
         try {
             Request req = Req.get();
@@ -22,15 +23,15 @@ void App::handleRequest(Request req) {
 
     else if (!login->isLoggedIn())
         throw PermissionDenied();
-
     else if (req.command == G_FILMS)
         fm->handleGetFilms(req);
     else if (req.command == P_FOLLOWERS)
         fh->follow(login->getCurrentUser(), req.params);
+    else if (req.command == P_MONEY)
+        mh->handleMoneyRequest(req.params);
 
     else if (!login->getCurrentUser()->isPublisher())
         throw PermissionDenied();
-
     else if (req.command == P_FILMS)
         fm->handleAddFilm(req);
     else if (req.command == PU_FILMS)

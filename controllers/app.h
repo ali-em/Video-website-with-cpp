@@ -8,6 +8,7 @@
 #include "follower_handler.h"
 #include "input_handler.h"
 #include "login.h"
+#include "money_handler.h"
 #include "signup.h"
 #include "tools.h"
 class App {
@@ -24,6 +25,7 @@ class App {
     Login* login;
     FilmManager* fm;
     FollowerHandler* fh;
+    MoneyHandler* mh;
 };
 
 #endif
