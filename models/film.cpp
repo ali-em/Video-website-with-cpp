@@ -49,3 +49,9 @@ string Film::getInfo() {
            << DIVIDER << director;
     return result.str();
 }
+double Film::getTotalSell() {
+    double result = 0;
+    for (auto purchase : purchases)
+        result += purchase->getMoney();
+    return result;
+}

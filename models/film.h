@@ -18,6 +18,7 @@ class Film {
     void _delete();
     bool isMatch(Parameters&);
     std::string getInfo();
+    double getTotalSell();
 
    private:
     int id;
