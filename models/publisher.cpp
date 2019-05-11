@@ -32,3 +32,7 @@ vector<UserInfo> Publisher::getFollowersInfo() {
     }
     return result;
 }
+void Publisher::getMoney() {
+    for (auto film : publishedFilms)
+        money += film->getTotalSell();
+}
