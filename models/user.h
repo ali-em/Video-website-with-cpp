@@ -23,6 +23,7 @@ class User {
     User(std::string email, std::string username, std::string password, std::string age);
     void setId(int id);
     bool isPublisher();
+    void chargeMoney(int amount);
 
    protected:
     int id;

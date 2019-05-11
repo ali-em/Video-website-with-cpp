@@ -22,3 +22,6 @@ bool User::isPublisher() { return publisher; }
 UserInfo User::getInfo() {
     return UserInfo{id, username, email};
 }
+void User::chargeMoney(int amount) {
+    money += amount;
+}
