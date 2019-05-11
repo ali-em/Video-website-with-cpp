@@ -11,6 +11,7 @@ class FollowerHandler {
     FollowerHandler(Database*, View*, Login*);
     void follow(User*, Parameters&);
     void validateFollow(User* user, Parameters&);
+    void getFollower();
 
    private:
     Database* DB;

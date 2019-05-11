@@ -25,3 +25,8 @@ void FollowerHandler::validateFollow(User* user, Parameters& params) {
     if (pub->isFollowedBy(user))
         throw BadRequest();
 }
+
+void FollowerHandler::getFollower() {
+    Publisher* publisher = static_cast<Publisher*>(login->getCurrentUser());
+    Res->showFollowers(publisher->getFollowersInfo());
+}
