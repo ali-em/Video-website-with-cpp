@@ -56,6 +56,10 @@ void FilmManager::validateDelete(Request& req) {
 }
 void FilmManager::handleGetFilms(Request& req) {
     validateGet();
+    if (Tools::isInMap(req.params, 1, "film_id")) {
+        Res->showFilmDetails(DB->getFilmById(stoi(req.params["film_id"])));
+        return;
+    }
     vector<Film*> filtered;
     User* currentUser = login->getCurrentUser();
     if (!currentUser->isPublisher())

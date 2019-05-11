@@ -22,7 +22,6 @@ class User {
     std::string password;
     std::string email;
     int age;
-    std::vector<User*> following;
     double money;
     std::vector<Notification*> notifications;
     std::vector<Film*> purchasedFilms;
