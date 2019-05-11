@@ -5,6 +5,7 @@
 #include "../database/database.h"
 #include "../views/view.h"
 #include "film_manager.h"
+#include "follower_handler.h"
 #include "input_handler.h"
 #include "login.h"
 #include "signup.h"
@@ -22,6 +23,7 @@ class App {
     SignUp* signUp;
     Login* login;
     FilmManager* fm;
+    FollowerHandler* fh;
 };
 
 #endif
