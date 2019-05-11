@@ -12,6 +12,7 @@ class View {
     void send(std::string);
     void sendError(std::exception&);
     void printFilms(std::vector<Film*>&);
+    void showFilmDetails(Film*);
 
    private:
 };
