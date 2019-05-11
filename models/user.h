@@ -7,10 +7,18 @@
 #include "film.h"
 #include "notification.h"
 class Film;
+
+struct UserInfo {
+    int userId;
+    std::string username;
+    std::string email;
+};
+
 class User {
    public:
     std::string getUsername();
     std::string getPassword();
+    UserInfo getInfo();
     User(std::map<std::string, std::string>);
     User(std::string email, std::string username, std::string password, std::string age);
     void setId(int id);

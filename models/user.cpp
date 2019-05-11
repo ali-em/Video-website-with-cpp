@@ -18,3 +18,7 @@ void User::setId(int _id) {
     id = _id;
 }
 bool User::isPublisher() { return publisher; }
+
+UserInfo User::getInfo() {
+    return userInfo{id, username, email};
+}
