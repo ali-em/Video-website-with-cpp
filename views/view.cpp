@@ -25,3 +25,16 @@ void View::showFilmDetails(Film* film) {
     // cout << "Details of Film " << film->getName() << endl
     // << ""
 }
+void View::showFollowers(std::vector<UserInfo> followers) {
+    cout << "List of Followers" << endl
+         << "#. User Id" << DIVIDER
+         << "User Username" << DIVIDER
+         << "User email" << endl;
+
+    int i = 1;
+    for (auto f : followers)
+        cout << i++ << ". "
+             << f.userId << DIVIDER
+             << f.username << DIVIDER
+             << f.email << endl;
+}

@@ -13,6 +13,7 @@ class View {
     void sendError(std::exception&);
     void printFilms(std::vector<Film*>&);
     void showFilmDetails(Film*);
+    void showFollowers(std::vector<UserInfo>);
 
    private:
 };
