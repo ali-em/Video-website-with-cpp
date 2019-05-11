@@ -31,3 +31,9 @@ Film* Database::getFilmById(int id) {
 vector<Film*> Database::getFilms() {
     return films;
 }
+User* Database::findUserById(int userId) {
+    for (auto user : users)
+        if (user->getInfo().userId == userId)
+            return user;
+    return NULL;
+}
