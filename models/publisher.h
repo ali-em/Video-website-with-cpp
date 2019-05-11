@@ -11,6 +11,7 @@ class Publisher : public User {
     std::vector<Film*> getFilms();
     bool isFollowedBy(User*);
     void followBy(User*);
+    std::vector<UserInfo> getFollowersInfo();
 
    private:
     std::vector<Film*> publishedFilms;

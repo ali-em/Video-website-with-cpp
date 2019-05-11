@@ -25,3 +25,10 @@ bool Publisher::isFollowedBy(User* user) {
 void Publisher::followBy(User* user) {
     followers.push_back(user);
 }
+vector<UserInfo> Publisher::getFollowersInfo() {
+    vector<UserInfo> result;
+    for (auto f : followers) {
+        result.push_back(f->getInfo());
+    }
+    return result;
+}
