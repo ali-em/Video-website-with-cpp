@@ -82,12 +82,14 @@ RequestType InputHandler::getReqType(WordsList splitted) {
         throw NotFound();
     }
 }
+
 bool InputHandler::hasWord(WordsList src, string target) {
     for (auto w : src)
         if (w == target)
             return true;
     return false;
 }
+
 RequestType InputHandler::getRequestType(string str) {
     std::map<std::string, RequestType> REQUEST_TYPE = {
         {"POST signup ", P_SIGN_UP},
@@ -95,6 +97,7 @@ RequestType InputHandler::getRequestType(string str) {
         {"POST films ", P_FILMS},
         {"POST replies ", P_REPLIES},
         {"POST followers ", P_FOLLOWERS},
+        {"GET followers ", G_FOLLOWERS},
         {"POST buy ", P_BUY},
         {"POST comments ", P_COMMENTS},
         {"GET purchased ", G_PURCHASED},
