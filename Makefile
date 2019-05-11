@@ -19,6 +19,7 @@ ALL_MODELS := ${REQUEST_TYPE} ${USER_MODEL} ${PUBLISHER_MODEL} ${FILM} ${NOTIF} 
 USER_CPP := models/user.cpp
 PUB_CPP := models/publisher.cpp
 FILM_CPP := models/film.cpp
+PURCHASE_CPP := models/purchase.cpp
 
 #views
 VIEW := views/view
@@ -33,6 +34,8 @@ SIGN_UP := controllers/signup
 TOOLS := controllers/tools
 FILM_MANAGER := controllers/film_manager
 FOLLOWER := controllers/follower_handler
+MONEY := controllers/money_handler
+
 
 #others
 MAIN = main.cpp
@@ -46,7 +49,7 @@ app.out:main.o
 main.o:main.cpp app.o
 	${OC} main.cpp
 
-app.o:${APP}.h ${APP}.cpp database.o input_handler.o view.o tools.o login.o signup.o film_manager.o follower_handler.o
+app.o:${APP}.h ${APP}.cpp database.o input_handler.o view.o tools.o login.o signup.o film_manager.o follower_handler.o money_handler.o
 	${OC} ${APP}.cpp
 
 database.o:user.o publisher.o ${DATABASE}.cpp ${DATABASE}.h ${ALL_MODELS} film_manager.o film.o
@@ -70,7 +73,7 @@ signup.o:${SIGN_UP}.h ${SIGN_UP}.cpp login.o
 login.o:${LOGIN}.h ${LOGIN}.cpp tools.o
 	${OC} ${LOGIN}.cpp
 
-film.o:${FILM_CPP} ${ALL_MODELS}
+film.o:${FILM_CPP} ${ALL_MODELS} purchase.o
 	${OC} ${FILM_CPP}
 	
 film_manager.o:${FILM_MANAGER}.h ${FILM_MANAGER}.cpp tools.o
@@ -79,6 +82,11 @@ film_manager.o:${FILM_MANAGER}.h ${FILM_MANAGER}.cpp tools.o
 follower_handler.o:${FOLLOWER}.h ${FOLLOWER}.cpp tools.o
 	${OC} ${FOLLOWER}.cpp
 
+money_handler.o:${MONEY}.h ${MONEY}.cpp tools.o
+	${OC} ${MONEY}.cpp
+
+purchase.o:${PURCHASE_CPP} ${PURCHASE}
+	${OC} ${PURCHASE_CPP}
 
 tools.o:${TOOLS}.h ${TOOLS}.cpp
 	${OC} ${TOOLS}.cpp
