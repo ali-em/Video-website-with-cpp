@@ -9,6 +9,8 @@ class Publisher : public User {
     void addFilm(Film*);
     bool hasFilm(int);
     std::vector<Film*> getFilms();
+    bool isFollowedBy(User*);
+    void followBy(User*);
 
    private:
     std::vector<Film*> publishedFilms;

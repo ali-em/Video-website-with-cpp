@@ -15,3 +15,13 @@ bool Publisher::hasFilm(int id) {
 vector<Film*> Publisher::getFilms() {
     return publishedFilms;
 }
+bool Publisher::isFollowedBy(User* user) {
+    for (auto follower : followers) {
+        if (follower == user)
+            return true;
+    }
+    return false;
+}
+void Publisher::followBy(User* user) {
+    followers.push_back(user);
+}
