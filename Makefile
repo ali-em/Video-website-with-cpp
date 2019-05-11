@@ -32,6 +32,7 @@ LOGIN := controllers/login
 SIGN_UP := controllers/signup
 TOOLS := controllers/tools
 FILM_MANAGER := controllers/film_manager
+FOLLOWER := controllers/follower_handler
 
 #others
 MAIN = main.cpp
@@ -45,7 +46,7 @@ app.out:main.o
 main.o:main.cpp app.o
 	${OC} main.cpp
 
-app.o:${APP}.h ${APP}.cpp database.o input_handler.o view.o tools.o login.o signup.o film_manager.o
+app.o:${APP}.h ${APP}.cpp database.o input_handler.o view.o tools.o login.o signup.o film_manager.o follower_handler.o
 	${OC} ${APP}.cpp
 
 database.o:user.o publisher.o ${DATABASE}.cpp ${DATABASE}.h ${ALL_MODELS} film_manager.o film.o
@@ -74,9 +75,14 @@ film.o:${FILM_CPP} ${ALL_MODELS}
 	
 film_manager.o:${FILM_MANAGER}.h ${FILM_MANAGER}.cpp tools.o
 	${OC} ${FILM_MANAGER}.cpp
+	
+follower_handler.o:${FOLLOWER}.h ${FOLLOWER}.cpp tools.o
+	${OC} ${FOLLOWER}.cpp
+
 
 tools.o:${TOOLS}.h ${TOOLS}.cpp
 	${OC} ${TOOLS}.cpp
+
 
 
 .PHONY: clean
