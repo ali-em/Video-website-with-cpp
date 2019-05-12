@@ -13,6 +13,7 @@ class Database {
     void addFilm(Film*);
     Film* getFilmById(int id);
     std::vector<Film*> getFilms();
+    void addPurchase(Purchase*);
 
    private:
     int userId = 1, filmId = 1, commentId = 1, purchaseId = 1, notificationId = 1;

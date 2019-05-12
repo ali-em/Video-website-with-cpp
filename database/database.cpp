@@ -37,3 +37,6 @@ User* Database::findUserById(int userId) {
             return user;
     return NULL;
 }
+void Database::addPurchase(Purchase* p) {
+    purchases.push_back(p);
+}
