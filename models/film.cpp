@@ -55,3 +55,9 @@ double Film::getTotalSell() {
         result += purchase->getMoney();
     return result;
 }
+int Film::getPrice() {
+    return price;
+}
+int Film::getRate() {
+    return (int)rate;
+}

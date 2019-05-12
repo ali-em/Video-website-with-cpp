@@ -19,6 +19,8 @@ class Film {
     bool isMatch(Parameters&);
     std::string getInfo();
     double getTotalSell();
+    int getPrice();
+    int getRate();
 
    private:
     int id;
