@@ -1,8 +1,8 @@
 #include "purchase.h"
 using namespace std;
 
-Purchase::Purchase(int _userId, int _filmId, double _price, double _rate)
-    : userId(_userId), filmId(_filmId), price(_price), rate(_rate) {}
+Purchase::Purchase(double _price, double _rate)
+    : price(_price), rate(_rate) {}
 
 double Purchase::getMoney() {
     if (hasGotten)
