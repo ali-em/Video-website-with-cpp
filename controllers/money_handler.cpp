@@ -16,3 +16,22 @@ void MoneyHandler::handleMoneyRequest(Parameters params) {
     }
     Res->send("OK");
 }
+void MoneyHandler::handleBuyRequest(Parameters& params) {
+    validateBuy(params);
+    Film* film = DB->getFilmById(stoi(params["film_id"]));
+    Purchase* purchase = new Purchase(film->getPrice(), film->getRate());
+    DB->addPurchase(purchase);
+    User* user = login->getCurrentUser();
+    user->addToPurchased(film);
+}
+
+void MoneyHandler::validateBuy(Parameters& params) {
+    if (Tools::isInMap(params, 1, "film_id"))
+        throw BadRequest();
+    Film* film = DB->getFilmById(stoi(params["film_id"]));
+    User* user = login->getCurrentUser();
+    if (film->getPrice() > user->getMoney())
+        throw BadRequest();
+    if (user->isPurchased(film))
+        throw BadRequest();
+}

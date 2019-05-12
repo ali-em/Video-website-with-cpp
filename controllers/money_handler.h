@@ -10,6 +10,8 @@ class MoneyHandler {
    public:
     MoneyHandler(Database*, View*, Login*);
     void handleMoneyRequest(Parameters);
+    void handleBuyRequest(Parameters&);
+    void validateBuy(Parameters&);
 
    private:
     Database* DB;
