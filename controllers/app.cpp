@@ -29,6 +29,8 @@ void App::handleRequest(Request req) {
         fh->follow(login->getCurrentUser(), req.params);
     else if (req.command == P_MONEY)
         mh->handleMoneyRequest(req.params);
+    else if (req.command == P_BUY)
+        mh->handleBuyRequest(req.params);
 
     else if (!login->getCurrentUser()->isPublisher())
         throw PermissionDenied();
