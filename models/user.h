@@ -24,6 +24,9 @@ class User {
     void setId(int id);
     bool isPublisher();
     void chargeMoney(int amount);
+    double getMoney();
+    void addToPurchased(Film*);
+    bool isPurchased(Film*);
 
    protected:
     int id;

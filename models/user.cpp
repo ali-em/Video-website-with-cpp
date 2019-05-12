@@ -25,3 +25,17 @@ UserInfo User::getInfo() {
 void User::chargeMoney(int amount) {
     money += amount;
 }
+double User::getMoney() {
+    return money;
+}
+void User::addToPurchased(Film* film) {
+    purchasedFilms.push_back(film);
+    money -= film->getPrice();
+}
+bool User::isPurchased(Film* film) {
+    for (auto pf : purchasedFilms) {
+        if (pf == film)
+            return true;
+    }
+    return false;
+}
