@@ -82,3 +82,30 @@ void Film::setRate(User* user, int _rate) {
     }
     rating.push_back(pair<User*, int>(user, _rate));
 }
+
+void Film::addComment(User* user, string content) {
+    Comment* comment = new Comment(content, commentId++);
+    comments.push_back(comment);
+}
+string Film::getDetails() {
+    stringstream details;
+    details << "Details of Film " << name << endl
+            << "Id = " << id << endl
+            << "Director = " << director << endl
+            << "Length = " << length << endl
+            << "Year = " << year << endl
+            << "Summary = " << summary << endl
+            << "rate = " << getRate() << endl
+            << "price = " << price << endl;
+    return details.str();
+}
+string Film::getComments() {
+    stringstream result;
+    result << "Comments" << endl;
+    for (auto comment : comments) {
+        if (!comment->isDeleted())
+            result << comment->getId() << ". "
+                   << comment->getContent() << endl;
+    }
+    return result.str();
+}

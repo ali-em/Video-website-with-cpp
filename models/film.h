@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "../controllers/tools.h"
+#include "comment.h"
 #include "purchase.h"
 #include "request_type.h"
 #define DIVIDER " | "
@@ -23,6 +24,9 @@ class Film {
     int getPrice();
     double getRate();
     void setRate(User*, int);
+    void addComment(User*, std::string);
+    std::string getDetails();
+    std::string getComments();
 
    private:
     int id;
@@ -32,6 +36,8 @@ class Film {
     int length;
     int year;
     int price;
+    int commentId = 1;
+    std::vector<Comment*> comments;
     std::vector<std::pair<User*, int>> rating;
     std::vector<Purchase*> purchases;
     bool deleted = false;
