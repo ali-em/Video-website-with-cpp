@@ -7,7 +7,7 @@ FilmManager::FilmManager(Database* db, View* view, Login* _login) : DB(db), Res(
 
 void FilmManager::handleAddFilm(Request& req) {
     validateAdd(req);
-    Film* newFilm = new Film(req);
+    Film* newFilm = new Film(req.params);
     DB->addFilm(newFilm);
     static_cast<Publisher*>(login->getCurrentUser())->addFilm(newFilm);
     Res->send("OK");
@@ -56,12 +56,14 @@ void FilmManager::validateDelete(Request& req) {
 }
 void FilmManager::handleGetFilms(Request& req) {
     validateGet();
+    User* currentUser = login->getCurrentUser();
     if (Tools::isInMap(req.params, 1, "film_id")) {
-        Res->showFilmDetails(DB->getFilmById(stoi(req.params["film_id"])));
+        Film* film = DB->getFilmById(stoi(req.params["film_id"]));
+
+        Res->showFilmDetails(film->getDetails(), film->getComments(), DB->getRecommendedFilms(currentUser));
         return;
     }
     vector<Film*> filtered;
-    User* currentUser = login->getCurrentUser();
     if (!currentUser->isPublisher())
         filtered = filterFilms(req, DB->getFilms());
     else {
@@ -86,6 +88,8 @@ vector<Film*> FilmManager::filterFilms(Request& req, vector<Film*> films) {
 void FilmManager::handleRate(Parameters& params) {
     User* user = login->getCurrentUser();
     Film* film = DB->getFilmById(stoi(params["film_id"]));
+    if (film == NULL)
+        throw NotFound();
     if (user->isPurchased(film))
         film->setRate(user, stoi(params["score"]));
     else
