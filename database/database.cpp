@@ -40,3 +40,17 @@ User* Database::findUserById(int userId) {
 void Database::addPurchase(Purchase* p) {
     purchases.push_back(p);
 }
+std::string Database::getRecommendedFilms(User* user) {
+    vector<Film*> copyFilms = films;
+    stringstream result;
+    int i = 1;
+    sort(copyFilms.begin(), copyFilms.end());
+    for (auto f : copyFilms) {
+        if (!user->isPurchased(f)) {
+            result << i++ << ". " << f->getShortInfo() << endl;
+        }
+        if (i == 5)
+            return result.str();
+    }
+    return result.str();
+}

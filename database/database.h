@@ -1,6 +1,7 @@
 #ifndef DATABASE_H
 #define DATABASE_H
 
+#include <algorithm>
 #include <vector>
 #include "../controllers/film_manager.h"
 #include "../models/modelHeaders.h"
@@ -14,6 +15,7 @@ class Database {
     Film* getFilmById(int id);
     std::vector<Film*> getFilms();
     void addPurchase(Purchase*);
+    std::string getRecommendedFilms(User*);
 
    private:
     int userId = 1, filmId = 1, purchaseId = 1, notificationId = 1;
