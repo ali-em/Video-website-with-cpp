@@ -6,27 +6,31 @@
 #include <vector>
 #include "../controllers/tools.h"
 #include "comment.h"
+#include "exceptions.h"
 #include "purchase.h"
 #include "request_type.h"
 #define DIVIDER " | "
 class User;
 class Film {
    public:
-    Film(Request& req);
+    Film(Parameters&);
     void setId(int);
-    int getId();
+    int getId() const;
     void edit(Request&);
     bool isDeleted();
     void _delete();
     bool isMatch(Parameters&);
     std::string getInfo();
     double getTotalSell();
-    int getPrice();
-    double getRate();
+    int getPrice() const;
+    float getRate() const;
     void setRate(User*, int);
     void addComment(User*, std::string);
     std::string getDetails();
     std::string getComments();
+    bool operator<(const Film* film) const;
+    std::string getShortInfo();
+    void setReply(Parameters&);
 
    private:
     int id;
@@ -37,10 +41,12 @@ class Film {
     int year;
     int price;
     int commentId = 1;
+    bool deleted = false;
+    float rate;
     std::vector<Comment*> comments;
     std::vector<std::pair<User*, int>> rating;
     std::vector<Purchase*> purchases;
-    bool deleted = false;
+    void calcRate();
 };
 
 #endif
