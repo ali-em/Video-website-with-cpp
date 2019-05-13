@@ -1,5 +1,6 @@
 #ifndef FILM_MANAGER_H
 #define FILM_MANAGER_H
+#include <string>
 #include "../models/modelHeaders.h"
 #include "../views/view.h"
 #include "login.h"
@@ -12,6 +13,7 @@ class FilmManager {
     void handleEditFilm(Request&);
     void handleDeleteFilm(Request&);
     void handleGetFilms(Request&);
+    void handleRate(Parameters&);
 
    private:
     Database* DB;

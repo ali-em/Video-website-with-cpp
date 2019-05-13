@@ -83,3 +83,9 @@ vector<Film*> FilmManager::filterFilms(Request& req, vector<Film*> films) {
             result.push_back(f);
     return result;
 }
+void FilmManager::handleRate(Parameters& params) {
+    User* user = login->getCurrentUser();
+    Film* film = DB->getFilmById(stoi(params["film_id"]));
+    if (user->isPurchased(film))
+        film->setRate(user, stoi(params["score"]));
+}
