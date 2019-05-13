@@ -23,10 +23,11 @@ void MoneyHandler::handleBuyRequest(Parameters& params) {
     DB->addPurchase(purchase);
     User* user = login->getCurrentUser();
     user->addToPurchased(film);
+    Res->send("OK");
 }
 
 void MoneyHandler::validateBuy(Parameters& params) {
-    if (Tools::isInMap(params, 1, "film_id"))
+    if (!Tools::isInMap(params, 1, "film_id"))
         throw BadRequest();
     Film* film = DB->getFilmById(stoi(params["film_id"]));
     User* user = login->getCurrentUser();
