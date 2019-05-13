@@ -16,7 +16,8 @@ class CommentHandler {
     Database* DB;
     View* Res;
     Login* login;
-    void validateSendingComment(Parameters& params);
+    void validateReply(Parameters&);
+    void validateSendingComment(Parameters&);
 };
 
 #endif
