@@ -98,6 +98,7 @@ RequestType InputHandler::getRequestType(string str) {
         {"POST replies ", P_REPLIES},
         {"POST followers ", P_FOLLOWERS},
         {"GET followers ", G_FOLLOWERS},
+        {"POST rate ", P_RATE},
         {"POST buy ", P_BUY},
         {"POST comments ", P_COMMENTS},
         {"POST money ", P_MONEY},
