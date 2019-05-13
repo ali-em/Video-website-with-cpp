@@ -1,5 +1,6 @@
 #ifndef FILM_H
 #define FILM_H
+#include <iomanip>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -7,7 +8,7 @@
 #include "purchase.h"
 #include "request_type.h"
 #define DIVIDER " | "
-
+class User;
 class Film {
    public:
     Film(Request& req);
@@ -20,7 +21,8 @@ class Film {
     std::string getInfo();
     double getTotalSell();
     int getPrice();
-    int getRate();
+    double getRate();
+    void setRate(User*, int);
 
    private:
     int id;
@@ -30,11 +32,9 @@ class Film {
     int length;
     int year;
     int price;
-    int totalScore;
-    int numberOfScores;
+    std::vector<std::pair<User*, int>> rating;
     std::vector<Purchase*> purchases;
     bool deleted = false;
-    int rate;
 };
 
 #endif

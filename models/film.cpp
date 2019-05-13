@@ -1,4 +1,5 @@
 #include "film.h"
+#include "user.h"
 using namespace std;
 
 Film::Film(Request& req) {
@@ -45,7 +46,7 @@ bool Film::isMatch(Parameters& params) {
 string Film::getInfo() {
     stringstream result;
     result << id << DIVIDER << name << DIVIDER << length
-           << DIVIDER << price << DIVIDER << rate << DIVIDER << year
+           << DIVIDER << price << DIVIDER << setprecision(2) << getRate() << DIVIDER << year
            << DIVIDER << director;
     return result.str();
 }
@@ -58,6 +59,23 @@ double Film::getTotalSell() {
 int Film::getPrice() {
     return price;
 }
-int Film::getRate() {
-    return (int)rate;
+double Film::getRate() {
+    double i = 0, sum = 0;
+    for (auto r : rating) {
+        sum += r.second;
+        i++;
+    }
+    if (i == 0)
+        return 0;
+    return sum / i;
+}
+void Film::setRate(User* user, int _rate) {
+    for (int i = 0; i < rating.size(); i++) {
+        auto r = &rating[i];
+        if (r->first == user) {
+            r->second = _rate;
+            return;
+        }
+    }
+    rating.push_back(pair<User*, int>(user, _rate));
 }
