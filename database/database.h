@@ -16,7 +16,7 @@ class Database {
     void addPurchase(Purchase*);
 
    private:
-    int userId = 1, filmId = 1, commentId = 1, purchaseId = 1, notificationId = 1;
+    int userId = 1, filmId = 1, purchaseId = 1, notificationId = 1;
     std::vector<User*> users;
     std::vector<Film*> films;
     std::vector<Comment*> comments;
