@@ -85,7 +85,7 @@ film_manager.o:${FILM_MANAGER}.h ${FILM_MANAGER}.cpp tools.o
 follower_handler.o:${FOLLOWER}.h ${FOLLOWER}.cpp tools.o
 	${OC} ${FOLLOWER}.cpp
 
-money_handler.o:${MONEY}.h ${MONEY}.cpp tools.o
+money_handler.o:${MONEY}.h ${MONEY}.cpp tools.o film.o
 	${OC} ${MONEY}.cpp
 
 purchase.o:${PURCHASE_CPP} ${PURCHASE}
