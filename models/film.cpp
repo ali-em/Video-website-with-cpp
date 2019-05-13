@@ -36,6 +36,9 @@ void Film::_delete() {
 bool Film::isMatch(Parameters& params) {
     if (Tools::isInMap(params, 1, "name") && name != params["name"] ||
         Tools::isInMap(params, 1, "year") && year != stoi(params["year"]) ||
+        Tools::isInMap(params, 1, "min_year") && year < stoi(params["min_year"]) ||
+        Tools::isInMap(params, 1, "max_year") && year > stoi(params["max_year"]) ||
+        Tools::isInMap(params, 1, "min_rate") && getRate() < stoi(params["min_rate"]) ||
         Tools::isInMap(params, 1, "length") && length != stoi(params["length"]) ||
         Tools::isInMap(params, 1, "summary") && summary != params["summary"] ||
         Tools::isInMap(params, 1, "director") && summary != params["director"])
