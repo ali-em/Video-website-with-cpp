@@ -20,7 +20,7 @@ USER_CPP := models/user.cpp
 PUB_CPP := models/publisher.cpp
 FILM_CPP := models/film.cpp
 PURCHASE_CPP := models/purchase.cpp
-
+COMMENT_CPP := models/comment.cpp
 #views
 VIEW := views/view
 DATABASE := database/database
@@ -35,7 +35,7 @@ TOOLS := controllers/tools
 FILM_MANAGER := controllers/film_manager
 FOLLOWER := controllers/follower_handler
 MONEY := controllers/money_handler
-
+COMMENT_HANDLER := controllers/comment_handler
 
 #others
 MAIN = main.cpp
@@ -49,7 +49,7 @@ app.out:main.o
 main.o:main.cpp app.o
 	${OC} main.cpp
 
-app.o:${APP}.h ${APP}.cpp database.o input_handler.o view.o tools.o login.o signup.o film_manager.o follower_handler.o money_handler.o
+app.o:${APP}.h ${APP}.cpp database.o input_handler.o view.o tools.o login.o signup.o film_manager.o follower_handler.o money_handler.o comment_handler.o
 	${OC} ${APP}.cpp
 
 database.o:user.o publisher.o ${DATABASE}.cpp ${DATABASE}.h ${ALL_MODELS} film_manager.o film.o
@@ -73,9 +73,12 @@ signup.o:${SIGN_UP}.h ${SIGN_UP}.cpp login.o
 login.o:${LOGIN}.h ${LOGIN}.cpp tools.o
 	${OC} ${LOGIN}.cpp
 
-film.o:${FILM_CPP} ${ALL_MODELS} purchase.o
+film.o:${FILM_CPP} ${ALL_MODELS} purchase.o comment.o
 	${OC} ${FILM_CPP}
 	
+comment.o:${COMMENT_CPP} ${ALL_MODELS} 
+	${OC} ${COMMENT_CPP}
+
 film_manager.o:${FILM_MANAGER}.h ${FILM_MANAGER}.cpp tools.o
 	${OC} ${FILM_MANAGER}.cpp
 	
@@ -91,6 +94,8 @@ purchase.o:${PURCHASE_CPP} ${PURCHASE}
 tools.o:${TOOLS}.h ${TOOLS}.cpp
 	${OC} ${TOOLS}.cpp
 
+comment_handler.o:${COMMENT_HANDLER}.h ${COMMENT_HANDLER}.cpp tools.o
+	${OC} ${COMMENT_HANDLER}.cpp
 
 
 .PHONY: clean
