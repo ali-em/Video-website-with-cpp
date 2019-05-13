@@ -88,4 +88,5 @@ void FilmManager::handleRate(Parameters& params) {
     Film* film = DB->getFilmById(stoi(params["film_id"]));
     if (user->isPurchased(film))
         film->setRate(user, stoi(params["score"]));
+    Res->send("OK");
 }
