@@ -21,9 +21,12 @@ void View::printFilms(vector<Film*>& films) {
         cout << i++ << ". "
              << f->getInfo() << endl;
 }
-void View::showFilmDetails(Film* film) {
-    cout << film->getDetails() << endl
-         << film->getComments() << endl;
+void View::showFilmDetails(string details, string comments, string recommended) {
+    cout << details << endl
+         << comments << endl
+         << "Recommendation Film" << endl
+         << "#. Film Id" << DIVIDER << "Film Name" << DIVIDER << "Film length" << DIVIDER << "Film Director" << endl
+         << recommended << endl;
 }
 void View::showFollowers(std::vector<UserInfo> followers) {
     cout << "List of Followers" << endl
