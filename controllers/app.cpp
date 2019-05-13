@@ -31,6 +31,8 @@ void App::handleRequest(Request req) {
         mh->handleMoneyRequest(req.params);
     else if (req.command == P_BUY)
         mh->handleBuyRequest(req.params);
+    else if (req.command == P_RATE)
+        fm->handleRate(req.params);
 
     else if (!login->getCurrentUser()->isPublisher())
         throw PermissionDenied();
