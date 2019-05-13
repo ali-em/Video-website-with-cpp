@@ -6,6 +6,8 @@ void App::run() {
     fm = new FilmManager(&DB, &Res, login);
     fh = new FollowerHandler(&DB, &Res, login);
     mh = new MoneyHandler(&DB, &Res, login);
+    ch = new CommentHandler(&DB, &Res, login);
+
     while (1) {
         try {
             Request req = Req.get();
@@ -33,6 +35,8 @@ void App::handleRequest(Request req) {
         mh->handleBuyRequest(req.params);
     else if (req.command == P_RATE)
         fm->handleRate(req.params);
+    else if (req.command == P_COMMENTS)
+        ch->sendComment(req.params);
 
     else if (!login->getCurrentUser()->isPublisher())
         throw PermissionDenied();

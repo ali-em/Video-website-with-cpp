@@ -4,6 +4,7 @@
 #include <map>
 #include "../database/database.h"
 #include "../views/view.h"
+#include "comment_handler.h"
 #include "film_manager.h"
 #include "follower_handler.h"
 #include "input_handler.h"
@@ -26,6 +27,7 @@ class App {
     FilmManager* fm;
     FollowerHandler* fh;
     MoneyHandler* mh;
+    CommentHandler* ch;
 };
 
 #endif
