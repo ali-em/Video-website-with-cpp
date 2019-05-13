@@ -48,4 +48,6 @@ void App::handleRequest(Request req) {
         fm->handleDeleteFilm(req);
     else if (req.command == G_FOLLOWERS)
         fh->getFollower();
+    else if (req.command == P_REPLIES)
+        ch->sendReply(req.params);
 }
