@@ -19,15 +19,27 @@ void CommentHandler::validateSendingComment(Parameters& params) {
         throw PermissionDenied();
 }
 void CommentHandler::sendReply(Parameters& params) {
-    validateReply(params);
+    validateCommentChange(params);
+    if (!Tools::isInMap(params, 3, "film_id", "comment_id", "content"))
+        throw BadRequest();
     Film* film = DB->getFilmById(stoi(params["film_id"]));
     film->setReply(params);
     Res->send("OK");
 }
-void CommentHandler::validateReply(Parameters& params) {
-    if (!Tools::isInMap(params, 3, "film_id", "comment_id", "content"))
+void CommentHandler::validateCommentChange(Parameters& params) {
+    Film* film = DB->getFilmById(stoi(params["film_id"]));
+    Publisher* pub = static_cast<Publisher*>(login->getCurrentUser());
+    if (film == NULL || film->isDeleted())
+        throw NotFound();
+    if (!pub->hasFilm(stoi(params["film_id"])))
+        throw PermissionDenied();
+}
+void CommentHandler::deleteComment(Parameters& params) {
+    validateCommentChange(params);
+    if (!Tools::isInMap(params, 1, "comment_id"))
         throw BadRequest();
     Film* film = DB->getFilmById(stoi(params["film_id"]));
-    if (film == NULL)
-        throw NotFound();
+    film->deleteComment(stoi(params["comment_id"]));
+
+    Res->send("OK");
 }

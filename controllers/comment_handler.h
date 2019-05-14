@@ -11,12 +11,13 @@ class CommentHandler {
     CommentHandler(Database*, View*, Login*);
     void sendComment(Parameters&);
     void sendReply(Parameters&);
+    void deleteComment(Parameters&);
 
    private:
     Database* DB;
     View* Res;
     Login* login;
-    void validateReply(Parameters&);
+    void validateCommentChange(Parameters&);
     void validateSendingComment(Parameters&);
 };
 

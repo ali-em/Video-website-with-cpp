@@ -31,6 +31,7 @@ class Film {
     bool operator<(const Film* film) const;
     std::string getShortInfo();
     void setReply(Parameters&);
+    void deleteComment(int);
 
    private:
     int id;

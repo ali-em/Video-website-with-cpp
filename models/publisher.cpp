@@ -13,7 +13,11 @@ bool Publisher::hasFilm(int id) {
     return false;
 }
 vector<Film*> Publisher::getFilms() {
-    return publishedFilms;
+    vector<Film*> result;
+    for (auto f : publishedFilms)
+        if (!f->isDeleted())
+            result.push_back(f);
+    return result;
 }
 bool Publisher::isFollowedBy(User* user) {
     for (auto follower : followers) {

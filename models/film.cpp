@@ -132,3 +132,8 @@ void Film::setReply(Parameters& params) {
     Comment* reply = new Comment(params["content"]);
     comments[stoi(params["comment_id"]) - 1]->setReply(reply);
 }
+void Film::deleteComment(int commentId) {
+    if (comments[commentId - 1]->isDeleted())
+        throw NotFound();
+    comments[commentId - 1]->remove();
+}

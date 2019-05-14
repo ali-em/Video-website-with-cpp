@@ -24,3 +24,6 @@ string Comment::getInfo() {
         result << id << "." << i++ << ". " << rep->getContent() << endl;
     return result.str();
 }
+void Comment::remove() {
+    deleted = true;
+}

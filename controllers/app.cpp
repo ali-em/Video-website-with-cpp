@@ -52,4 +52,6 @@ void App::handleRequest(Request req) {
         fh->getFollower();
     else if (req.command == P_REPLIES)
         ch->sendReply(req.params);
+    else if (req.command == D_COMMENTS)
+        ch->deleteComment(req.params);
 }

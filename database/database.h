@@ -13,7 +13,7 @@ class Database {
     User* findUserByUsernameAndPassword(std::string, std::string);
     void addFilm(Film*);
     Film* getFilmById(int id);
-    std::vector<Film*> getFilms();
+    std::vector<Film*> getFilms(bool includeDeleted = false);
     void addPurchase(Purchase*);
     std::string getRecommendedFilms(User*);
 

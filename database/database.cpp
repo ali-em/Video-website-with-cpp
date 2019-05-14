@@ -28,8 +28,15 @@ Film* Database::getFilmById(int id) {
             return f;
     return NULL;
 }
-vector<Film*> Database::getFilms() {
-    return films;
+vector<Film*> Database::getFilms(bool includeDeleted) {
+    if (includeDeleted)
+        return films;
+    vector<Film*> result;
+    for (auto f : films) {
+        if (!f->isDeleted())
+            result.push_back(f);
+    }
+    return result;
 }
 User* Database::findUserById(int userId) {
     for (auto user : users)
