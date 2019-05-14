@@ -27,6 +27,7 @@ class User {
     double getMoney();
     void addToPurchased(Film*);
     bool isPurchased(Film*);
+    std::vector<Film*> getPurchased();
 
    protected:
     int id;

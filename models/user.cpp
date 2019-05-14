@@ -39,3 +39,6 @@ bool User::isPurchased(Film* film) {
     }
     return false;
 }
+vector<Film*> User::getPurchased() {
+    return purchasedFilms;
+}
