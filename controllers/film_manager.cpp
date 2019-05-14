@@ -97,6 +97,7 @@ void FilmManager::handleRate(Parameters& params) {
     Res->send("OK");
 }
 void FilmManager::handleGetPurchased(Parameters& params) {
+    validateGet();
     User* user = login->getCurrentUser();
     vector<Film*> films = filterFilms(params, user->getPurchased());
     Res->printFilms(films);
