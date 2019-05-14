@@ -14,6 +14,7 @@ class FilmManager {
     void handleDeleteFilm(Request&);
     void handleGetFilms(Request&);
     void handleRate(Parameters&);
+    void handleGetPurchased(Parameters&);
 
    private:
     Database* DB;
@@ -23,7 +24,7 @@ class FilmManager {
     void validateAdd(Request&);
     void validateDelete(Request&);
     void validateGet();
-    std::vector<Film*> filterFilms(Request&, std::vector<Film*>);
+    std::vector<Film*> filterFilms(Parameters&, std::vector<Film*>);
 };
 
 #endif

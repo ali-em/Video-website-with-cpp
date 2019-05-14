@@ -65,10 +65,10 @@ void FilmManager::handleGetFilms(Request& req) {
     }
     vector<Film*> filtered;
     if (!currentUser->isPublisher())
-        filtered = filterFilms(req, DB->getFilms());
+        filtered = filterFilms(req.params, DB->getFilms());
     else {
         Publisher* pub = static_cast<Publisher*>(currentUser);
-        filtered = filterFilms(req, pub->getFilms());
+        filtered = filterFilms(req.params, pub->getFilms());
     }
     Res->printFilms(filtered);
 }
@@ -78,10 +78,10 @@ void FilmManager::validateGet() {
         throw PermissionDenied();
 }
 
-vector<Film*> FilmManager::filterFilms(Request& req, vector<Film*> films) {
+vector<Film*> FilmManager::filterFilms(Parameters& params, vector<Film*> films) {
     vector<Film*> result;
     for (auto f : films)
-        if (f->isMatch(req.params))
+        if (f->isMatch(params))
             result.push_back(f);
     return result;
 }
@@ -95,4 +95,9 @@ void FilmManager::handleRate(Parameters& params) {
     else
         throw PermissionDenied();
     Res->send("OK");
+}
+void FilmManager::handleGetPurchased(Parameters& params) {
+    User* user = login->getCurrentUser();
+    vector<Film*> films = filterFilms(params, user->getPurchased());
+    Res->printFilms(films);
 }

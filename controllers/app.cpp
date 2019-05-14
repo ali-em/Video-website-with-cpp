@@ -37,6 +37,8 @@ void App::handleRequest(Request req) {
         fm->handleRate(req.params);
     else if (req.command == P_COMMENTS)
         ch->sendComment(req.params);
+    else if (req.command == G_PURCHASED)
+        fm->handleGetPurchased(req.params);
 
     else if (!login->getCurrentUser()->isPublisher())
         throw PermissionDenied();
