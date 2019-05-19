@@ -23,7 +23,6 @@ class Database {
     std::vector<Film*> films;
     std::vector<Comment*> comments;
     std::vector<Purchase*> purchases;
-    std::vector<Notification*> notifications;
 };
 
 #endif

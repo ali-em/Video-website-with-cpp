@@ -5,11 +5,14 @@
 
 class Notification {
    public:
+    Notification(std::string content);
+    void read();
+    bool isRead();
+    std::string getContent();
+
    private:
-    int id;
-    int userId;
     std::string content;
-    bool isRead;
+    bool _isRead;
 };
 
 #endif
