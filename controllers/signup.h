@@ -8,8 +8,8 @@
 class SignUp {
    public:
     SignUp(Database*, View*, Login*);
-    void handleSignUp(Request);
-    void validateSignUp(Request req);
+    void handleSignUp(Parameters&);
+    void validateSignUp(Parameters&);
 
    private:
     Database* DB;

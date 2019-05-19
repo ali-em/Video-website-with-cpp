@@ -13,17 +13,17 @@ Film::Film(Parameters& params) {
 void Film::setId(int _id) { id = _id; }
 int Film::getId() const { return id; }
 
-void Film::edit(Request& req) {
-    if (Tools::isInMap(req.params, 1, "name"))
-        name = req.params["name"];
-    if (Tools::isInMap(req.params, 1, "year"))
-        year = stoi(req.params["year"]);
-    if (Tools::isInMap(req.params, 1, "length"))
-        length = stoi(req.params["length"]);
-    if (Tools::isInMap(req.params, 1, "summary"))
-        summary = req.params["summary"];
-    if (Tools::isInMap(req.params, 1, "director"))
-        summary = req.params["director"];
+void Film::edit(Parameters& params) {
+    if (Tools::isInMap(params, 1, "name"))
+        name = params["name"];
+    if (Tools::isInMap(params, 1, "year"))
+        year = stoi(params["year"]);
+    if (Tools::isInMap(params, 1, "length"))
+        length = stoi(params["length"]);
+    if (Tools::isInMap(params, 1, "summary"))
+        summary = params["summary"];
+    if (Tools::isInMap(params, 1, "director"))
+        summary = params["director"];
 }
 
 bool Film::isDeleted() {

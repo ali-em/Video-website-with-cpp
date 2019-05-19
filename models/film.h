@@ -16,7 +16,7 @@ class Film {
     Film(Parameters&);
     void setId(int);
     int getId() const;
-    void edit(Request&);
+    void edit(Parameters&);
     bool isDeleted();
     void _delete();
     bool isMatch(Parameters&);

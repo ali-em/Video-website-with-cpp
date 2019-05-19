@@ -28,11 +28,9 @@ WordsList InputHandler::split(string line) {
 }
 string InputHandler::trim(string str) {
     string result;
-    for (int i = 0; i < str.length(); i++) {
-        if (str[i] == SPACE)
-            continue;
-        result += str[i];
-    }
+    for (int i = 0; i < str.length(); i++)
+        if (str[i] != SPACE)
+            result += str[i];
     return result;
 }
 

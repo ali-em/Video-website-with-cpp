@@ -8,10 +8,13 @@ void Login::login(User* user) {
     currentUser = user;
     _isLoggedIn = true;
 }
-void Login::handleLogin(Request req) {
-    if (!Tools::isInMap(req.params, 2, "username", "password"))
+User* Login::getCurrentUser() {
+    return currentUser;
+}
+void Login::handleLogin(Parameters& params) {
+    if (!Tools::isInMap(params, 2, "username", "password"))
         throw BadRequest();
-    User* user = DB->findUserByUsernameAndPassword(req.params["username"], req.params["password"]);
+    User* user = DB->findUserByUsernameAndPassword(params["username"], params["password"]);
     if (user) {
         login(user);
         Res->send("OK");

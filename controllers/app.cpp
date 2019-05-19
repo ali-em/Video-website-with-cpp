@@ -1,13 +1,7 @@
 #include "app.h"
 using namespace std;
 void App::run() {
-    login = new Login(&DB, &Res);
-    signUp = new SignUp(&DB, &Res, login);
-    fm = new FilmManager(&DB, &Res, login);
-    fh = new FollowerHandler(&DB, &Res, login);
-    mh = new MoneyHandler(&DB, &Res, login);
-    ch = new CommentHandler(&DB, &Res, login);
-
+    preSetup();
     while (1) {
         try {
             Request req = Req.get();
@@ -17,16 +11,24 @@ void App::run() {
         }
     }
 }
+void App::preSetup() {
+    login = new Login(&DB, &Res);
+    signUp = new SignUp(&DB, &Res, login);
+    fm = new FilmManager(&DB, &Res, login);
+    fh = new FollowerHandler(&DB, &Res, login);
+    mh = new MoneyHandler(&DB, &Res, login);
+    ch = new CommentHandler(&DB, &Res, login);
+}
 void App::handleRequest(Request req) {
     if (req.command == P_SIGN_UP)
-        signUp->handleSignUp(req);
+        signUp->handleSignUp(req.params);
     else if (req.command == P_LOGIN)
-        login->handleLogin(req);
+        login->handleLogin(req.params);
 
     else if (!login->isLoggedIn())
         throw PermissionDenied();
     else if (req.command == G_FILMS)
-        fm->handleGetFilms(req);
+        fm->handleGetFilms(req.params);
     else if (req.command == P_FOLLOWERS)
         fh->follow(login->getCurrentUser(), req.params);
     else if (req.command == P_MONEY)
@@ -43,11 +45,11 @@ void App::handleRequest(Request req) {
     else if (!login->getCurrentUser()->isPublisher())
         throw PermissionDenied();
     else if (req.command == P_FILMS)
-        fm->handleAddFilm(req);
+        fm->handleAddFilm(req.params);
     else if (req.command == PU_FILMS)
-        fm->handleEditFilm(req);
+        fm->handleEditFilm(req.params);
     else if (req.command == D_FILMS)
-        fm->handleDeleteFilm(req);
+        fm->handleDeleteFilm(req.params);
     else if (req.command == G_FOLLOWERS)
         fh->getFollower();
     else if (req.command == P_REPLIES)

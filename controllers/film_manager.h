@@ -9,10 +9,10 @@ class Database;
 class FilmManager {
    public:
     FilmManager(Database*, View*, Login*);
-    void handleAddFilm(Request&);
-    void handleEditFilm(Request&);
-    void handleDeleteFilm(Request&);
-    void handleGetFilms(Request&);
+    void handleAddFilm(Parameters&);
+    void handleEditFilm(Parameters&);
+    void handleDeleteFilm(Parameters&);
+    void handleGetFilms(Parameters&);
     void handleRate(Parameters&);
     void handleGetPurchased(Parameters&);
 
@@ -20,9 +20,9 @@ class FilmManager {
     Database* DB;
     View* Res;
     Login* login;
-    void validateEdit(Request&);
-    void validateAdd(Request&);
-    void validateDelete(Request&);
+    void validateEdit(Parameters&);
+    void validateAdd(Parameters&);
+    void validateDelete(Parameters&);
     void validateGet();
     std::vector<Film*> filterFilms(Parameters&, std::vector<Film*>);
 };

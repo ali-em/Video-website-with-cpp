@@ -7,10 +7,10 @@ class Database;
 class Login {
    public:
     Login(Database* db, View* view);
-    void handleLogin(Request);
+    void handleLogin(Parameters&);
     void login(User* user);
     bool isLoggedIn();
-    User* getCurrentUser() { return currentUser; }
+    User* getCurrentUser() ;
 
    private:
     Database* DB;

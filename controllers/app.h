@@ -18,7 +18,7 @@ class App {
 
    private:
     void handleRequest(Request);
-
+    void preSetup();
     Database DB;
     InputHandler Req;
     View Res;
