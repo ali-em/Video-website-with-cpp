@@ -12,7 +12,7 @@ class Notification {
 
    private:
     std::string content;
-    bool _isRead;
+    bool _isRead = false;
 };
 
 #endif
