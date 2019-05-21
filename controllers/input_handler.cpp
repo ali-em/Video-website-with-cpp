@@ -6,6 +6,8 @@ Request InputHandler::get() {
     string pure;
     getline(cin, pure);
     WordsList splitted = split(pure);
+    if (splitted.size() < 2)
+        return Request{EMPTY, {}};
     Request result = parseToRequest(splitted);
     return result;
 }
@@ -101,11 +103,13 @@ RequestType InputHandler::getRequestType(string str) {
         {"POST comments ", P_COMMENTS},
         {"POST money ", P_MONEY},
         {"GET purchased ", G_PURCHASED},
-        {"GET notification ", G_NOTIFICATION},
-        {"GET notification read ", G_NOTIFICATION_READ},
+        {"GET notifications ", G_NOTIFICATION},
+        {"GET notifications read ", G_NOTIFICATION_READ},
         {"GET films ", G_FILMS},
+        {"GET published ", G_PUBLISHED},
         {"PUT films ", PU_FILMS},
         {"DELETE films ", D_FILMS},
+        {"", EMPTY},
         {"DELETE comments ", D_COMMENTS}};
     return REQUEST_TYPE.at(str);
 }
