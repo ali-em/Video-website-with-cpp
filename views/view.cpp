@@ -10,11 +10,11 @@ void View::sendError(std::exception& ex) {
 void View::printFilms(vector<Film*>& films) {
     int i = 1;
     cout << "#. "
-         << "Film id" << DIVIDER
+         << "Film Id" << DIVIDER
          << "Film Name" << DIVIDER
          << "Film Length" << DIVIDER
          << "Film price" << DIVIDER
-         << "rate" << DIVIDER
+         << "Rate" << DIVIDER
          << "Production Year" << DIVIDER
          << "Film Director" << endl;
     for (auto f : films)
@@ -25,14 +25,14 @@ void View::showFilmDetails(string details, string comments, string recommended) 
     cout << details << endl
          << comments << endl
          << "Recommendation Film" << endl
-         << "#. Film Id" << DIVIDER << "Film Name" << DIVIDER << "Film length" << DIVIDER << "Film Director" << endl
+         << "#. Film Id" << DIVIDER << "Film Name" << DIVIDER << "Film Length" << DIVIDER << "Film Director" << endl
          << recommended << endl;
 }
 void View::showFollowers(std::vector<UserInfo> followers) {
     cout << "List of Followers" << endl
          << "#. User Id" << DIVIDER
          << "User Username" << DIVIDER
-         << "User email" << endl;
+         << "User Email" << endl;
 
     int i = 1;
     for (auto f : followers)
@@ -40,4 +40,14 @@ void View::showFollowers(std::vector<UserInfo> followers) {
              << f.userId << DIVIDER
              << f.username << DIVIDER
              << f.email << endl;
+}
+void View::success() {
+    cout << "OK" << endl;
+}
+void View::showNotifications(WordsList& notifs) {
+    cout << "#. Notification Message" << endl;
+    int i = 1;
+    for (auto n : notifs) {
+        cout << i++ << ". " << n << endl;
+    }
 }

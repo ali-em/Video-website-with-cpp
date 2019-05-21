@@ -8,12 +8,14 @@
 #include "../models/modelHeaders.h"
 class View {
    public:
-    std::map<std::string, std::string> get();
-    void send(std::string);
-    void sendError(std::exception&);
-    void printFilms(std::vector<Film*>&);
-    void showFilmDetails(std::string details, std::string comments, std::string recommended);
-    void showFollowers(std::vector<UserInfo>);
+    Parameters get();
+    static void send(std::string);
+    static void sendError(std::exception&);
+    static void printFilms(std::vector<Film*>&);
+    static void showFilmDetails(std::string details, std::string comments, std::string recommended);
+    static void showFollowers(std::vector<UserInfo>);
+    static void success();
+    static void showNotifications(WordsList&);
 
    private:
 };
