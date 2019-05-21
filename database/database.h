@@ -7,6 +7,7 @@
 #include "../models/modelHeaders.h"
 class Database {
    public:
+    ~Database();
     User* findUserByUsername(std::string);
     void addUser(User*);
     User* findUserById(int userId);

@@ -71,3 +71,14 @@ Publisher* Database::getPublisherByFilmId(int id) {
     }
     return NULL;
 }
+
+Database::~Database() {
+    for (auto u : users)
+        delete u;
+    for (auto f : films)
+        delete f;
+    for (auto c : comments)
+        delete c;
+    for (auto p : purchases)
+        delete p;
+}

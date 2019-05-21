@@ -27,3 +27,7 @@ string Comment::getInfo() {
 void Comment::remove() {
     deleted = true;
 }
+Comment::~Comment() {
+    for (auto r : replies)
+        delete r;
+}

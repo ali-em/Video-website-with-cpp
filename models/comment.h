@@ -8,7 +8,7 @@ class Comment {
    public:
     Comment(std::string, int);
     Comment(std::string);
-
+    ~Comment();
     void remove();
     int getId();
     std::string getContent();
