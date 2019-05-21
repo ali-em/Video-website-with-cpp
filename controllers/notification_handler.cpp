@@ -8,28 +8,23 @@ void NotificationHandler::sendReplyNotif(User* sender, User* reciever) {
 }
 void NotificationHandler::sendRegisterFilmNotif(Publisher* sender) {
     string msg = "Publisher " + sender->getUsername() + " with id " + to_string(sender->getId()) + " register new film.";
-    Notification* notif = new Notification(msg);
-    sender->sendNotifToFollowers(notif);
+    sender->sendNotifToFollowers(new Notification(msg));
 }
 void NotificationHandler::sendFollowNotif(User* sender, User* reciever) {
     string msg = "User " + sender->getUsername() + " with id " + to_string(sender->getId()) + " follow you.";
-    Notification* notif = new Notification(msg);
-    reciever->addNotif(notif);
+    reciever->addNotif(new Notification(msg));
 }
 void NotificationHandler::sendBuyNotif(User* sender, User* reciever, Film* film) {
     string msg = "User " + sender->getUsername() + " with id " + to_string(sender->getId()) + " buy your film " + film->getName() + " with id " + to_string(film->getId()) + ".";
-    Notification* notif = new Notification(msg);
-    reciever->addNotif(notif);
+    reciever->addNotif(new Notification(msg));
 }
 void NotificationHandler::sendRateNotif(User* sender, User* reciever, Film* film) {
     string msg = "User " + sender->getUsername() + " with id " + to_string(sender->getId()) + " rate your film " + film->getName() + " with id " + to_string(film->getId()) + ".";
-    Notification* notif = new Notification(msg);
-    reciever->addNotif(notif);
+    reciever->addNotif(new Notification(msg));
 }
 void NotificationHandler::sendCommentNotif(User* sender, User* reciever, Film* film) {
     string msg = "User " + sender->getUsername() + " with id " + to_string(sender->getId()) + " comment on your film " + film->getName() + " with id " + to_string(film->getId()) + ".";
-    Notification* notif = new Notification(msg);
-    reciever->addNotif(notif);
+    reciever->addNotif(new Notification(msg));
 }
 void NotificationHandler::getNotifications(User* user) {
     vector<string> notifs = user->getUnReadNotifications();
