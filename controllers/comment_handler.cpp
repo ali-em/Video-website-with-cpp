@@ -2,16 +2,18 @@
 #include "../database/database.h"
 using namespace std;
 
-CommentHandler::CommentHandler(Database* db, View* view, Login* _login) : DB(db), Res(view), login(_login) {}
+CommentHandler::CommentHandler(Database* db, Login* _login) : DB(db), login(_login) {}
 
 void CommentHandler::sendComment(Parameters& params) {
     validateSendingComment(params);
     Film* film = DB->getFilmById(stoi(params["film_id"]));
-    film->addComment(login->getCurrentUser(), params["content"]);
-    Res->send("OK");
+    User* user = login->getCurrentUser();
+    film->addComment(user, params["content"]);
+    NotificationHandler::sendCommentNotif(user, DB->getPublisherByFilmId(stoi(params["film_id"])), film);
+    View::success();
 }
 void CommentHandler::validateSendingComment(Parameters& params) {
-    if (!Tools::isInMap(params, 2, "film_id", "content"))
+    if (!Tools::checkParam(params, 2, "film_id", "content"))
         throw BadRequest();
     User* user = login->getCurrentUser();
     Film* film = DB->getFilmById(stoi(params["film_id"]));
@@ -20,11 +22,12 @@ void CommentHandler::validateSendingComment(Parameters& params) {
 }
 void CommentHandler::sendReply(Parameters& params) {
     validateCommentChange(params);
-    if (!Tools::isInMap(params, 3, "film_id", "comment_id", "content"))
+    if (!Tools::checkParam(params, 3, "film_id", "comment_id", "content"))
         throw BadRequest();
     Film* film = DB->getFilmById(stoi(params["film_id"]));
     film->setReply(params);
-    Res->send("OK");
+    NotificationHandler::sendReplyNotif(login->getCurrentUser(), DB->findUserById(stoi(params["film_id"])));
+    View::success();
 }
 void CommentHandler::validateCommentChange(Parameters& params) {
     Film* film = DB->getFilmById(stoi(params["film_id"]));
@@ -36,10 +39,10 @@ void CommentHandler::validateCommentChange(Parameters& params) {
 }
 void CommentHandler::deleteComment(Parameters& params) {
     validateCommentChange(params);
-    if (!Tools::isInMap(params, 1, "comment_id"))
+    if (!Tools::checkParam(params, 1, "comment_id"))
         throw BadRequest();
     Film* film = DB->getFilmById(stoi(params["film_id"]));
     film->deleteComment(stoi(params["comment_id"]));
 
-    Res->send("OK");
+    View::success();
 }
