@@ -4,6 +4,10 @@ using namespace std;
 string User::getUsername() {
     return username;
 }
+int User::getId() {
+    return id;
+}
+
 string User::getPassword() {
     return password;
 }
@@ -41,4 +45,25 @@ bool User::isPurchased(Film* film) {
 }
 vector<Film*> User::getPurchased() {
     return purchasedFilms;
+}
+void User::addNotif(Notification* notif) {
+    notifications.push_back(notif);
+}
+
+WordsList User::getUnReadNotifications() {
+    vector<string> result;
+    for (auto n : notifications) {
+        if (!n->isRead()) {
+            result.push_back(n->getContent());
+            n->read();
+        }
+    }
+    return result;
+}
+WordsList User::getReadNotifications() {
+    vector<string> result;
+    for (auto n : notifications)
+        if (n->isRead())
+            result.push_back(n->getContent());
+    return result;
 }

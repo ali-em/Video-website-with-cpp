@@ -28,7 +28,10 @@ class User {
     void addToPurchased(Film*);
     bool isPurchased(Film*);
     std::vector<Film*> getPurchased();
-
+    void addNotif(Notification* notif);
+    int getId();
+    WordsList getUnReadNotifications();
+    WordsList getReadNotifications();
    protected:
     int id;
     std::string username;
