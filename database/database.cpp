@@ -47,17 +47,27 @@ User* Database::findUserById(int userId) {
 void Database::addPurchase(Purchase* p) {
     purchases.push_back(p);
 }
-std::string Database::getRecommendedFilms(User* user) {
+std::string Database::getRecommendedFilms(User* user, Film* target) {
     vector<Film*> copyFilms = films;
     stringstream result;
     int i = 1;
     sort(copyFilms.begin(), copyFilms.end());
     for (auto f : copyFilms) {
-        if (!user->isPurchased(f)) {
+        if (!user->isPurchased(f) && !f->isDeleted() && f != target) {
             result << i++ << ". " << f->getShortInfo() << endl;
         }
         if (i == 5)
             return result.str();
     }
     return result.str();
+}
+Publisher* Database::getPublisherByFilmId(int id) {
+    for (auto pub : users) {
+        if (!pub->isPublisher())
+            continue;
+        Publisher* publisher = static_cast<Publisher*>(pub);
+        if (publisher->hasFilm(id))
+            return publisher;
+    }
+    return NULL;
 }

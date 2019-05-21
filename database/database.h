@@ -15,7 +15,8 @@ class Database {
     Film* getFilmById(int id);
     std::vector<Film*> getFilms(bool includeDeleted = false);
     void addPurchase(Purchase*);
-    std::string getRecommendedFilms(User*);
+    std::string getRecommendedFilms(User*, Film*);
+    Publisher* getPublisherByFilmId(int id);
 
    private:
     int userId = 1, filmId = 1, purchaseId = 1, notificationId = 1;
