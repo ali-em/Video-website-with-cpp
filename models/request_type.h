@@ -20,7 +20,11 @@ enum RequestType {
     G_PURCHASED,
     G_NOTIFICATION,
     G_NOTIFICATION_READ,
-    P_BUY
+    G_PUBLISHED,
+    P_BUY,
+
+    EMPTY,
+    FINISH
 };
 typedef std::vector<std::string> WordsList;
 typedef std::map<std::string, std::string> Parameters;
