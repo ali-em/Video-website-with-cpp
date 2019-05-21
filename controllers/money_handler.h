@@ -3,19 +3,19 @@
 #include "../models/modelHeaders.h"
 #include "../views/view.h"
 #include "login.h"
+#include "notification_handler.h"
 #include "tools.h"
 class Database;
 
 class MoneyHandler {
    public:
-    MoneyHandler(Database*, View*, Login*);
+    MoneyHandler(Database*, Login*);
     void handleMoneyRequest(Parameters);
     void handleBuyRequest(Parameters&);
     void validateBuy(Parameters&);
 
    private:
     Database* DB;
-    View* Res;
     Login* login;
 };
 
