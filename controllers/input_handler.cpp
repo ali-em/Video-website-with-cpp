@@ -4,13 +4,17 @@ using namespace std;
 
 Request InputHandler::get() {
     string pure;
-    getline(cin, pure);
+
+    if (!getline(cin, pure))
+        return Request{FINISH, {}};
+
     WordsList splitted = split(pure);
     if (splitted.size() < 2)
         return Request{EMPTY, {}};
     Request result = parseToRequest(splitted);
     return result;
 }
+
 WordsList InputHandler::split(string line) {
     WordsList result;
     string temp;

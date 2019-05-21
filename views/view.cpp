@@ -26,7 +26,7 @@ void View::showFilmDetails(string details, string comments, string recommended) 
          << comments << endl
          << "Recommendation Film" << endl
          << "#. Film Id" << DIVIDER << "Film Name" << DIVIDER << "Film Length" << DIVIDER << "Film Director" << endl
-         << recommended << endl;
+         << recommended;
 }
 void View::showFollowers(std::vector<UserInfo> followers) {
     cout << "List of Followers" << endl
