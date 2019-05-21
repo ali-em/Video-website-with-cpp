@@ -13,11 +13,13 @@ string User::getPassword() {
 }
 User::User(map<string, string> params) {
     username = params["username"];
-    password = params["password"];
+    password = to_string(Tools::hashCRC32(params["password"]));
     email = params["email"];
     age = stoi(params["age"]);
 }
-User::User(string _email, string _username, string _password, string _age) : email(_email), username(_username), password(_password), age(stoi(_age)) {}
+User::User(string _email, string _username, string _password, string _age) : email(_email), username(_username), age(stoi(_age)) {
+    password = to_string(Tools::hashCRC32(_password));
+}
 void User::setId(int _id) {
     id = _id;
 }

@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <vector>
+#include <string>
 #include "../controllers/film_manager.h"
 #include "../models/modelHeaders.h"
 class Database {

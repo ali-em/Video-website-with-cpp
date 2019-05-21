@@ -1,6 +1,7 @@
 #ifndef TOOLS_H
 #define TOOLS_H
 
+#include <boost/crc.hpp>
 #include <cstdarg>
 #include <map>
 #include <regex>
@@ -13,6 +14,7 @@ class Tools {
     static bool validateType(std::string, std::string);
     static bool checkParam(Parameters m, int counter, const char* keys...);
     static bool isInMap(Parameters m, std::string key);
+    static int hashCRC32(const std::string& my_string);
 };
 
 #endif

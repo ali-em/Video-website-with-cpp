@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include "../controllers/tools.h"
 #include "film.h"
 #include "notification.h"
 class Film;
@@ -32,6 +33,7 @@ class User {
     int getId();
     WordsList getUnReadNotifications();
     WordsList getReadNotifications();
+
    protected:
     int id;
     std::string username;

@@ -1,5 +1,5 @@
 CC := g++
-CFLAGS := -std=c++11
+CFLAGS := -std=c++11 
 TO_O_FLAG := -c
 
 OC := $(CC) $(CFLAGS) $(TO_O_FLAG)
