@@ -13,6 +13,7 @@ class Publisher : public User {
     void followBy(User*);
     std::vector<UserInfo> getFollowersInfo();
     void getMoney();
+    void sendNotifToFollowers(Notification*);
 
    private:
     std::vector<Film*> publishedFilms;

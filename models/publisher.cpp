@@ -40,3 +40,8 @@ void Publisher::getMoney() {
     for (auto film : publishedFilms)
         money += film->getTotalSell();
 }
+
+void Publisher::sendNotifToFollowers(Notification* notif) {
+    for (auto fl : followers)
+        fl->addNotif(notif);
+}
