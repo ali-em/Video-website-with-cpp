@@ -5,21 +5,25 @@ void App::run() {
     while (1) {
         try {
             Request req = Req.get();
+            if (req.command == FINISH)
+                break;
             handleRequest(req);
         } catch (exception& err) {
-            Res.sendError(err);
+            View::sendError(err);
         }
     }
 }
 void App::preSetup() {
-    login = new Login(&DB, &Res);
-    signUp = new SignUp(&DB, &Res, login);
-    fm = new FilmManager(&DB, &Res, login);
-    fh = new FollowerHandler(&DB, &Res, login);
-    mh = new MoneyHandler(&DB, &Res, login);
-    ch = new CommentHandler(&DB, &Res, login);
+    login = new Login(&DB);
+    signUp = new SignUp(&DB, login);
+    fm = new FilmManager(&DB, login);
+    fh = new FollowerHandler(&DB, login);
+    mh = new MoneyHandler(&DB, login);
+    ch = new CommentHandler(&DB, login);
 }
 void App::handleRequest(Request req) {
+    if (req.command == EMPTY)
+        return;
     if (req.command == P_SIGN_UP)
         signUp->handleSignUp(req.params);
     else if (req.command == P_LOGIN)
@@ -41,6 +45,10 @@ void App::handleRequest(Request req) {
         ch->sendComment(req.params);
     else if (req.command == G_PURCHASED)
         fm->handleGetPurchased(req.params);
+    else if (req.command == G_NOTIFICATION)
+        NotificationHandler::getNotifications(login->getCurrentUser());
+    else if (req.command == G_NOTIFICATION_READ)
+        NotificationHandler::getReadNotifications(login->getCurrentUser(), req.params);
 
     else if (!login->getCurrentUser()->isPublisher())
         throw PermissionDenied();
@@ -50,6 +58,8 @@ void App::handleRequest(Request req) {
         fm->handleEditFilm(req.params);
     else if (req.command == D_FILMS)
         fm->handleDeleteFilm(req.params);
+    else if (req.command == G_PUBLISHED)
+        fm->handleGetPublished(req.params);
     else if (req.command == G_FOLLOWERS)
         fh->getFollower();
     else if (req.command == P_REPLIES)

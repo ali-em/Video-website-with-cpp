@@ -21,7 +21,6 @@ class App {
     void preSetup();
     Database DB;
     InputHandler Req;
-    View Res;
     SignUp* signUp;
     Login* login;
     FilmManager* fm;
