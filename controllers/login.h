@@ -6,15 +6,14 @@
 class Database;
 class Login {
    public:
-    Login(Database* db, View* view);
+    Login(Database* db);
     void handleLogin(Parameters&);
     void login(User* user);
     bool isLoggedIn();
-    User* getCurrentUser() ;
+    User* getCurrentUser();
 
    private:
     Database* DB;
-    View* Res;
     bool _isLoggedIn = false;
     User* currentUser;
 };
