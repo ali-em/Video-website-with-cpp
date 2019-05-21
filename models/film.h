@@ -11,6 +11,16 @@
 #include "request_type.h"
 #define DIVIDER " | "
 class User;
+struct FilmInfo {
+    int id;
+    std::string name;
+    int length;
+    int price;
+    float rate;
+    int year;
+    std::string director;
+    std::string summary;
+};
 class Film {
    public:
     Film(Parameters&);
@@ -21,13 +31,13 @@ class Film {
     bool isDeleted();
     void _delete();
     bool isMatch(Parameters&);
-    std::string getInfo();
+    FilmInfo getInfo();
     double getTotalSell();
     int getPrice() const;
     float getRate() const;
     void setRate(User*, int);
     void addComment(User*, std::string);
-    std::string getDetails();
+    FilmInfo getDetails();
     std::string getComments();
     bool operator<(const Film* film) const;
     std::string getShortInfo();

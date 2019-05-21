@@ -50,12 +50,8 @@ bool Film::isMatch(Parameters& params) {
     return true;
 }
 
-string Film::getInfo() {
-    stringstream result;
-    result << id << DIVIDER << name << DIVIDER << length
-           << DIVIDER << price << DIVIDER << setprecision(2) << rate << DIVIDER << year
-           << DIVIDER << director;
-    return result.str();
+FilmInfo Film::getInfo() {
+    return FilmInfo{id, name, length, price, rate, year, director, ""};
 }
 double Film::getTotalSell() {
     double result = 0;
@@ -103,17 +99,8 @@ void Film::addComment(User* user, string content) {
     Comment* comment = new Comment(content, commentId++);
     comments.push_back(comment);
 }
-string Film::getDetails() {
-    stringstream details;
-    details << "Details of Film " << name << endl
-            << "Id = " << id << endl
-            << "Director = " << director << endl
-            << "Length = " << length << endl
-            << "Year = " << year << endl
-            << "Summary = " << summary << endl
-            << "Rate = " << rate << endl
-            << "Price = " << price << endl;
-    return details.str();
+FilmInfo Film::getDetails() {
+    return FilmInfo{id, name, length, price, rate, year, director, summary};
 }
 string Film::getComments() {
     stringstream result;
