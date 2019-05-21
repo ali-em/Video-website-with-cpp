@@ -7,12 +7,10 @@ Request InputHandler::get() {
 
     if (!getline(cin, pure))
         return Request{FINISH, {}};
-
     WordsList splitted = split(pure);
     if (splitted.size() < 2)
         return Request{EMPTY, {}};
-    Request result = parseToRequest(splitted);
-    return result;
+    return parseToRequest(splitted);
 }
 
 WordsList InputHandler::split(string line) {
@@ -32,6 +30,7 @@ WordsList InputHandler::split(string line) {
         result.push_back(trim(temp));
     return result;
 }
+
 string InputHandler::trim(string str) {
     string result;
     for (int i = 0; i < str.length(); i++)
@@ -113,7 +112,7 @@ RequestType InputHandler::getRequestType(string str) {
         {"GET published ", G_PUBLISHED},
         {"PUT films ", PU_FILMS},
         {"DELETE films ", D_FILMS},
-        {"", EMPTY},
-        {"DELETE comments ", D_COMMENTS}};
+        {"DELETE comments ", D_COMMENTS},
+        {"", EMPTY}};
     return REQUEST_TYPE.at(str);
 }
