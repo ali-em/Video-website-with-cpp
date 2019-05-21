@@ -17,12 +17,27 @@ void View::printFilms(vector<Film*>& films) {
          << "Rate" << DIVIDER
          << "Production Year" << DIVIDER
          << "Film Director" << endl;
-    for (auto f : films)
-        cout << i++ << ". "
-             << f->getInfo() << endl;
+    for (auto f : films) {
+        cout << i++ << ". ";
+        showFilmInfo(f->getInfo());
+        cout << endl;
+    }
 }
-void View::showFilmDetails(string details, string comments, string recommended) {
-    cout << details << endl
+void View::showFilmInfo(FilmInfo filmInfo) {
+    cout << filmInfo.id << DIVIDER << filmInfo.name << DIVIDER << filmInfo.length
+         << DIVIDER << filmInfo.price << DIVIDER << setprecision(2) << filmInfo.rate << DIVIDER << filmInfo.year
+         << DIVIDER << filmInfo.director;
+}
+void View::showFilmDetails(FilmInfo filmInfo, string comments, string recommended) {
+    cout << "Details of Film " << filmInfo.name << endl
+         << "Id = " << filmInfo.id << endl
+         << "Director = " << filmInfo.director << endl
+         << "Length = " << filmInfo.length << endl
+         << "Year = " << filmInfo.year << endl
+         << "Summary = " << filmInfo.summary << endl
+         << "Rate = " << filmInfo.rate << endl
+         << "Price = " << filmInfo.price << endl
+         << endl
          << comments << endl
          << "Recommendation Film" << endl
          << "#. Film Id" << DIVIDER << "Film Name" << DIVIDER << "Film Length" << DIVIDER << "Film Director" << endl
