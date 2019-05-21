@@ -12,17 +12,20 @@ Film::Film(Parameters& params) {
 }
 void Film::setId(int _id) { id = _id; }
 int Film::getId() const { return id; }
+string Film::getName() {
+    return name;
+}
 
 void Film::edit(Parameters& params) {
-    if (Tools::isInMap(params, 1, "name"))
+    if (Tools::isInMap(params, "name"))
         name = params["name"];
-    if (Tools::isInMap(params, 1, "year"))
+    if (Tools::isInMap(params, "year"))
         year = stoi(params["year"]);
-    if (Tools::isInMap(params, 1, "length"))
+    if (Tools::isInMap(params, "length"))
         length = stoi(params["length"]);
-    if (Tools::isInMap(params, 1, "summary"))
+    if (Tools::isInMap(params, "summary"))
         summary = params["summary"];
-    if (Tools::isInMap(params, 1, "director"))
+    if (Tools::isInMap(params, "director"))
         summary = params["director"];
 }
 
@@ -35,14 +38,14 @@ void Film::_delete() {
 }
 
 bool Film::isMatch(Parameters& params) {
-    if (Tools::isInMap(params, 1, "name") && name != params["name"] ||
-        Tools::isInMap(params, 1, "year") && year != stoi(params["year"]) ||
-        Tools::isInMap(params, 1, "min_year") && year < stoi(params["min_year"]) ||
-        Tools::isInMap(params, 1, "max_year") && year > stoi(params["max_year"]) ||
-        Tools::isInMap(params, 1, "min_rate") && rate < stoi(params["min_rate"]) ||
-        Tools::isInMap(params, 1, "length") && length != stoi(params["length"]) ||
-        Tools::isInMap(params, 1, "summary") && summary != params["summary"] ||
-        Tools::isInMap(params, 1, "director") && summary != params["director"])
+    if (Tools::isInMap(params, "name") && name != params["name"] ||
+        Tools::isInMap(params, "year") && year != stoi(params["year"]) ||
+        Tools::isInMap(params, "min_year") && year < stoi(params["min_year"]) ||
+        Tools::isInMap(params, "max_year") && year > stoi(params["max_year"]) ||
+        Tools::isInMap(params, "min_rate") && rate < stoi(params["min_rate"]) ||
+        Tools::isInMap(params, "length") && length != stoi(params["length"]) ||
+        Tools::isInMap(params, "summary") && summary != params["summary"] ||
+        Tools::isInMap(params, "director") && summary != params["director"])
         return false;
     return true;
 }
@@ -93,7 +96,7 @@ string Film::getShortInfo() {
     result << id << DIVIDER
            << name << DIVIDER
            << length << DIVIDER
-           << director << DIVIDER;
+           << director;
     return result.str();
 }
 void Film::addComment(User* user, string content) {
@@ -108,8 +111,8 @@ string Film::getDetails() {
             << "Length = " << length << endl
             << "Year = " << year << endl
             << "Summary = " << summary << endl
-            << "rate = " << rate << endl
-            << "price = " << price << endl;
+            << "Rate = " << rate << endl
+            << "Price = " << price << endl;
     return details.str();
 }
 string Film::getComments() {

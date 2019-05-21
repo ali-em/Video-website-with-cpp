@@ -15,6 +15,7 @@ class Film {
    public:
     Film(Parameters&);
     void setId(int);
+    std::string getName();
     int getId() const;
     void edit(Parameters&);
     bool isDeleted();
