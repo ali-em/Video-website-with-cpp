@@ -2,16 +2,17 @@
 #include "../database/database.h"
 using namespace std;
 
-FollowerHandler::FollowerHandler(Database* db, View* res, Login* _login) : DB(db), Res(res), login(_login) {}
+FollowerHandler::FollowerHandler(Database* db, Login* _login) : DB(db), login(_login) {}
 void FollowerHandler::follow(User* user, Parameters& params) {
     validateFollow(user, params);
     int pubId = stoi(params["user_id"]);
     Publisher* publisher = static_cast<Publisher*>(DB->findUserById(pubId));
     publisher->followBy(user);
-    Res->send("OK");
+    NotificationHandler::sendFollowNotif(user, publisher);
+    View::success();
 }
 void FollowerHandler::validateFollow(User* user, Parameters& params) {
-    if (!Tools::isInMap(params, 1, "user_id"))
+    if (!Tools::isInMap(params, "user_id"))
         throw BadRequest();
     int pubId = stoi(params["user_id"]);
     User* publisher = DB->findUserById(pubId);
@@ -28,5 +29,5 @@ void FollowerHandler::validateFollow(User* user, Parameters& params) {
 
 void FollowerHandler::getFollower() {
     Publisher* publisher = static_cast<Publisher*>(login->getCurrentUser());
-    Res->showFollowers(publisher->getFollowersInfo());
+    View::showFollowers(publisher->getFollowersInfo());
 }

@@ -3,19 +3,19 @@
 #include "../models/modelHeaders.h"
 #include "../views/view.h"
 #include "login.h"
+#include "notification_handler.h"
 #include "tools.h"
 class Database;
 
 class FollowerHandler {
    public:
-    FollowerHandler(Database*, View*, Login*);
+    FollowerHandler(Database*, Login*);
     void follow(User*, Parameters&);
     void validateFollow(User* user, Parameters&);
     void getFollower();
 
    private:
     Database* DB;
-    View* Res;
     Login* login;
 };
 
