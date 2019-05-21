@@ -7,13 +7,12 @@
 #include "tools.h"
 class SignUp {
    public:
-    SignUp(Database*, View*, Login*);
+    SignUp(Database*, Login*);
     void handleSignUp(Parameters&);
     void validateSignUp(Parameters&);
 
    private:
     Database* DB;
-    View* Res;
     Login* login;
 };
 
