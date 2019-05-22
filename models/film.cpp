@@ -127,3 +127,6 @@ void Film::deleteComment(int commentId) {
         throw NotFound();
     comments[commentId - 1]->remove();
 }
+void Film::addPurchase(Purchase* purchase) {
+    purchases.push_back(purchase);
+}

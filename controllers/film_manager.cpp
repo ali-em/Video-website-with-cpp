@@ -61,7 +61,7 @@ void FilmManager::handleGetFilms(Parameters& params) {
     User* currentUser = login->getCurrentUser();
     if (Tools::isInMap(params, "film_id")) {
         Film* film = DB->getFilmById(stoi(params["film_id"]));
-        if (film->isDeleted())
+        if (!film || film->isDeleted())
             throw NotFound();
         View::showFilmDetails(film->getDetails(), film->getComments(), DB->getRecommendedFilms(currentUser, film));
         return;

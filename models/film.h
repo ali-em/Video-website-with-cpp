@@ -43,7 +43,7 @@ class Film {
     std::string getShortInfo();
     void setReply(Parameters&);
     void deleteComment(int);
-
+    void addPurchase(Purchase* purchase);
    private:
     int id;
     std::string name;

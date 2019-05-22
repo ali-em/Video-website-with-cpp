@@ -9,7 +9,7 @@ class Purchase {
    private:
     double price;
     double rate;
-    bool hasGotten;
+    bool hasGotten = false;
 };
 
 #endif

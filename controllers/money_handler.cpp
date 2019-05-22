@@ -21,6 +21,7 @@ void MoneyHandler::handleBuyRequest(Parameters& params) {
     Film* film = DB->getFilmById(stoi(params["film_id"]));
     Purchase* purchase = new Purchase(film->getPrice(), film->getRate());
     DB->addPurchase(purchase);
+    film->addPurchase(purchase);
     User* user = login->getCurrentUser();
     user->addToPurchased(film);
     NotificationHandler::sendBuyNotif(user, DB->getPublisherByFilmId(stoi(params["film_id"])), film);
@@ -32,6 +33,8 @@ void MoneyHandler::validateBuy(Parameters& params) {
         throw BadRequest();
     Film* film = DB->getFilmById(stoi(params["film_id"]));
     User* user = login->getCurrentUser();
+    if(!film)
+	throw NotFound();
     if (film->getPrice() > user->getMoney())
         throw BadRequest();
     if (user->isPurchased(film))
