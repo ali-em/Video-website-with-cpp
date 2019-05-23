@@ -23,6 +23,7 @@ enum RequestType {
     G_PUBLISHED,
     P_BUY,
     P_LOGOUT,
+    G_MONEY,
 
     EMPTY,
     FINISH

@@ -1,6 +1,21 @@
 #include "database.h"
 using namespace std;
 
+Database::Database() {
+    User* admin = new User("s.aliemami@ut.ac.ir", "admin", "admin", "19");
+    users.push_back(admin);
+}
+
+Database::~Database() {
+    for (auto u : users)
+        delete u;
+    for (auto f : films)
+        delete f;
+    for (auto c : comments)
+        delete c;
+    for (auto p : purchases)
+        delete p;
+}
 User* Database::findUserByUsername(string username) {
     for (auto user : users)
         if (user->getUsername() == username)
@@ -73,13 +88,6 @@ Publisher* Database::getPublisherByFilmId(int id) {
     return NULL;
 }
 
-Database::~Database() {
-    for (auto u : users)
-        delete u;
-    for (auto f : films)
-        delete f;
-    for (auto c : comments)
-        delete c;
-    for (auto p : purchases)
-        delete p;
+vector<Purchase*> Database::getPurchases() {
+    return purchases;
 }

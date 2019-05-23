@@ -113,6 +113,7 @@ RequestType InputHandler::getRequestType(string str) {
         {"POST put_films ", PU_FILMS},
         {"POST delete_films ", D_FILMS},
         {"POST logout ", P_LOGOUT},
+        {"GET money ", G_MONEY},
         {"POST delete_comments ", D_COMMENTS},
         {"", EMPTY}};
     return REQUEST_TYPE.at(str);

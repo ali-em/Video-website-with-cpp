@@ -51,6 +51,8 @@ void App::handleRequest(Request req) {
         NotificationHandler::getNotifications(login->getCurrentUser());
     else if (req.command == G_NOTIFICATION_READ)
         NotificationHandler::getReadNotifications(login->getCurrentUser(), req.params);
+    else if (req.command == G_MONEY)
+        mh->getMoney();
 
     else if (!login->getCurrentUser()->isPublisher())
         throw PermissionDenied();

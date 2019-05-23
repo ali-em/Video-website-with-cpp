@@ -33,10 +33,24 @@ void MoneyHandler::validateBuy(Parameters& params) {
         throw BadRequest();
     Film* film = DB->getFilmById(stoi(params["film_id"]));
     User* user = login->getCurrentUser();
-    if(!film)
-	throw NotFound();
+    if (!film)
+        throw NotFound();
     if (film->getPrice() > user->getMoney())
         throw BadRequest();
     if (user->isPurchased(film))
         throw BadRequest();
+}
+void MoneyHandler::getMoney() {
+    User* user = login->getCurrentUser();
+    if (user->getUsername() == "admin")
+        getSystemMoney();
+    else
+        View::send(to_string((int)user->getMoney()));
+}
+void MoneyHandler::getSystemMoney() {
+    vector<Purchase*> purchases = DB->getPurchases();
+    double result;
+    for (auto p : purchases)
+        result += p->getMoney();
+    View::send(to_string((int)result));
 }
