@@ -48,8 +48,9 @@ void MoneyHandler::getMoney() {
         View::send(to_string((int)user->getMoney()));
 }
 void MoneyHandler::getSystemMoney() {
+    cout << "here" << endl;
     vector<Purchase*> purchases = DB->getPurchases();
-    double result;
+    double result = 0;
     for (auto p : purchases)
         result += p->getMoney();
     View::send(to_string((int)result));
