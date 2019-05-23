@@ -110,9 +110,10 @@ RequestType InputHandler::getRequestType(string str) {
         {"GET notifications read ", G_NOTIFICATION_READ},
         {"GET films ", G_FILMS},
         {"GET published ", G_PUBLISHED},
-        {"PUT films ", PU_FILMS},
-        {"DELETE films ", D_FILMS},
-        {"DELETE comments ", D_COMMENTS},
+        {"POST put_films ", PU_FILMS},
+        {"POST delete_films ", D_FILMS},
+        {"POST logout ", P_LOGOUT},
+        {"POST delete_comments ", D_COMMENTS},
         {"", EMPTY}};
     return REQUEST_TYPE.at(str);
 }

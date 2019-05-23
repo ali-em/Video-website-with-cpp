@@ -13,6 +13,7 @@ class MoneyHandler {
     void handleMoneyRequest(Parameters);
     void handleBuyRequest(Parameters&);
     void validateBuy(Parameters&);
+    void getMoney();
 
    private:
     Database* DB;

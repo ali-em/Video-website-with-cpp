@@ -21,4 +21,6 @@ void SignUp::validateSignUp(Parameters& params) {
         throw BadRequest();
     if (DB->findUserByUsername(params["username"]))
         throw BadRequest();
+    if (login->isLoggedIn())
+        throw BadRequest();
 }

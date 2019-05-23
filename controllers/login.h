@@ -11,6 +11,7 @@ class Login {
     void login(User* user);
     bool isLoggedIn();
     User* getCurrentUser();
+    void logout();
 
    private:
     Database* DB;

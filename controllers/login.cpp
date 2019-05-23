@@ -12,7 +12,7 @@ User* Login::getCurrentUser() {
     return currentUser;
 }
 void Login::handleLogin(Parameters& params) {
-    if (!Tools::checkParam(params, 2, "username", "password"))
+    if (!Tools::checkParam(params, 2, "username", "password") || _isLoggedIn)
         throw BadRequest();
     User* user = DB->findUserByUsernameAndPassword(params["username"], params["password"]);
     if (user) {
@@ -22,3 +22,10 @@ void Login::handleLogin(Parameters& params) {
         throw BadRequest();
 }
 bool Login::isLoggedIn() { return _isLoggedIn; }
+
+void Login::logout() {
+    if (!_isLoggedIn)
+        throw BadRequest();
+    _isLoggedIn = false;
+    View::success();
+}

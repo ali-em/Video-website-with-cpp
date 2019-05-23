@@ -28,6 +28,8 @@ void App::handleRequest(Request req) {
         signUp->handleSignUp(req.params);
     else if (req.command == P_LOGIN)
         login->handleLogin(req.params);
+    else if (req.command == P_LOGOUT)
+        login->logout();
 
     else if (!login->isLoggedIn())
         throw PermissionDenied();

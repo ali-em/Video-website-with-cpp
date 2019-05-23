@@ -22,6 +22,7 @@ enum RequestType {
     G_NOTIFICATION_READ,
     G_PUBLISHED,
     P_BUY,
+    P_LOGOUT,
 
     EMPTY,
     FINISH
