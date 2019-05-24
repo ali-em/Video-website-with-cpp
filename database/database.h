@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <string>
 #include <vector>
-#include "../controllers/film_manager.h"
 #include "../models/modelHeaders.h"
 class Database {
    public:
