@@ -2,7 +2,7 @@
 #include "../database/database.h"
 using namespace std;
 
-MoneyHandler::MoneyHandler(Database* db, Login* _login) : DB(db), login(_login) {}
+MoneyHandler::MoneyHandler(Database* db, RecommendationSystem* rs, Login* _login) : DB(db), RS(rs), login(_login) {}
 
 void MoneyHandler::handleMoneyRequest(Parameters params) {
     User* user = login->getCurrentUser();
@@ -24,6 +24,7 @@ void MoneyHandler::handleBuyRequest(Parameters& params) {
     film->addPurchase(purchase);
     User* user = login->getCurrentUser();
     user->addToPurchased(film);
+    RS->update(user, film->getId());
     NotificationHandler::sendBuyNotif(user, DB->getPublisherByFilmId(stoi(params["film_id"])), film);
     View::success();
 }
