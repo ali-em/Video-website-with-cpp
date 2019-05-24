@@ -34,7 +34,10 @@ vector<Film*> RecommendationSystem::getRecommended(User* user, int newFilmId) {
         int index = 0;
         bool found = false;
         for (int j = 0; j < filmRate.size(); j++)
-            if (filmRate[j] >= filmRate[index] && j + 1 != newFilmId && filmRate[j] != -1) {
+            if (!user->isPurchased(DB->getFilmById(j + 1)) &&
+                filmRate[j] >= filmRate[index] &&
+                j + 1 != newFilmId &&
+                filmRate[j] != -1) {
                 index = j;
                 found = true;
             }
