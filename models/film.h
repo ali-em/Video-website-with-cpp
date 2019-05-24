@@ -39,11 +39,11 @@ class Film {
     void addComment(User*, std::string);
     FilmInfo getDetails();
     std::string getComments();
-    bool operator<(const Film* film) const;
     std::string getShortInfo();
     void setReply(Parameters&);
     void deleteComment(int);
     void addPurchase(Purchase* purchase);
+
    private:
     int id;
     std::string name;

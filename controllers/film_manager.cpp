@@ -3,7 +3,7 @@
 
 using namespace std;
 
-FilmManager::FilmManager(Database* db, Login* _login) : DB(db), login(_login) {}
+FilmManager::FilmManager(Database* db, RecommendationSystem* rs, Login* _login) : DB(db), login(_login), RS(rs) {}
 
 void FilmManager::handleAddFilm(Parameters& params) {
     validateAdd(params);
@@ -12,6 +12,7 @@ void FilmManager::handleAddFilm(Parameters& params) {
     Publisher* pub = static_cast<Publisher*>(login->getCurrentUser());
     pub->addFilm(newFilm);
     NotificationHandler::sendRegisterFilmNotif(pub);
+    RS->addFilm();
     View::success();
 }
 void FilmManager::validateAdd(Parameters& params) {
@@ -58,17 +59,20 @@ void FilmManager::validateDelete(Parameters& params) {
 }
 void FilmManager::handleGetFilms(Parameters& params) {
     validateGet();
-    User* currentUser = login->getCurrentUser();
     if (Tools::isInMap(params, "film_id")) {
-        Film* film = DB->getFilmById(stoi(params["film_id"]));
-        if (!film || film->isDeleted())
-            throw NotFound();
-        View::showFilmDetails(film->getDetails(), film->getComments(), DB->getRecommendedFilms(currentUser, film));
+        getFilmDetails(stoi(params["film_id"]));
         return;
     }
     vector<Film*> filtered;
     filtered = filterFilms(params, DB->getFilms(), true);
     View::printFilms(filtered);
+}
+void FilmManager::getFilmDetails(int filmId) {
+    Film* film = DB->getFilmById(filmId);
+    User* currentUser = login->getCurrentUser();
+    if (!film || film->isDeleted())
+        throw NotFound();
+    View::showFilmDetails(film->getDetails(), film->getComments(), RS->getRecommended(currentUser, filmId));
 }
 void FilmManager::handleGetPublished(Parameters& params) {
     validateGet();

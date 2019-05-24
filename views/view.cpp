@@ -28,7 +28,7 @@ void View::showFilmInfo(FilmInfo filmInfo) {
          << DIVIDER << filmInfo.price << DIVIDER << setprecision(2) << filmInfo.rate << DIVIDER << filmInfo.year
          << DIVIDER << filmInfo.director;
 }
-void View::showFilmDetails(FilmInfo filmInfo, string comments, string recommended) {
+void View::showFilmDetails(FilmInfo filmInfo, string comments, std::vector<Film*> RecommendedFilms) {
     cout << "Details of Film " << filmInfo.name << endl
          << "Id = " << filmInfo.id << endl
          << "Director = " << filmInfo.director << endl
@@ -40,8 +40,10 @@ void View::showFilmDetails(FilmInfo filmInfo, string comments, string recommende
          << endl
          << comments << endl
          << "Recommendation Film" << endl
-         << "#. Film Id" << DIVIDER << "Film Name" << DIVIDER << "Film Length" << DIVIDER << "Film Director" << endl
-         << recommended;
+         << "#. Film Id" << DIVIDER << "Film Name" << DIVIDER << "Film Length" << DIVIDER << "Film Director" << endl;
+    int i = 1;
+    for (auto f : RecommendedFilms)
+        cout << i++ << ". " << f->getShortInfo() << endl;
 }
 void View::showFollowers(std::vector<UserInfo> followers) {
     cout << "List of Followers" << endl

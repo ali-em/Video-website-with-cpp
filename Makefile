@@ -1,5 +1,5 @@
 CC := g++
-CFLAGS := -std=c++11 
+CFLAGS := -std=c++11  -g
 TO_O_FLAG := -c
 
 OC := $(CC) $(CFLAGS) $(TO_O_FLAG)
@@ -40,11 +40,17 @@ FOLLOWER := controllers/follower_handler
 MONEY := controllers/money_handler
 COMMENT_HANDLER := controllers/comment_handler
 NOTIF_HANDLER := controllers/notification_handler
+RECOMMENDATION := controllers/recommendation_system
 #others
+
 MAIN = main.cpp
 
 
 all:$(BUILD) app.out
+
+app.out:$(BUILD)/main.o
+	$(COMPILE)  $(BUILD)/app.o $(BUILD)/recommendation_system.o $(BUILD)/main.o $(BUILD)/purchase.o $(BUILD)/database.o $(BUILD)/input_handler.o $(BUILD)/view.o $(BUILD)/publisher.o $(BUILD)/user.o $(BUILD)/signup.o $(BUILD)/login.o $(BUILD)/tools.o $(BUILD)/film.o $(BUILD)/comment.o $(BUILD)/film_manager.o $(BUILD)/follower_handler.o $(BUILD)/notification_handler.o $(BUILD)/money_handler.o $(BUILD)/notification.o $(BUILD)/comment_handler.o  -o app.out
+
 
 $(BUILD):
 	mkdir -p $(BUILD) 
@@ -52,7 +58,7 @@ $(BUILD):
 $(BUILD)/main.o:main.cpp $(BUILD)/app.o
 	$(OC) main.cpp -o $(BUILD)/main.o
 
-$(BUILD)/app.o:$(APP).h $(APP).cpp $(BUILD)/database.o $(BUILD)/input_handler.o $(BUILD)/view.o $(BUILD)/tools.o $(BUILD)/login.o $(BUILD)/signup.o $(BUILD)/film_manager.o $(BUILD)/follower_handler.o $(BUILD)/money_handler.o $(BUILD)/comment_handler.o $(BUILD)/notification_handler.o
+$(BUILD)/app.o:$(APP).h $(APP).cpp $(BUILD)/database.o $(BUILD)/input_handler.o $(BUILD)/view.o $(BUILD)/tools.o $(BUILD)/login.o $(BUILD)/signup.o $(BUILD)/film_manager.o $(BUILD)/follower_handler.o $(BUILD)/money_handler.o $(BUILD)/comment_handler.o $(BUILD)/notification_handler.o $(BUILD)/recommendation_system.o
 	$(OC) $(APP).cpp -o $(BUILD)/app.o
 
 $(BUILD)/database.o:$(BUILD)/user.o $(BUILD)/publisher.o $(DATABASE).cpp $(DATABASE).h $(ALL_MODELS) $(BUILD)/film_manager.o $(BUILD)/film.o
@@ -85,7 +91,7 @@ $(BUILD)/film.o:$(FILM_CPP) $(ALL_MODELS) $(BUILD)/purchase.o $(BUILD)/comment.o
 $(BUILD)/comment.o:$(COMMENT_CPP) $(ALL_MODELS) 
 	$(OC) $(COMMENT_CPP) -o $(BUILD)/comment.o
 
-$(BUILD)/film_manager.o:$(FILM_MANAGER).h $(FILM_MANAGER).cpp $(TOOLS).h $(FILM)
+$(BUILD)/film_manager.o:$(FILM_MANAGER).h $(FILM_MANAGER).cpp $(TOOLS).h $(FILM) $(BUILD)/recommendation_system.o
 	$(OC) $(FILM_MANAGER).cpp -o $(BUILD)/film_manager.o
 	
 $(BUILD)/follower_handler.o:$(FOLLOWER).h $(FOLLOWER).cpp $(TOOLS).h
@@ -94,7 +100,7 @@ $(BUILD)/follower_handler.o:$(FOLLOWER).h $(FOLLOWER).cpp $(TOOLS).h
 $(BUILD)/notification_handler.o:$(NOTIF_HANDLER).h $(NOTIF_HANDLER).cpp $(TOOLS).h $(BUILD)/notification.o
 	$(OC) $(NOTIF_HANDLER).cpp -o $(BUILD)/notification_handler.o
 
-$(BUILD)/money_handler.o:$(MONEY).h $(MONEY).cpp $(BUILD)/tools.o $(BUILD)/film.o
+$(BUILD)/money_handler.o:$(MONEY).h $(MONEY).cpp $(BUILD)/tools.o $(BUILD)/film.o $(BUILD)/recommendation_system.o
 	$(OC) $(MONEY).cpp -o $(BUILD)/money_handler.o
 
 $(BUILD)/purchase.o:$(PURCHASE_CPP) $(PURCHASE)
@@ -106,8 +112,10 @@ $(BUILD)/notification.o:$(NOTIF) $(NOTIF_CPP)
 $(BUILD)/comment_handler.o:$(COMMENT_HANDLER).h $(COMMENT_HANDLER).cpp $(BUILD)/tools.o
 	$(OC) $(COMMENT_HANDLER).cpp -o $(BUILD)/comment_handler.o
 
-app.out:$(BUILD)/main.o
-	$(COMPILE) $(BUILD)/app.o $(BUILD)/main.o $(BUILD)/purchase.o $(BUILD)/database.o $(BUILD)/input_handler.o $(BUILD)/view.o $(BUILD)/publisher.o $(BUILD)/user.o $(BUILD)/signup.o $(BUILD)/login.o $(BUILD)/tools.o $(BUILD)/film.o $(BUILD)/comment.o $(BUILD)/film_manager.o $(BUILD)/follower_handler.o $(BUILD)/notification_handler.o $(BUILD)/money_handler.o $(BUILD)/notification.o $(BUILD)/comment_handler.o  -o app.out
+$(BUILD)/recommendation_system.o:$(RECOMMENDATION).h $(RECOMMENDATION).cpp $(BUILD)/tools.o
+	$(OC) $(RECOMMENDATION).cpp -o $(BUILD)/recommendation_system.o
+
+
 
 
 .PHONY: clean

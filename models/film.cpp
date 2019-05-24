@@ -111,11 +111,6 @@ string Film::getComments() {
     }
     return result.str();
 }
-bool Film::operator<(const Film* f) const {
-    if (f->getRate() == rate)
-        return id < f->getId();
-    return rate < f->getRate();
-}
 void Film::setReply(Parameters& params) {
     if (comments.size() < stoi(params["comment_id"]))
         throw NotFound();

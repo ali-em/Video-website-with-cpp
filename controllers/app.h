@@ -10,6 +10,7 @@
 #include "input_handler.h"
 #include "login.h"
 #include "money_handler.h"
+#include "recommendation_system.h"
 #include "signup.h"
 #include "tools.h"
 class App {
@@ -27,6 +28,7 @@ class App {
     FollowerHandler* fh;
     MoneyHandler* mh;
     CommentHandler* ch;
+    RecommendationSystem* rs;
 };
 
 #endif

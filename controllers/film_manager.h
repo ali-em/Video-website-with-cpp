@@ -5,11 +5,12 @@
 #include "../views/view.h"
 #include "login.h"
 #include "notification_handler.h"
+#include "recommendation_system.h"
 #include "tools.h"
 class Database;
 class FilmManager {
    public:
-    FilmManager(Database*, Login*);
+    FilmManager(Database*, RecommendationSystem*, Login*);
     void handleAddFilm(Parameters&);
     void handleEditFilm(Parameters&);
     void handleDeleteFilm(Parameters&);
@@ -17,10 +18,12 @@ class FilmManager {
     void handleRate(Parameters&);
     void handleGetPurchased(Parameters&);
     void handleGetPublished(Parameters&);
+    void getFilmDetails(int filmId);
 
    private:
     Database* DB;
     Login* login;
+    RecommendationSystem* RS;
     void validateEdit(Parameters&);
     void validateAdd(Parameters&);
     void validateDelete(Parameters&);

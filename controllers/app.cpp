@@ -16,9 +16,10 @@ void App::run() {
 void App::preSetup() {
     login = new Login(&DB);
     signUp = new SignUp(&DB, login);
-    fm = new FilmManager(&DB, login);
+    rs = new RecommendationSystem(&DB);
+    fm = new FilmManager(&DB, rs, login);
     fh = new FollowerHandler(&DB, login);
-    mh = new MoneyHandler(&DB, login);
+    mh = new MoneyHandler(&DB, rs, login);
     ch = new CommentHandler(&DB, login);
 }
 void App::handleRequest(Request req) {

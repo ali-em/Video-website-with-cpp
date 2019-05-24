@@ -12,7 +12,7 @@ class View {
     static void send(std::string);
     static void sendError(std::exception&);
     static void printFilms(std::vector<Film*>&);
-    static void showFilmDetails(FilmInfo, std::string comments, std::string recommended);
+    static void showFilmDetails(FilmInfo, std::string comments, std::vector<Film*>);
     static void showFollowers(std::vector<UserInfo>);
     static void success();
     static void showNotifications(WordsList&);
