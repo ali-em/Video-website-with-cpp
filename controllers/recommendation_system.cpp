@@ -33,14 +33,14 @@ vector<Film*> RecommendationSystem::getRecommended(User* user, int newFilmId) {
     for (int i = 0; i < 5 && i < matrix.size(); i++) {
         int index = 0;
         bool found = false;
-        for (int j = 0; j < filmRate.size(); j++)
-            if (!user->isPurchased(DB->getFilmById(j + 1)) &&
-                filmRate[j] >= filmRate[index] &&
-                j + 1 != newFilmId &&
-                filmRate[j] != -1) {
+        for (int j = 0; j < filmRate.size(); j++) {
+            Film* film = DB->getFilmById(j + 1);
+            if (filmRate[j] >= filmRate[index] && j + 1 != newFilmId &&
+                filmRate[j] != -1 && !film->isDeleted() && !user->isPurchased(film)) {
                 index = j;
                 found = true;
             }
+        }
         if (found) {
             filmRate[index] = -1;
             filmIds.push_back(DB->getFilmById(index + 1));
