@@ -3,7 +3,7 @@ using namespace std;
 
 Database::Database() {
     User* admin = new User("s.aliemami@ut.ac.ir", "admin", "admin", "19");
-    users.push_back(admin);
+    addUser(admin);
 }
 
 Database::~Database() {
