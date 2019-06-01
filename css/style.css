@@ -1,0 +1,31 @@
+body {
+    background: rgb(245, 245, 245);
+}
+
+#form {
+    width: 50%;
+    display: block;
+    margin: 50px auto;
+    box-sizing: border-box;
+    padding: 40px;
+}
+
+.nav_bar>li>a {
+    color: white;
+    font-weight: bold;
+}
+
+.nav_bar>li>a:hover {
+    background: rgba(0, 0, 0, 0.05)
+}
+
+.permission_denied {
+    display: block;
+    margin: auto;
+    width: 30%;
+}
+
+hr {
+    border-radius: 50%;
+    width: 70%;
+}

@@ -30,7 +30,7 @@ enum RequestType {
 };
 typedef std::vector<std::string> WordsList;
 typedef std::map<std::string, std::string> Parameters;
-struct Request {
+struct Request_struct {
     RequestType command;
     Parameters params;
 };

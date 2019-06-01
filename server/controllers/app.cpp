@@ -2,15 +2,28 @@
 using namespace std;
 void App::run() {
     preSetup();
-    while (1) {
-        try {
-            Request req = Req.get();
-            if (req.command == FINISH)
-                break;
-            handleRequest(req);
-        } catch (exception& err) {
-            View::sendError(err);
-        }
+    try {
+        MyServer server(5000);
+        server.setNotFoundErrPage("static/404.html");
+        server.get("/signup", new ShowPage("static/signup.html"));
+        server.get("/signup", new ShowPage("static/signup.html"));
+        server.get("/login", new ShowPage("static/login.html"));
+        server.get("/permission-denied", new ShowPage("static/permission-denied.html"));
+        // server.post("/login" , new LoginHandler());
+        server.get("/handcuff.png", new ShowImage("images/handcuff.png"));
+        server.get("/mui.css", new ShowPage("css/mui.css"));
+        server.get("/style.css", new ShowPage("css/style.css"));
+        server.get("/mui.js", new ShowPage("js/mui.js"));
+        server.get("/include.js", new ShowPage("js/include.js"));
+        server.get("/nav.html", new ShowPage("static/nav.html"));
+
+        // Request_struct req = Req.get();
+        // if (req.command == FINISH)
+        //     break;
+        // handleRequest(req);
+        server.run();
+    } catch (exception& err) {
+        View::sendError(err);
     }
 }
 void App::preSetup() {
@@ -22,7 +35,7 @@ void App::preSetup() {
     mh = new MoneyHandler(&DB, rs, login);
     ch = new CommentHandler(&DB, login);
 }
-void App::handleRequest(Request req) {
+void App::handleRequest(Request_struct req) {
     if (req.command == EMPTY)
         return;
     if (req.command == P_SIGN_UP)

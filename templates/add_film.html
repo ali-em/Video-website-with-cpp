@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/mui.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/mui.js"></script>
+    <script src="../js/include.js"></script>
+
+    <title>Add film</title>
+</head>
+
+<body>
+    <span w3-include-html="nav.html"></span>
+    <br>
+    <br>
+    <div id="form" class="mui-panel">
+
+        <form id="signup-form" class="mui-form" method="post" action="/addfilm">
+            <legend>Add new film</legend>
+            <div class="mui-textfield mui-textfield--float-label">
+                <input type="text" name="name" required>
+                <label>Name</label>
+            </div>
+            <div class="mui-textfield mui-textfield--float-label">
+                <input type="number" name="Rating" required>
+                <label>Rating</label>
+            </div>
+            <div class="mui-textfield mui-textfield--float-label">
+                <input type="text" name="summary" required>
+                <label>Summary</label>
+            </div>
+            <div class="mui-textfield mui-textfield--float-label">
+                <input type="number" name="length" required>
+                <label>Length</label>
+            </div>
+            <div class="mui-textfield mui-textfield--float-label">
+                <input type="number" name="year" required>
+                <label>Year</label>
+            </div>
+            <div class="mui-textfield mui-textfield--float-label">
+                <input type="number" name="price" required>
+                <label>Price</label>
+            </div>
+            <div class="mui-textfield mui-textfield--float-label">
+                <input type="text" name="director" required>
+                <label>Director</label>
+            </div>
+            <button type="submit" class="mui-btn mui-btn--primary">Submit</button>
+
+        </form>
+    </div>
+
+</body>
+
+<script>
+    includeHTML();
+</script>
+
+</html>

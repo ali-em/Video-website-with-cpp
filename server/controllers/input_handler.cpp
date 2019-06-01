@@ -2,14 +2,14 @@
 
 using namespace std;
 
-Request InputHandler::get() {
+Request_struct InputHandler::get() {
     string pure;
 
     if (!getline(cin, pure))
-        return Request{FINISH, {}};
+        return Request_struct{FINISH, {}};
     WordsList splitted = split(pure);
     if (splitted.size() < 2)
-        return Request{EMPTY, {}};
+        return Request_struct{EMPTY, {}};
     return parseToRequest(splitted);
 }
 
@@ -39,10 +39,10 @@ string InputHandler::trim(string str) {
     return result;
 }
 
-Request InputHandler::parseToRequest(WordsList splitted) {
+Request_struct InputHandler::parseToRequest(WordsList splitted) {
     RequestType rt = getReqType(splitted);
     map<std::string, std::string> params = getReqParams(splitted, rt);
-    return Request{rt, params};
+    return Request_struct{rt, params};
 }
 Parameters InputHandler::getReqParams(WordsList splitted, RequestType rt) {
     Parameters result;

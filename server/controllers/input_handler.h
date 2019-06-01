@@ -7,12 +7,12 @@
 #define SPACE ' '
 class InputHandler {
    public:
-    Request get();
+    Request_struct get();
 
    private:
     WordsList split(std::string);
     std::string trim(std::string);
-    Request parseToRequest(WordsList);
+    Request_struct parseToRequest(WordsList);
     RequestType getReqType(WordsList);
     bool hasWord(WordsList, std::string);
     RequestType getRequestType(std::string str);

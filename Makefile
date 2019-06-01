@@ -4,61 +4,62 @@ TO_O_FLAG := -c
 
 OC := $(CC) $(CFLAGS) $(TO_O_FLAG)
 COMPILE := $(CC) $(CFLAGS)
+TEMPLATE_DIR=.template
 
 BUILD = build
 
 # MODELS
-USER_MODEL := models/user.h
-PUBLISHER_MODEL := models/publisher.h
-FILM := models/film.h
-NOTIF := models/notification.h
-COMMENT := models/comment.h
-PURCHASE := models/purchase.h
-REQUEST_TYPE := models/request_type.h
+USER_MODEL := server/models/user.h
+PUBLISHER_MODEL := server/models/publisher.h
+FILM := server/models/film.h
+NOTIF := server/models/notification.h
+COMMENT := server/models/comment.h
+PURCHASE := server/models/purchase.h
+REQUEST_TYPE := server/models/request_type.h
 ALL_MODELS := $(REQUEST_TYPE) $(USER_MODEL) $(PUBLISHER_MODEL) $(FILM) $(NOTIF) $(COMMENT) $(PURCHASE)
 
-USER_CPP := models/user.cpp
-PUB_CPP := models/publisher.cpp
-FILM_CPP := models/film.cpp
-PURCHASE_CPP := models/purchase.cpp
-COMMENT_CPP := models/comment.cpp
-NOTIF_CPP := models/notification.cpp
+USER_CPP := server/models/user.cpp
+PUB_CPP := server/models/publisher.cpp
+FILM_CPP := server/models/film.cpp
+PURCHASE_CPP := server/models/purchase.cpp
+COMMENT_CPP := server/models/comment.cpp
+NOTIF_CPP := server/models/notification.cpp
 
 #views
-VIEW := views/view
-DATABASE := database/database
+VIEW := server/views/view
+DATABASE := server/database/database
 
 
 #controllers
-APP := controllers/app
-INPUT := controllers/input_handler
-LOGIN := controllers/login
-SIGN_UP := controllers/signup
-TOOLS := controllers/tools
-FILM_MANAGER := controllers/film_manager
-FOLLOWER := controllers/follower_handler
-MONEY := controllers/money_handler
-COMMENT_HANDLER := controllers/comment_handler
-NOTIF_HANDLER := controllers/notification_handler
-RECOMMENDATION := controllers/recommendation_system
+APP := server/controllers/app
+INPUT := server/controllers/input_handler
+LOGIN := server/controllers/login
+SIGN_UP := server/controllers/signup
+TOOLS := server/controllers/tools
+FILM_MANAGER := server/controllers/film_manager
+FOLLOWER := server/controllers/follower_handler
+MONEY := server/controllers/money_handler
+COMMENT_HANDLER := server/controllers/comment_handler
+NOTIF_HANDLER := server/controllers/notification_handler
+RECOMMENDATION := server/controllers/recommendation_system
 #others
 
-MAIN = main.cpp
-
+MAIN = server/main.cpp
+MY_SERVER = server/my_server
 
 all:$(BUILD) app.out
 
-app.out:$(BUILD)/main.o
-	$(COMPILE)  $(BUILD)/app.o $(BUILD)/recommendation_system.o $(BUILD)/main.o $(BUILD)/purchase.o $(BUILD)/database.o $(BUILD)/input_handler.o $(BUILD)/view.o $(BUILD)/publisher.o $(BUILD)/user.o $(BUILD)/signup.o $(BUILD)/login.o $(BUILD)/tools.o $(BUILD)/film.o $(BUILD)/comment.o $(BUILD)/film_manager.o $(BUILD)/follower_handler.o $(BUILD)/notification_handler.o $(BUILD)/money_handler.o $(BUILD)/notification.o $(BUILD)/comment_handler.o  -o app.out
+app.out:$(BUILD)/main.o $(BUILD)/response.o $(BUILD)/request.o $(BUILD)/utilities.o $(BUILD)/server.o $(BUILD)/route.o $(BUILD)/template_parser.o $(BUILD)/my_server.o
+	$(COMPILE)  $(BUILD)/app.o $(BUILD)/recommendation_system.o $(BUILD)/main.o $(BUILD)/purchase.o $(BUILD)/database.o $(BUILD)/input_handler.o $(BUILD)/view.o $(BUILD)/publisher.o $(BUILD)/user.o $(BUILD)/signup.o $(BUILD)/login.o $(BUILD)/tools.o $(BUILD)/film.o $(BUILD)/comment.o $(BUILD)/film_manager.o $(BUILD)/follower_handler.o $(BUILD)/notification_handler.o $(BUILD)/money_handler.o $(BUILD)/notification.o $(BUILD)/comment_handler.o $(BUILD)/response.o $(BUILD)/request.o $(BUILD)/utilities.o $(BUILD)/server.o $(BUILD)/route.o $(BUILD)/template_parser.o $(BUILD)/my_server.o -o app.out
 
 
 $(BUILD):
 	mkdir -p $(BUILD) 
 
-$(BUILD)/main.o:main.cpp $(BUILD)/app.o
-	$(OC) main.cpp -o $(BUILD)/main.o
+$(BUILD)/main.o:$(MAIN) $(BUILD)/app.o
+	$(OC) $(MAIN) -o $(BUILD)/main.o
 
-$(BUILD)/app.o:$(APP).h $(APP).cpp $(BUILD)/database.o $(BUILD)/input_handler.o $(BUILD)/view.o $(BUILD)/tools.o $(BUILD)/login.o $(BUILD)/signup.o $(BUILD)/film_manager.o $(BUILD)/follower_handler.o $(BUILD)/money_handler.o $(BUILD)/comment_handler.o $(BUILD)/notification_handler.o $(BUILD)/recommendation_system.o
+$(BUILD)/app.o:$(APP).h $(APP).cpp $(BUILD)/database.o $(BUILD)/input_handler.o $(BUILD)/view.o $(BUILD)/tools.o $(BUILD)/login.o $(BUILD)/signup.o $(BUILD)/film_manager.o $(BUILD)/follower_handler.o $(BUILD)/money_handler.o $(BUILD)/comment_handler.o $(BUILD)/notification_handler.o $(BUILD)/recommendation_system.o 
 	$(OC) $(APP).cpp -o $(BUILD)/app.o
 
 $(BUILD)/database.o:$(BUILD)/user.o $(BUILD)/publisher.o $(DATABASE).cpp $(DATABASE).h $(ALL_MODELS) $(BUILD)/film_manager.o $(BUILD)/film.o
@@ -115,8 +116,28 @@ $(BUILD)/comment_handler.o:$(COMMENT_HANDLER).h $(COMMENT_HANDLER).cpp $(BUILD)/
 $(BUILD)/recommendation_system.o:$(RECOMMENDATION).h $(RECOMMENDATION).cpp $(BUILD)/tools.o
 	$(OC) $(RECOMMENDATION).cpp -o $(BUILD)/recommendation_system.o
 
+#------------------------------------------------------------------------------
 
+$(BUILD)/template_parser.o: utils/template_parser.cpp utils/template_parser.hpp utils/request.cpp utils/request.hpp utils/utilities.hpp utils/utilities.cpp
+	$(CC) $(CF) -c utils/template_parser.cpp -o $(BUILD)/template_parser.o
 
+$(BUILD)/response.o: utils/response.cpp utils/response.hpp utils/include.hpp
+	$(CC) $(CF) -c utils/response.cpp -o $(BUILD)/response.o
+
+$(BUILD)/request.o: utils/request.cpp utils/request.hpp utils/include.hpp utils/utilities.hpp
+	$(CC) $(CF) -c utils/request.cpp -o $(BUILD)/request.o
+
+$(BUILD)/utilities.o: utils/utilities.cpp utils/utilities.hpp
+	$(CC) $(CF) -c utils/utilities.cpp -o $(BUILD)/utilities.o
+
+$(BUILD)/server.o: server/server.cpp server/server.hpp server/route.hpp utils/utilities.hpp utils/response.hpp utils/request.hpp utils/include.hpp utils/template_parser.hpp utils/template_parser.cpp
+	$(CC) $(CF) -c server/server.cpp -o $(BUILD)/server.o
+
+$(BUILD)/route.o: server/route.cpp server/route.hpp utils/utilities.hpp utils/response.hpp utils/request.hpp utils/include.hpp
+	$(CC) $(CF) -c server/route.cpp -o $(BUILD)/route.o
+
+$(BUILD)/my_server.o: $(MY_SERVER).cpp server/server.hpp utils/utilities.hpp utils/response.hpp utils/request.hpp utils/include.hpp
+	$(CC) $(CF) -c $(MY_SERVER).cpp -o $(BUILD)/my_server.o
 
 .PHONY: clean
 

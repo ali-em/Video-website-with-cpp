@@ -3,6 +3,7 @@
 #include <cstdarg>
 #include <map>
 #include "../database/database.h"
+#include "../my_server.hpp"
 #include "../views/view.h"
 #include "comment_handler.h"
 #include "film_manager.h"
@@ -13,12 +14,13 @@
 #include "recommendation_system.h"
 #include "signup.h"
 #include "tools.h"
+
 class App {
    public:
     void run();
 
    private:
-    void handleRequest(Request);
+    void handleRequest(Request_struct);
     void preSetup();
     Database DB;
     InputHandler Req;

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/mui.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/mui.js"></script>
+    <script src="../js/include.js"></script>
+
+    <title> Dashboard</title>
+    <style>
+        div {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <span w3-include-html="nav.html"></span>
+    <br>
+    <br>
+    <div id="form" class="mui-panel" style="width: 30%; padding:20px; box-sizing:border-box">
+        <form class="mui-form" method="post" action="/charge">
+            <legend>Charge</legend>
+            <div style="display:inline-block" class="mui-textfield mui-textfield--float-label">
+                <input type="text" name="amount" required>
+                <label>Amount</label>
+            </div>
+            <div>
+                <button type="submit" class="mui-btn mui-btn--primary">Charge</button>
+            </div>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div class="mui--text-display2">Purchased Films</div>
+    <hr>
+    <div class="films">
+        <div class="mui-panel mui-col-md-6 mui-col-md-offset-3">
+            <div class="mui--text-headline">Snowden</div>
+            <div class="mui--text-dark-secondary mui--text-caption">2018</div>
+            <hr>
+
+
+            <div>
+                <table class="mui-table">
+                    <tr>
+                        <td class="mui--text-dark mui--text-body1" style="font-weight: bold;">Length</td>
+                        <td class="mui--text-dark mui--text-body1">120 minutes</td>
+                    </tr>
+                    <tr>
+                        <td class="mui--text-dark mui--text-body1" style="font-weight: bold;">Director</td>
+                        <td class="mui--text-dark mui--text-body1">Director</td>
+                    </tr>
+                    <tr>
+                        <td class="mui--text-dark mui--text-body1" style="font-weight: bold;">Rating</td>
+                        <td class="mui--text-dark mui--text-body1">4.8</td>
+                    </tr>
+                    <tr>
+                        <td class="mui--text-dark mui--text-body1" style="font-weight: bold;">Price</td>
+                        <td class="mui--text-dark mui--text-body1">5.00$</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button class=" mui-btn mui-btn--flat mui-btn--primary">More...</button>
+                        </td>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    includeHTML();
+</script>
+
+</html>
