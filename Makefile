@@ -1,5 +1,5 @@
 CC := g++
-CFLAGS := -std=c++11  
+CFLAGS := -std=c++11  -g
 TO_O_FLAG := -c
 
 OC := $(CC) $(CFLAGS) $(TO_O_FLAG)
@@ -48,6 +48,7 @@ RECOMMENDATION := server/controllers/recommendation_system
 MAIN = server/main.cpp
 MY_SERVER = server/my_server
 MIDDLEWARE = server/controllers/middleware
+TeMPLATE = server/controllers/handle-template
 
 all:$(BUILD) app.out
 
@@ -144,6 +145,7 @@ $(BUILD)/my_server.o: $(MY_SERVER).cpp server/server.hpp utils/utilities.hpp uti
 
 $(BUILD)/middleware.o:$(MIDDLEWARE).h $(MIDDLEWARE).cpp $(BUILD)/tools.o
 	$(OC) $(MIDDLEWARE).cpp -o $(BUILD)/middleware.o
+
 
 .PHONY: clean
 

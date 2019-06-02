@@ -11,7 +11,7 @@ class Database;
 class FilmManager {
    public:
     FilmManager(Database*, RecommendationSystem*, Login*);
-    void handleAddFilm(Parameters&);
+    Response* handleAddFilm(Parameters&);
     void handleEditFilm(Parameters&);
     void handleDeleteFilm(Parameters&);
     void handleGetFilms(Parameters&);

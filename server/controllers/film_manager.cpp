@@ -5,7 +5,7 @@ using namespace std;
 
 FilmManager::FilmManager(Database* db, RecommendationSystem* rs, Login* _login) : DB(db), login(_login), RS(rs) {}
 
-void FilmManager::handleAddFilm(Parameters& params) {
+Response* FilmManager::handleAddFilm(Parameters& params) {
     validateAdd(params);
     Film* newFilm = new Film(params);
     DB->addFilm(newFilm);
@@ -13,15 +13,15 @@ void FilmManager::handleAddFilm(Parameters& params) {
     pub->addFilm(newFilm);
     NotificationHandler::sendRegisterFilmNotif(pub);
     RS->addFilm();
-    View::success();
+
+    Response* res = Response::redirect("/");
+    return res;
 }
 void FilmManager::validateAdd(Parameters& params) {
     if (!Tools::checkParam(params, 6, "name", "year", "length", "price", "summary", "director"))
         throw BadRequest();
-    if (!login->isLoggedIn() || !login->isLoggedIn() || !login->getCurrentUser()->isPublisher())
+    if (!login->isLoggedIn() || !login->getCurrentUser()->isPublisher())
         throw PermissionDenied();
-    if (params.size() % 2 == 1)
-        throw BadRequest();
 }
 void FilmManager::handleEditFilm(Parameters& params) {
     validateEdit(params);

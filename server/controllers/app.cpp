@@ -9,7 +9,9 @@ void App::run() {
         server.get("/login", new ShowPage("static/login.html"));
         server.get("/permission-denied", new ShowPage("static/permission-denied.html"));
         server.get("/badRequest", new ShowPage("static/bad-request.html"));
-
+        server.get("/addFilm", new ShowPage("static/add_film.html"));
+        server.post("/addFilm", new HandleRequest("POST films", this));
+        // server.get("/", new HandleTemplate("GET PUBLISHED", this));
         server.post("/signup", new HandleRequest("POST signup", this));
         server.post("/login", new HandleRequest("POST login", this));
         server.get("/logout", new HandleRequest("POST logout", this));
@@ -37,7 +39,8 @@ void App::preSetup() {
 }
 Response* App::handleRequest(Request_struct& req) {
     Response* res;
-
+    if (req.params["session"] == "" || DB.findUserById(stoi(req.params["session"])) == NULL)
+        req.params["session"] = "";
     login->setSessionId(req.params["session"]);
     if (req.command == P_SIGN_UP)
         res = signUp->handleSignUp(req.params);
@@ -72,7 +75,7 @@ Response* App::handleRequest(Request_struct& req) {
     else if (!login->getCurrentUser()->isPublisher())
         throw PermissionDenied();
     else if (req.command == P_FILMS)
-        fm->handleAddFilm(req.params);
+        res = fm->handleAddFilm(req.params);
     else if (req.command == PU_FILMS)
         fm->handleEditFilm(req.params);
     else if (req.command == D_FILMS)
