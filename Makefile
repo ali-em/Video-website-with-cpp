@@ -1,5 +1,5 @@
 CC := g++
-CFLAGS := -std=c++11  -g
+CFLAGS := -std=c++11  
 TO_O_FLAG := -c
 
 OC := $(CC) $(CFLAGS) $(TO_O_FLAG)
@@ -42,15 +42,17 @@ MONEY := server/controllers/money_handler
 COMMENT_HANDLER := server/controllers/comment_handler
 NOTIF_HANDLER := server/controllers/notification_handler
 RECOMMENDATION := server/controllers/recommendation_system
+
 #others
 
 MAIN = server/main.cpp
 MY_SERVER = server/my_server
+MIDDLEWARE = server/controllers/middleware
 
 all:$(BUILD) app.out
 
-app.out:$(BUILD)/main.o $(BUILD)/response.o $(BUILD)/request.o $(BUILD)/utilities.o $(BUILD)/server.o $(BUILD)/route.o $(BUILD)/template_parser.o $(BUILD)/my_server.o
-	$(COMPILE)  $(BUILD)/app.o $(BUILD)/recommendation_system.o $(BUILD)/main.o $(BUILD)/purchase.o $(BUILD)/database.o $(BUILD)/input_handler.o $(BUILD)/view.o $(BUILD)/publisher.o $(BUILD)/user.o $(BUILD)/signup.o $(BUILD)/login.o $(BUILD)/tools.o $(BUILD)/film.o $(BUILD)/comment.o $(BUILD)/film_manager.o $(BUILD)/follower_handler.o $(BUILD)/notification_handler.o $(BUILD)/money_handler.o $(BUILD)/notification.o $(BUILD)/comment_handler.o $(BUILD)/response.o $(BUILD)/request.o $(BUILD)/utilities.o $(BUILD)/server.o $(BUILD)/route.o $(BUILD)/template_parser.o $(BUILD)/my_server.o -o app.out
+app.out:$(BUILD)/main.o $(BUILD)/response.o $(BUILD)/request.o $(BUILD)/utilities.o $(BUILD)/server.o $(BUILD)/route.o $(BUILD)/template_parser.o $(BUILD)/my_server.o $(BUILD)/middleware.o
+	$(COMPILE)  $(BUILD)/app.o $(BUILD)/recommendation_system.o $(BUILD)/main.o $(BUILD)/purchase.o $(BUILD)/database.o $(BUILD)/input_handler.o $(BUILD)/view.o $(BUILD)/publisher.o $(BUILD)/user.o $(BUILD)/signup.o $(BUILD)/login.o $(BUILD)/tools.o $(BUILD)/film.o $(BUILD)/comment.o $(BUILD)/film_manager.o $(BUILD)/follower_handler.o $(BUILD)/notification_handler.o $(BUILD)/money_handler.o $(BUILD)/notification.o $(BUILD)/comment_handler.o $(BUILD)/response.o $(BUILD)/request.o $(BUILD)/utilities.o $(BUILD)/server.o $(BUILD)/route.o $(BUILD)/template_parser.o $(BUILD)/my_server.o $(BUILD)/middleware.o -o app.out
 
 
 $(BUILD):
@@ -119,25 +121,29 @@ $(BUILD)/recommendation_system.o:$(RECOMMENDATION).h $(RECOMMENDATION).cpp $(BUI
 #------------------------------------------------------------------------------
 
 $(BUILD)/template_parser.o: utils/template_parser.cpp utils/template_parser.hpp utils/request.cpp utils/request.hpp utils/utilities.hpp utils/utilities.cpp
-	$(CC) $(CF) -c utils/template_parser.cpp -o $(BUILD)/template_parser.o
+	$(OC) utils/template_parser.cpp -o $(BUILD)/template_parser.o
 
 $(BUILD)/response.o: utils/response.cpp utils/response.hpp utils/include.hpp
-	$(CC) $(CF) -c utils/response.cpp -o $(BUILD)/response.o
+	$(OC) utils/response.cpp -o $(BUILD)/response.o
 
 $(BUILD)/request.o: utils/request.cpp utils/request.hpp utils/include.hpp utils/utilities.hpp
-	$(CC) $(CF) -c utils/request.cpp -o $(BUILD)/request.o
+	$(OC) utils/request.cpp -o $(BUILD)/request.o
 
 $(BUILD)/utilities.o: utils/utilities.cpp utils/utilities.hpp
-	$(CC) $(CF) -c utils/utilities.cpp -o $(BUILD)/utilities.o
+	$(OC) utils/utilities.cpp -o $(BUILD)/utilities.o
 
 $(BUILD)/server.o: server/server.cpp server/server.hpp server/route.hpp utils/utilities.hpp utils/response.hpp utils/request.hpp utils/include.hpp utils/template_parser.hpp utils/template_parser.cpp
-	$(CC) $(CF) -c server/server.cpp -o $(BUILD)/server.o
+	$(OC) server/server.cpp -o $(BUILD)/server.o
 
 $(BUILD)/route.o: server/route.cpp server/route.hpp utils/utilities.hpp utils/response.hpp utils/request.hpp utils/include.hpp
-	$(CC) $(CF) -c server/route.cpp -o $(BUILD)/route.o
+	$(OC) server/route.cpp -o $(BUILD)/route.o
 
 $(BUILD)/my_server.o: $(MY_SERVER).cpp server/server.hpp utils/utilities.hpp utils/response.hpp utils/request.hpp utils/include.hpp
-	$(CC) $(CF) -c $(MY_SERVER).cpp -o $(BUILD)/my_server.o
+	$(OC) $(MY_SERVER).cpp -o $(BUILD)/my_server.o
+
+
+$(BUILD)/middleware.o:$(MIDDLEWARE).h $(MIDDLEWARE).cpp $(BUILD)/tools.o
+	$(OC) $(MIDDLEWARE).cpp -o $(BUILD)/middleware.o
 
 .PHONY: clean
 

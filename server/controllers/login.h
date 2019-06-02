@@ -7,11 +7,12 @@ class Database;
 class Login {
    public:
     Login(Database* db);
-    void handleLogin(Parameters&);
+    Response* handleLogin(Parameters&);
     void login(User* user);
     bool isLoggedIn();
     User* getCurrentUser();
-    void logout();
+    void setSessionId(std::string);
+    Response* logout(Parameters&);
 
    private:
     Database* DB;

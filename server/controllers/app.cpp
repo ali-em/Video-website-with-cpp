@@ -6,10 +6,14 @@ void App::run() {
         MyServer server(5000);
         server.setNotFoundErrPage("static/404.html");
         server.get("/signup", new ShowPage("static/signup.html"));
-        server.get("/signup", new ShowPage("static/signup.html"));
         server.get("/login", new ShowPage("static/login.html"));
         server.get("/permission-denied", new ShowPage("static/permission-denied.html"));
-        // server.post("/login" , new LoginHandler());
+        server.get("/badRequest", new ShowPage("static/bad-request.html"));
+
+        server.post("/signup", new HandleRequest("POST signup", this));
+        server.post("/login", new HandleRequest("POST login", this));
+        server.get("/logout", new HandleRequest("POST logout", this));
+
         server.get("/handcuff.png", new ShowImage("images/handcuff.png"));
         server.get("/mui.css", new ShowPage("css/mui.css"));
         server.get("/style.css", new ShowPage("css/style.css"));
@@ -17,13 +21,9 @@ void App::run() {
         server.get("/include.js", new ShowPage("js/include.js"));
         server.get("/nav.html", new ShowPage("static/nav.html"));
 
-        // Request_struct req = Req.get();
-        // if (req.command == FINISH)
-        //     break;
-        // handleRequest(req);
         server.run();
-    } catch (exception& err) {
-        View::sendError(err);
+    } catch (Server::Exception e) {
+        cerr << e.getMessage() << endl;
     }
 }
 void App::preSetup() {
@@ -35,15 +35,16 @@ void App::preSetup() {
     mh = new MoneyHandler(&DB, rs, login);
     ch = new CommentHandler(&DB, login);
 }
-void App::handleRequest(Request_struct req) {
-    if (req.command == EMPTY)
-        return;
+Response* App::handleRequest(Request_struct& req) {
+    Response* res;
+
+    login->setSessionId(req.params["session"]);
     if (req.command == P_SIGN_UP)
-        signUp->handleSignUp(req.params);
+        res = signUp->handleSignUp(req.params);
     else if (req.command == P_LOGIN)
-        login->handleLogin(req.params);
+        res = login->handleLogin(req.params);
     else if (req.command == P_LOGOUT)
-        login->logout();
+        res = login->logout(req.params);
 
     else if (!login->isLoggedIn())
         throw PermissionDenied();
@@ -84,4 +85,5 @@ void App::handleRequest(Request_struct req) {
         ch->sendReply(req.params);
     else if (req.command == D_COMMENTS)
         ch->deleteComment(req.params);
+    return res;
 }

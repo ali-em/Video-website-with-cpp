@@ -7,6 +7,7 @@
 #include <regex>
 #include <string>
 #include "../models/request_type.h"
+#include "../server.hpp"
 class Tools {
    public:
     static bool isEmail(std::string email);

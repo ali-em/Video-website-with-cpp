@@ -11,21 +11,34 @@ void Login::login(User* user) {
 User* Login::getCurrentUser() {
     return currentUser;
 }
-void Login::handleLogin(Parameters& params) {
-    if (!Tools::checkParam(params, 2, "username", "password") || _isLoggedIn)
-        throw BadRequest();
+void Login::setSessionId(std::string id) {
+    if (id != "") {
+        currentUser = DB->findUserById(stoi(id));
+        _isLoggedIn = true;
+    } else {
+        cout << "**********************************************" << endl;
+        _isLoggedIn = false;
+    }
+}
+
+Response* Login::handleLogin(Parameters& params) {
+    if (!Tools::checkParam(params, 2, "username", "password") || _isLoggedIn) throw BadRequest();
     User* user = DB->findUserByUsernameAndPassword(params["username"], params["password"]);
     if (user) {
-        login(user);
-        View::success();
+        params["session"] = to_string(user->getId());
+        _isLoggedIn = true;
     } else
         throw BadRequest();
+    Response* res = Response::redirect("/");
+    return res;
 }
 bool Login::isLoggedIn() { return _isLoggedIn; }
 
-void Login::logout() {
-    if (!_isLoggedIn)
+Response* Login::logout(Parameters& params) {
+    if (!_isLoggedIn) {
         throw BadRequest();
+    }
     _isLoggedIn = false;
-    View::success();
+    params["session"] = "";
+    return Response::redirect("/login");
 }

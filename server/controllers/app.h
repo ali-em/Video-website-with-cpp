@@ -10,6 +10,7 @@
 #include "follower_handler.h"
 #include "input_handler.h"
 #include "login.h"
+#include "middleware.h"
 #include "money_handler.h"
 #include "recommendation_system.h"
 #include "signup.h"
@@ -18,9 +19,9 @@
 class App {
    public:
     void run();
+    Response* handleRequest(Request_struct&);
 
    private:
-    void handleRequest(Request_struct);
     void preSetup();
     Database DB;
     InputHandler Req;

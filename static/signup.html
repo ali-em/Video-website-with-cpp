@@ -10,31 +10,16 @@
     <script src="mui.js"></script>
     <script src="include.js"></script>
 
-    <script>
-        window.onload = function () {
-            var form = document.querySelector("form");
-            form.onsubmit = submitForm.bind(form);
-        }
-
-        function submitForm(event) {
-            event.preventDefault();
-
-            var password = document.getElementsByName("password")[0];
-            var password2 = document.getElementsByName("rpassword")[0];
-            if (password.value == password2.value)
-                document.querySelector("form").submit();
-        }
-    </script>
     <title>Sign up</title>
 </head>
 
 <body>
     <span w3-include-html="nav.html"></span>
     <div id="form" class="mui-panel">
-        <form id="signup-form" class="mui-form" method="post" action="/signuplogic">
+        <form id="signup-form" class="mui-form" method="post" action="/signup">
             <legend>Sign up</legend>
             <div class="mui-textfield mui-textfield--float-label">
-                <input type="text" name="name" required>
+                <input type="text" name="username" required>
                 <label>Name</label>
             </div>
             <div class="mui-textfield mui-textfield--float-label">
@@ -54,17 +39,12 @@
                 <label>repeat password</label>
             </div>
             <div>
-                I'm a
+                Publisher
                 <label>
-                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                    User
-                </label>
-                <label>
-                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                    Publisher
+                    <input type="checkbox" name="publisher" id="publisher" value="true">
                 </label>
             </div>
-            <button type="submit" onsubmit="submitForm()" class="mui-btn mui-btn--primary">Submit</button>
+            <button type="submit" class="mui-btn mui-btn--primary">Submit</button>
 
         </form>
     </div>

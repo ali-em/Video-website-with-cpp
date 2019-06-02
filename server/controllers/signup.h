@@ -8,7 +8,7 @@
 class SignUp {
    public:
     SignUp(Database*, Login*);
-    void handleSignUp(Parameters&);
+    Response* handleSignUp(Parameters&);
     void validateSignUp(Parameters&);
 
    private:

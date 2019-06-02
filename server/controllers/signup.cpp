@@ -3,18 +3,19 @@ using namespace std;
 
 SignUp::SignUp(Database* db, Login* _login) : DB(db), login(_login) {
 }
-void SignUp::handleSignUp(Parameters& params) {
+Response* SignUp::handleSignUp(Parameters& params) {
     validateSignUp(params);
+    Response* res = Response::redirect("/");
     if (Tools::isInMap(params, "publisher") && params["publisher"] == "true") {
         Publisher* newPub = new Publisher(params);
         DB->addUser(newPub);
-        login->login(newPub);
+        params["session"] = to_string(newPub->getId());
     } else {
         User* newUser = new User(params);
         DB->addUser(newUser);
-        login->login(newUser);
+        params["session"] = to_string(newUser->getId());
     }
-    View::success();
+    return res;
 }
 void SignUp::validateSignUp(Parameters& params) {
     if (!Tools::checkParam(params, 4, "email", "username", "password", "age"))
