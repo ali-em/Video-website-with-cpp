@@ -11,6 +11,8 @@ void App::run() {
         server.get("/badRequest", new ShowPage("static/bad-request.html"));
         server.get("/addFilm", new ShowPage("static/add_film.html"));
         server.post("/addFilm", new HandleRequest("POST films", this));
+        server.get("/delete", new HandleRequest("POST delete_films", this));
+
         server.post("/signup", new HandleRequest("POST signup", this));
         server.post("/login", new HandleRequest("POST login", this));
         server.get("/logout", new HandleRequest("POST logout", this));
@@ -79,7 +81,7 @@ Response* App::handleRequest(Request_struct& req) {
     else if (req.command == PU_FILMS)
         fm->handleEditFilm(req.params);
     else if (req.command == D_FILMS)
-        fm->handleDeleteFilm(req.params);
+        res = fm->handleDeleteFilm(req.params);
     else if (req.command == G_PUBLISHED)
         fm->handleGetPublished(req.params);
     else if (req.command == G_FOLLOWERS)
