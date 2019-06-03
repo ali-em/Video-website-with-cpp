@@ -16,7 +16,7 @@ void MoneyHandler::handleMoneyRequest(Parameters params) {
     }
     View::success();
 }
-void MoneyHandler::handleBuyRequest(Parameters& params) {
+Response* MoneyHandler::handleBuyRequest(Parameters& params) {
     validateBuy(params);
     Film* film = DB->getFilmById(stoi(params["film_id"]));
     Purchase* purchase = new Purchase(film->getPrice(), film->getRate());
@@ -26,7 +26,7 @@ void MoneyHandler::handleBuyRequest(Parameters& params) {
     user->addToPurchased(film);
     RS->update(user, film->getId());
     NotificationHandler::sendBuyNotif(user, DB->getPublisherByFilmId(stoi(params["film_id"])), film);
-    View::success();
+    return Response::redirect("/dashboard");
 }
 
 void MoneyHandler::validateBuy(Parameters& params) {

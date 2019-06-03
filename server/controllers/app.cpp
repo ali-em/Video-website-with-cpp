@@ -10,12 +10,13 @@ void App::run() {
         server.get("/permission-denied", new ShowPage("static/permission-denied.html"));
         server.get("/badRequest", new ShowPage("static/bad-request.html"));
         server.get("/addFilm", new ShowPage("static/add_film.html"));
+
         server.post("/addFilm", new HandleRequest("POST films", this));
         server.get("/delete", new HandleRequest("POST delete_films", this));
-
         server.post("/signup", new HandleRequest("POST signup", this));
         server.post("/login", new HandleRequest("POST login", this));
         server.get("/logout", new HandleRequest("POST logout", this));
+        server.get("/buy", new HandleRequest("POST buy", this));
         server.get("/", new HomeHandler("templates/home.html", this));
         server.get("/film", new FilmHandler("templates/film.html", this));
 
@@ -60,7 +61,7 @@ Response* App::handleRequest(Request_struct& req) {
     else if (req.command == P_MONEY)
         mh->handleMoneyRequest(req.params);
     else if (req.command == P_BUY)
-        mh->handleBuyRequest(req.params);
+        res = mh->handleBuyRequest(req.params);
     else if (req.command == P_RATE)
         fm->handleRate(req.params);
     else if (req.command == P_COMMENTS)

@@ -60,10 +60,10 @@ void FilmManager::validateDelete(Parameters& params) {
 Parameters FilmManager::handleGetFilms(Parameters& params) {
     validateGet();
     Parameters result;
-    if (login->getCurrentUser()->isPublisher()) {
-        result["films"] = handleGetPublished(params);
-    } else if (Tools::isInMap(params, "film_id")) {
+    if (Tools::isInMap(params, "film_id")) {
         result = getFilmDetails(stoi(params["film_id"]));
+    } else if (login->getCurrentUser()->isPublisher()) {
+        result["films"] = handleGetPublished(params);
     } else {
         vector<Film*> filtered;
         filtered = filterFilms(params, DB->getFilms(), true);

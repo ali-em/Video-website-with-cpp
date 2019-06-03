@@ -12,7 +12,7 @@ class MoneyHandler {
    public:
     MoneyHandler(Database*, RecommendationSystem*, Login*);
     void handleMoneyRequest(Parameters);
-    void handleBuyRequest(Parameters&);
+    Response* handleBuyRequest(Parameters&);
     void validateBuy(Parameters&);
     void getMoney();
     void getSystemMoney();

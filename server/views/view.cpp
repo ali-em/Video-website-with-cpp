@@ -117,7 +117,7 @@ Parameters View::showFilmDetails(FilmInfo filmInfo, string comments, std::vector
        << "                <tr>"
        << "                    <td colspan='2'> <a href='/buy?film_id="
        << filmInfo.id
-       << "                        ><button"
+       << "'                        ><button"
        << "                            class=' mui-col-md-offset-4 mui-col-md-4  mui-btn--raised mui-btn mui-btn--primary'>Buy</button> </a>"
        << "                    </td>"
        << "                </tr>"
