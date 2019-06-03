@@ -8,10 +8,10 @@
 #include "comment_handler.h"
 #include "film_manager.h"
 #include "follower_handler.h"
+#include "handleRequest.h"
 #include "handlers.h"
 #include "input_handler.h"
 #include "login.h"
-#include "middleware.h"
 #include "money_handler.h"
 #include "recommendation_system.h"
 #include "signup.h"
@@ -21,6 +21,7 @@ class App {
     void run();
     Response* handleRequest(Request_struct&);
     Parameters handleTemplates(Request_struct&);
+
    private:
     void preSetup();
     Database DB;

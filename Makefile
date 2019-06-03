@@ -47,7 +47,7 @@ RECOMMENDATION := server/controllers/recommendation_system
 
 MAIN = server/main.cpp
 MY_SERVER = server/my_server
-MIDDLEWARE = server/controllers/middleware
+MIDDLEWARE = server/controllers/handleRequest
 HANDLERS = server/controllers/handlers
 
 all:$(BUILD) app.out
