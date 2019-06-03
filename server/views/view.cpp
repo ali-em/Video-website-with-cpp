@@ -7,9 +7,9 @@ void View::send(std::string msg) {
 void View::sendError(std::exception& ex) {
     cout << ex.what() << endl;
 }
-string View::printFilms(vector<Film*>& films) {
+string View::printFilms(vector<Film*>& films, bool includeDelete) {
     stringstream ss;
-    for (auto f : films)
+    for (auto f : films) {
         ss << "    <div class='mui-panel mui-col-md-6 mui-col-md-offset-3'>"
            << "            <div class='mui--text-headline'>"
            << f->getName()
@@ -43,14 +43,16 @@ string View::printFilms(vector<Film*>& films) {
            << "                        <td class='mui--text-dark mui--text-body1'>"
            << f->getPrice()
            << "$</td>"
-           << "                    </tr>"
-           << "                    <tr>"
-           << "                        <td colspan='2'>"
-           << "                           <a href='/delete?film_id=" << f->getId() << "'> <button class=' mui-btn--raised mui-btn mui-btn--flat mui-btn--danger'>Delete</button> </a></td>"
-           << "                        </td>"
-           << "                    </tr>"
-           << "                    <tr>"
-           << ""
+           << "                    </tr>";
+        if (includeDelete)
+            ss << "                    <tr>"
+               << "                        <td colspan='2'>"
+               << "                           <a href='/delete?film_id=" << f->getId() << "'> <button class=' mui-btn--raised mui-btn mui-btn--flat mui-btn--danger'>Delete</button> </a></td>"
+               << "                        </td>"
+               << "                    </tr>"
+               << "                    <tr>";
+
+        ss << ""
            << "                        <td colspan='2'>"
            << "                        <a href='/film?film_id=" << f->getId() << "'>    <button class=' mui-btn mui-btn--flat mui-btn--primary'>More</button> </a> </td>"
            << ""
@@ -59,6 +61,7 @@ string View::printFilms(vector<Film*>& films) {
            << "                </table>"
            << "            </div>"
            << "        </div>";
+    }
     return ss.str();
 }
 void View::showFilmInfo(FilmInfo filmInfo) {

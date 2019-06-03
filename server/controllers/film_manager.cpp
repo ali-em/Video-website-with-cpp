@@ -60,13 +60,14 @@ void FilmManager::validateDelete(Parameters& params) {
 Parameters FilmManager::handleGetFilms(Parameters& params) {
     validateGet();
     Parameters result;
-
-    if (Tools::isInMap(params, "film_id")) {
+    if (login->getCurrentUser()->isPublisher()) {
+        result["films"] = handleGetPublished(params);
+    } else if (Tools::isInMap(params, "film_id")) {
         result = getFilmDetails(stoi(params["film_id"]));
     } else {
         vector<Film*> filtered;
         filtered = filterFilms(params, DB->getFilms(), true);
-        result["films"] = View::printFilms(filtered);
+        result["films"] = View::printFilms(filtered, false);
     }
     return result;
 }
@@ -77,13 +78,13 @@ Parameters FilmManager::getFilmDetails(int filmId) {
         throw NotFound();
     return View::showFilmDetails(film->getDetails(), film->getComments(), RS->getRecommended(currentUser, filmId));
 }
-void FilmManager::handleGetPublished(Parameters& params) {
+string FilmManager::handleGetPublished(Parameters& params) {
     validateGet();
     User* currentUser = login->getCurrentUser();
     vector<Film*> filtered;
     Publisher* pub = static_cast<Publisher*>(currentUser);
     filtered = filterFilms(params, pub->getFilms(), true);
-    View::printFilms(filtered);
+    return View::printFilms(filtered);
 }
 
 void FilmManager::validateGet() {

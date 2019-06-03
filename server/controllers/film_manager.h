@@ -17,7 +17,7 @@ class FilmManager {
     Parameters handleGetFilms(Parameters&);
     void handleRate(Parameters&);
     void handleGetPurchased(Parameters&);
-    void handleGetPublished(Parameters&);
+    std::string handleGetPublished(Parameters&);
     Parameters getFilmDetails(int filmId);
 
    private:
