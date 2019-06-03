@@ -12,10 +12,9 @@ class HandleRequest : public RequestHandler {
 
    private:
     App *app;
-    RequestType getRequestType(std::string str);
+
     RequestType requestType;
     Parameters params;
-    Parameters makeMapFromRequest(Request *);
 };
 
 #endif

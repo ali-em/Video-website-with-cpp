@@ -16,6 +16,8 @@ class Tools {
     static bool checkParam(Parameters m, int counter, const char* keys...);
     static bool isInMap(Parameters m, std::string key);
     static int hashCRC32(const std::string& my_string);
+    static RequestType getRequestType(std::string str);
+    static Parameters makeMapFromRequest(Request*);
 };
 
 #endif

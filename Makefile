@@ -48,12 +48,12 @@ RECOMMENDATION := server/controllers/recommendation_system
 MAIN = server/main.cpp
 MY_SERVER = server/my_server
 MIDDLEWARE = server/controllers/middleware
-TeMPLATE = server/controllers/handle-template
+HANDLERS = server/controllers/handlers
 
 all:$(BUILD) app.out
 
-app.out:$(BUILD)/main.o $(BUILD)/response.o $(BUILD)/request.o $(BUILD)/utilities.o $(BUILD)/server.o $(BUILD)/route.o $(BUILD)/template_parser.o $(BUILD)/my_server.o $(BUILD)/middleware.o
-	$(COMPILE)  $(BUILD)/app.o $(BUILD)/recommendation_system.o $(BUILD)/main.o $(BUILD)/purchase.o $(BUILD)/database.o $(BUILD)/input_handler.o $(BUILD)/view.o $(BUILD)/publisher.o $(BUILD)/user.o $(BUILD)/signup.o $(BUILD)/login.o $(BUILD)/tools.o $(BUILD)/film.o $(BUILD)/comment.o $(BUILD)/film_manager.o $(BUILD)/follower_handler.o $(BUILD)/notification_handler.o $(BUILD)/money_handler.o $(BUILD)/notification.o $(BUILD)/comment_handler.o $(BUILD)/response.o $(BUILD)/request.o $(BUILD)/utilities.o $(BUILD)/server.o $(BUILD)/route.o $(BUILD)/template_parser.o $(BUILD)/my_server.o $(BUILD)/middleware.o -o app.out
+app.out:$(BUILD)/main.o $(BUILD)/response.o $(BUILD)/request.o $(BUILD)/utilities.o $(BUILD)/server.o $(BUILD)/route.o $(BUILD)/template_parser.o $(BUILD)/my_server.o $(BUILD)/middleware.o $(BUILD)/handlers.o
+	$(COMPILE)  $(BUILD)/app.o $(BUILD)/recommendation_system.o $(BUILD)/main.o $(BUILD)/purchase.o $(BUILD)/database.o $(BUILD)/input_handler.o $(BUILD)/view.o $(BUILD)/publisher.o $(BUILD)/user.o $(BUILD)/signup.o $(BUILD)/login.o $(BUILD)/tools.o $(BUILD)/film.o $(BUILD)/comment.o $(BUILD)/film_manager.o $(BUILD)/follower_handler.o $(BUILD)/notification_handler.o $(BUILD)/money_handler.o $(BUILD)/notification.o $(BUILD)/comment_handler.o $(BUILD)/response.o $(BUILD)/request.o $(BUILD)/utilities.o $(BUILD)/server.o $(BUILD)/route.o $(BUILD)/template_parser.o $(BUILD)/my_server.o $(BUILD)/middleware.o $(BUILD)/handlers.o -o app.out
 
 
 $(BUILD):
@@ -146,6 +146,9 @@ $(BUILD)/my_server.o: $(MY_SERVER).cpp server/server.hpp utils/utilities.hpp uti
 $(BUILD)/middleware.o:$(MIDDLEWARE).h $(MIDDLEWARE).cpp $(BUILD)/tools.o
 	$(OC) $(MIDDLEWARE).cpp -o $(BUILD)/middleware.o
 
+
+$(BUILD)/handlers.o:$(HANDLERS).h $(HANDLERS).cpp $(BUILD)/tools.o $(APP).h
+	$(OC) $(HANDLERS).cpp -o $(BUILD)/handlers.o
 
 .PHONY: clean
 

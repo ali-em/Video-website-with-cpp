@@ -21,7 +21,8 @@ string Comment::getInfo() {
     result << id << ". " << content << endl;
     int i = 1;
     for (auto rep : replies)
-        result << id << "." << i++ << ". " << rep->getContent() << endl;
+        result << " <div class='mui-panel mui-col-md-6 mui-col-md-offset-3'>"
+               << rep->getContent() << "</div> ";
     return result.str();
 }
 void Comment::remove() {

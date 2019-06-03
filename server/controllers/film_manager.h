@@ -13,12 +13,12 @@ class FilmManager {
     FilmManager(Database*, RecommendationSystem*, Login*);
     Response* handleAddFilm(Parameters&);
     void handleEditFilm(Parameters&);
-    void handleDeleteFilm(Parameters&);
-    void handleGetFilms(Parameters&);
+    Response* handleDeleteFilm(Parameters&);
+    Parameters handleGetFilms(Parameters&);
     void handleRate(Parameters&);
     void handleGetPurchased(Parameters&);
     void handleGetPublished(Parameters&);
-    void getFilmDetails(int filmId);
+    Parameters getFilmDetails(int filmId);
 
    private:
     Database* DB;

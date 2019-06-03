@@ -7,43 +7,128 @@ void View::send(std::string msg) {
 void View::sendError(std::exception& ex) {
     cout << ex.what() << endl;
 }
-void View::printFilms(vector<Film*>& films) {
-    int i = 1;
-    cout << "#. "
-         << "Film Id" << DIVIDER
-         << "Film Name" << DIVIDER
-         << "Film Length" << DIVIDER
-         << "Film price" << DIVIDER
-         << "Rate" << DIVIDER
-         << "Production Year" << DIVIDER
-         << "Film Director" << endl;
-    for (auto f : films) {
-        cout << i++ << ". ";
-        showFilmInfo(f->getInfo());
-        cout << endl;
-    }
+string View::printFilms(vector<Film*>& films) {
+    stringstream ss;
+    for (auto f : films)
+        ss << "    <div class='mui-panel mui-col-md-6 mui-col-md-offset-3'>"
+           << "            <div class='mui--text-headline'>"
+           << f->getName()
+           << "</div>"
+           << "            <div class='mui--text-dark-secondary mui--text-caption'>"
+           << f->getYear()
+           << "</div>"
+           << "            <hr>"
+           << "            <div>"
+           << "                <table class='mui-table'>"
+           << "                    <tr>"
+           << "                        <td class='mui--text-dark mui--text-body1' style='font-weight: bold;'>Length</td>"
+           << "                        <td class='mui--text-dark mui--text-body1'>"
+           << f->getLength()
+           << " minutes</td>"
+           << "                    </tr>"
+           << "                    <tr>"
+           << "                        <td class='mui--text-dark mui--text-body1' style='font-weight: bold;'>Director</td>"
+           << "                        <td class='mui--text-dark mui--text-body1'>"
+           << f->getDirector()
+           << "</td>"
+           << "                    </tr>"
+           << "                    <tr>"
+           << "                        <td class='mui--text-dark mui--text-body1' style='font-weight: bold;'>Rating</td>"
+           << "                        <td class='mui--text-dark mui--text-body1'>"
+           << setprecision(2) << f->getRate()
+           << "</td>"
+           << "                    </tr>"
+           << "                    <tr>"
+           << "                        <td class='mui--text-dark mui--text-body1' style='font-weight: bold;'>Price</td>"
+           << "                        <td class='mui--text-dark mui--text-body1'>"
+           << f->getPrice()
+           << "$</td>"
+           << "                    </tr>"
+           << "                    <tr>"
+           << "                        <td colspan='2'>"
+           << "                           <a href='/delete?film_id=" << f->getId() << "'> <button class=' mui-btn--raised mui-btn mui-btn--flat mui-btn--danger'>Delete</button> </a></td>"
+           << "                        </td>"
+           << "                    </tr>"
+           << "                    <tr>"
+           << ""
+           << "                        <td colspan='2'>"
+           << "                        <a href='/film?film_id=" << f->getId() << "'>    <button class=' mui-btn mui-btn--flat mui-btn--primary'>More</button> </a> </td>"
+           << ""
+           << "                        </td>"
+           << "                    </tr>"
+           << "                </table>"
+           << "            </div>"
+           << "        </div>";
+    return ss.str();
 }
 void View::showFilmInfo(FilmInfo filmInfo) {
     cout << filmInfo.id << DIVIDER << filmInfo.name << DIVIDER << filmInfo.length
          << DIVIDER << filmInfo.price << DIVIDER << setprecision(2) << filmInfo.rate << DIVIDER << filmInfo.year
          << DIVIDER << filmInfo.director;
 }
-void View::showFilmDetails(FilmInfo filmInfo, string comments, std::vector<Film*> RecommendedFilms) {
-    cout << "Details of Film " << filmInfo.name << endl
-         << "Id = " << filmInfo.id << endl
-         << "Director = " << filmInfo.director << endl
-         << "Length = " << filmInfo.length << endl
-         << "Year = " << filmInfo.year << endl
-         << "Summary = " << filmInfo.summary << endl
-         << "Rate = " << filmInfo.rate << endl
-         << "Price = " << filmInfo.price << endl
-         << endl
-         << comments << endl
-         << "Recommendation Film" << endl
-         << "#. Film Id" << DIVIDER << "Film Name" << DIVIDER << "Film Length" << DIVIDER << "Film Director" << endl;
-    int i = 1;
-    for (auto f : RecommendedFilms)
-        cout << i++ << ". " << f->getShortInfo() << endl;
+Parameters View::showFilmDetails(FilmInfo filmInfo, string comments, std::vector<Film*> RecommendedFilms) {
+    stringstream ss;
+    Parameters result;
+    ss << "     <div class='mui--text-headline'>"
+       << filmInfo.name
+       << "</div>"
+       << "        <div class='mui--text-dark-secondary mui--text-caption'>"
+       << filmInfo.year
+       << "</div>"
+       << "        <hr>"
+       << "        <div>"
+       << "            <table class='mui-table'>"
+       << "                <tr>"
+       << "                    <td class='mui--text-dark mui--text-body1' style='font-weight: bold;'>Length</td>"
+       << "                    <td class='mui--text-dark mui--text-body1'>"
+       << filmInfo.year
+       << " minutes</td>"
+       << "                </tr>"
+       << "                <tr>"
+       << "                    <td class='mui--text-dark mui--text-body1' style='font-weight: bold;'>Director</td>"
+       << "                    <td class='mui--text-dark mui--text-body1'>"
+       << filmInfo.director
+       << "</td>"
+       << "                </tr>"
+       << "                <tr>"
+       << "                    <td class='mui--text-dark mui--text-body1' style='font-weight: bold;'>Rating</td>"
+       << "                    <td class='mui--text-dark mui--text-body1'>"
+       << filmInfo.rate
+       << "</td>"
+       << "                </tr>"
+       << "                <tr>"
+       << "                    <td class='mui--text-dark mui--text-body1' style='font-weight: bold;'>Price</td>"
+       << "                    <td class='mui--text-dark mui--text-body1'>"
+       << filmInfo.price
+       << "$</td>"
+       << "                </tr>"
+       << "                <tr>"
+       << "                    <td colspan='2' class='mui--text-dark mui--text-body1' style='font-weight: bold;'>Summary</td>"
+       << ""
+       << "                </tr>"
+       << "                <tr>"
+       << "                    <td colspan='2'>"
+       << filmInfo.summary
+       << "                    </td>"
+       << "                </tr>"
+       << "                <tr>"
+       << "                    <td colspan='2'> <a href='/buy?film_id="
+       << filmInfo.id
+       << "                        ><button"
+       << "                            class=' mui-col-md-offset-4 mui-col-md-4  mui-btn--raised mui-btn mui-btn--primary'>Buy</button> </a>"
+       << "                    </td>"
+       << "                </tr>"
+       << "                <tr>"
+       << "                    <td colspan='2'>"
+       << "                        <button"
+       << "                            class=' mui-col-md-offset-4 mui-col-md-4  mui-btn--flat mui-btn mui-btn--primary'>Rate</button>"
+       << "                    </td>"
+       << "                </tr>"
+       << "            </table>"
+       << "        </div>";
+    result["film"] = ss.str();
+    result["comments"] = comments;
+    return result;
 }
 void View::showFollowers(std::vector<UserInfo> followers) {
     cout << "List of Followers" << endl

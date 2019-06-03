@@ -28,6 +28,9 @@ class Film {
     std::string getName();
     int getId() const;
     void edit(Parameters&);
+    int getYear();
+    std::string getDirector();
+    int getLength();
     bool isDeleted();
     void _delete();
     bool isMatch(Parameters&);
@@ -54,7 +57,7 @@ class Film {
     int price;
     int commentId = 1;
     bool deleted = false;
-    float rate;
+    float rate = 0;
     std::vector<Comment*> comments;
     std::vector<std::pair<User*, int>> rating;
     std::vector<Purchase*> purchases;

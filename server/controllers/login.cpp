@@ -9,6 +9,8 @@ void Login::login(User* user) {
     _isLoggedIn = true;
 }
 User* Login::getCurrentUser() {
+    if (currentUser == NULL)
+        throw PermissionDenied();
     return currentUser;
 }
 void Login::setSessionId(std::string id) {

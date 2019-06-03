@@ -39,11 +39,11 @@ void FilmManager::validateEdit(Parameters& params) {
         throw PermissionDenied();
 }
 
-void FilmManager::handleDeleteFilm(Parameters& params) {
+Response* FilmManager::handleDeleteFilm(Parameters& params) {
     validateDelete(params);
     Film* film = DB->getFilmById(stoi(params["film_id"]));
     film->_delete();
-    View::success();
+    return Response::redirect("/");
 }
 
 void FilmManager::validateDelete(Parameters& params) {
@@ -57,22 +57,25 @@ void FilmManager::validateDelete(Parameters& params) {
     if (!pub->hasFilm(stoi(params["film_id"])))
         throw PermissionDenied();
 }
-void FilmManager::handleGetFilms(Parameters& params) {
+Parameters FilmManager::handleGetFilms(Parameters& params) {
     validateGet();
+    Parameters result;
+
     if (Tools::isInMap(params, "film_id")) {
-        getFilmDetails(stoi(params["film_id"]));
-        return;
+        result = getFilmDetails(stoi(params["film_id"]));
+    } else {
+        vector<Film*> filtered;
+        filtered = filterFilms(params, DB->getFilms(), true);
+        result["films"] = View::printFilms(filtered);
     }
-    vector<Film*> filtered;
-    filtered = filterFilms(params, DB->getFilms(), true);
-    View::printFilms(filtered);
+    return result;
 }
-void FilmManager::getFilmDetails(int filmId) {
+Parameters FilmManager::getFilmDetails(int filmId) {
     Film* film = DB->getFilmById(filmId);
     User* currentUser = login->getCurrentUser();
     if (!film || film->isDeleted())
         throw NotFound();
-    View::showFilmDetails(film->getDetails(), film->getComments(), RS->getRecommended(currentUser, filmId));
+    return View::showFilmDetails(film->getDetails(), film->getComments(), RS->getRecommended(currentUser, filmId));
 }
 void FilmManager::handleGetPublished(Parameters& params) {
     validateGet();

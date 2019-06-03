@@ -11,10 +11,11 @@ void App::run() {
         server.get("/badRequest", new ShowPage("static/bad-request.html"));
         server.get("/addFilm", new ShowPage("static/add_film.html"));
         server.post("/addFilm", new HandleRequest("POST films", this));
-        // server.get("/", new HandleTemplate("GET PUBLISHED", this));
         server.post("/signup", new HandleRequest("POST signup", this));
         server.post("/login", new HandleRequest("POST login", this));
         server.get("/logout", new HandleRequest("POST logout", this));
+        server.get("/", new HomeHandler("templates/home.html", this));
+        server.get("/film", new FilmHandler("templates/film.html", this));
 
         server.get("/handcuff.png", new ShowImage("images/handcuff.png"));
         server.get("/mui.css", new ShowPage("css/mui.css"));
@@ -51,8 +52,7 @@ Response* App::handleRequest(Request_struct& req) {
 
     else if (!login->isLoggedIn())
         throw PermissionDenied();
-    else if (req.command == G_FILMS)
-        fm->handleGetFilms(req.params);
+
     else if (req.command == P_FOLLOWERS)
         fh->follow(login->getCurrentUser(), req.params);
     else if (req.command == P_MONEY)
@@ -89,4 +89,20 @@ Response* App::handleRequest(Request_struct& req) {
     else if (req.command == D_COMMENTS)
         ch->deleteComment(req.params);
     return res;
+}
+
+Parameters App::handleTemplates(Request_struct& req) {
+    if (req.params["session"] == "" || DB.findUserById(stoi(req.params["session"])) == NULL)
+        req.params["session"] = "";
+    login->setSessionId(req.params["session"]);
+    try {
+        if (req.command == G_FILMS)
+            return fm->handleGetFilms(req.params);
+    } catch (PermissionDenied) {
+        throw Server::Exception("Permission Denied");
+    } catch (NotFound) {
+        throw Server::Exception("Not found");
+    } catch (BadRequest) {
+        throw Server::Exception("Bad Request");
+    }
 }

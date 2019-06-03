@@ -45,7 +45,7 @@ bool Film::isMatch(Parameters& params) {
         Tools::isInMap(params, "min_rate") && rate < stoi(params["min_rate"]) ||
         Tools::isInMap(params, "length") && length != stoi(params["length"]) ||
         Tools::isInMap(params, "summary") && summary != params["summary"] ||
-        Tools::isInMap(params, "director") && summary != params["director"])
+        Tools::isInMap(params, "director") && director != params["director"])
         return false;
     return true;
 }
@@ -104,7 +104,6 @@ FilmInfo Film::getDetails() {
 }
 string Film::getComments() {
     stringstream result;
-    result << "Comments" << endl;
     for (auto comment : comments) {
         if (!comment->isDeleted())
             result << comment->getInfo();
@@ -125,3 +124,7 @@ void Film::deleteComment(int commentId) {
 void Film::addPurchase(Purchase* purchase) {
     purchases.push_back(purchase);
 }
+
+int Film::getYear() { return year; }
+std::string Film::getDirector() { return director; }
+int Film::getLength() { return length; }
