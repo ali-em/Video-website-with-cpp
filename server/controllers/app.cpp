@@ -13,12 +13,14 @@ void App::run() {
 
         server.post("/addFilm", new HandleRequest("POST films", this));
         server.get("/delete", new HandleRequest("POST delete_films", this));
+        server.post("/comment", new HandleRequest("POST comments", this));
         server.post("/signup", new HandleRequest("POST signup", this));
         server.post("/login", new HandleRequest("POST login", this));
         server.get("/logout", new HandleRequest("POST logout", this));
         server.get("/buy", new HandleRequest("POST buy", this));
-        server.get("/", new HomeHandler("templates/home.html", this));
-        server.get("/film", new FilmHandler("templates/film.html", this));
+        server.post("/charge", new HandleRequest("POST money", this));
+        server.get("/", new HandleTemplate("GET films", "templates/home.html", this));
+        server.get("/film", new HandleTemplate("GET films", "templates/film.html", this));
         server.post("/rate", new HandleRequest("POST rate", this));
         server.get("/handcuff.png", new ShowImage("images/handcuff.png"));
         server.get("/mui.css", new ShowPage("css/mui.css"));
@@ -26,7 +28,7 @@ void App::run() {
         server.get("/mui.js", new ShowPage("js/mui.js"));
         server.get("/include.js", new ShowPage("js/include.js"));
         server.get("/nav.html", new ShowPage("static/nav.html"));
-
+        server.get("/dashboard", new HandleTemplate("GET purchased", "templates/dashboard.html", this));
         server.run();
     } catch (Server::Exception e) {
         cerr << e.getMessage() << endl;
@@ -59,13 +61,13 @@ Response* App::handleRequest(Request_struct& req) {
     else if (req.command == P_FOLLOWERS)
         fh->follow(login->getCurrentUser(), req.params);
     else if (req.command == P_MONEY)
-        mh->handleMoneyRequest(req.params);
+        res = mh->handleMoneyRequest(req.params);
     else if (req.command == P_BUY)
         res = mh->handleBuyRequest(req.params);
     else if (req.command == P_RATE)
         res = fm->handleRate(req.params);
     else if (req.command == P_COMMENTS)
-        ch->sendComment(req.params);
+        res = ch->sendComment(req.params);
     else if (req.command == G_PURCHASED)
         fm->handleGetPurchased(req.params);
     else if (req.command == G_NOTIFICATION)
@@ -101,6 +103,9 @@ Parameters App::handleTemplates(Request_struct& req) {
     try {
         if (req.command == G_FILMS)
             return fm->handleGetFilms(req.params);
+        else if (req.command == G_PURCHASED)
+            return fm->handleGetPurchased(req.params);
+        return Parameters{};
     } catch (PermissionDenied) {
         throw Server::Exception("Permission Denied");
     } catch (NotFound) {

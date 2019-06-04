@@ -11,7 +11,7 @@ class Database;
 class MoneyHandler {
    public:
     MoneyHandler(Database*, RecommendationSystem*, Login*);
-    void handleMoneyRequest(Parameters);
+    Response* handleMoneyRequest(Parameters);
     Response* handleBuyRequest(Parameters&);
     void validateBuy(Parameters&);
     void getMoney();

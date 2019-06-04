@@ -112,9 +112,12 @@ Response* FilmManager::handleRate(Parameters& params) {
     NotificationHandler::sendRateNotif(user, DB->getPublisherByFilmId(stoi(params["film_id"])), film);
     return Response::redirect("/film?film_id=" + params["film_id"]);
 }
-void FilmManager::handleGetPurchased(Parameters& params) {
+Parameters FilmManager::handleGetPurchased(Parameters& params) {
+    Parameters result;
     validateGet();
     User* user = login->getCurrentUser();
     vector<Film*> films = filterFilms(params, user->getPurchased());
-    View::printFilms(films);
+    result["films"] = View::printFilms(films, false);
+    result["money"] = to_string((int)login->getCurrentUser()->getMoney());
+    return result;
 }

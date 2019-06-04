@@ -40,7 +40,7 @@ class User {
     std::string password;
     std::string email;
     int age;
-    double money;
+    double money = 0;
     std::vector<Notification*> notifications;
     std::vector<Film*> purchasedFilms;
     bool publisher = false;

@@ -138,6 +138,9 @@ Parameters View::showFilmDetails(FilmInfo filmInfo, string comments, std::vector
        << "        </div>";
     result["film"] = ss.str();
     result["comments"] = comments;
+    result["film_id"] = to_string(filmInfo.id);
+    result["rec"] = View::printFilms(RecommendedFilms, false);
+
     return result;
 }
 void View::showFollowers(std::vector<UserInfo> followers) {

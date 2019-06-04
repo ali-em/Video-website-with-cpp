@@ -18,11 +18,8 @@ void Comment::setReply(Comment* reply) {
 }
 string Comment::getInfo() {
     stringstream result;
-    result << id << ". " << content << endl;
-    int i = 1;
-    for (auto rep : replies)
-        result << " <div class='mui-panel mui-col-md-6 mui-col-md-offset-3'>"
-               << rep->getContent() << "</div> ";
+    result << " <div class='mui-panel mui-col-md-6 mui-col-md-offset-3'>"
+           << content << "</div> ";
     return result.str();
 }
 void Comment::remove() {

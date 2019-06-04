@@ -4,7 +4,7 @@ using namespace std;
 
 MoneyHandler::MoneyHandler(Database* db, RecommendationSystem* rs, Login* _login) : DB(db), RS(rs), login(_login) {}
 
-void MoneyHandler::handleMoneyRequest(Parameters params) {
+Response* MoneyHandler::handleMoneyRequest(Parameters params) {
     User* user = login->getCurrentUser();
     if (Tools::checkParam(params, 1, "amount"))
         user->chargeMoney(stoi(params["amount"]));
@@ -14,7 +14,7 @@ void MoneyHandler::handleMoneyRequest(Parameters params) {
         else
             static_cast<Publisher*>(user)->getMoney();
     }
-    View::success();
+    return Response::redirect("/dashboard");
 }
 Response* MoneyHandler::handleBuyRequest(Parameters& params) {
     validateBuy(params);
@@ -26,7 +26,7 @@ Response* MoneyHandler::handleBuyRequest(Parameters& params) {
     user->addToPurchased(film);
     RS->update(user, film->getId());
     NotificationHandler::sendBuyNotif(user, DB->getPublisherByFilmId(stoi(params["film_id"])), film);
-    return Response::redirect("/film?film_id=" + params["film_id"]);
+    return Response::redirect("/dashboard");
 }
 
 void MoneyHandler::validateBuy(Parameters& params) {
@@ -40,6 +40,7 @@ void MoneyHandler::validateBuy(Parameters& params) {
         throw BadRequest();
     if (user->isPurchased(film))
         throw BadRequest();
+    cout << film->getPrice() << user->getMoney() << endl;
 }
 void MoneyHandler::getMoney() {
     User* user = login->getCurrentUser();
