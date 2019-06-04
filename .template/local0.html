@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="mui.css">
     <link rel="stylesheet" href="style.css">
     <script src="mui.js"></script>
-    <script src="include.js"></script>
 
     <title>Home </title>
     <style>
@@ -19,7 +18,16 @@
 </head>
 
 <body>
-    <span w3-include-html="nav.html"></span>
+    <ul class="mui-tabs__bar nav_bar" style="background-color:#2196F3;">
+        <li><a href="/">Home</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/addFilm">Add Film</a></li>
+
+        <li style="float:right"><a href="/logout">Logout</a></li>
+        <li style="float:right"><a href="/login">Login</a></li>
+        <li style="float:right"><a href="/signup">SignUp</a></li>
+
+    </ul>
     <br>
     <br>
     <form action="/" method="get">

@@ -26,8 +26,6 @@ void App::run() {
         server.get("/mui.css", new ShowPage("css/mui.css"));
         server.get("/style.css", new ShowPage("css/style.css"));
         server.get("/mui.js", new ShowPage("js/mui.js"));
-        server.get("/include.js", new ShowPage("js/include.js"));
-        server.get("/nav.html", new ShowPage("static/nav.html"));
         server.get("/dashboard", new HandleTemplate("GET purchased", "templates/dashboard.html", this));
         server.run();
     } catch (Server::Exception e) {

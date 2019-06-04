@@ -2,3 +2,8 @@
 app.out
 build/
 *.zip
+.vscode/
+._*
+.template
+compiled.cpp
+.git
