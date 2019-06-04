@@ -15,7 +15,7 @@ class FilmManager {
     void handleEditFilm(Parameters&);
     Response* handleDeleteFilm(Parameters&);
     Parameters handleGetFilms(Parameters&);
-    void handleRate(Parameters&);
+    Response* handleRate(Parameters&);
     void handleGetPurchased(Parameters&);
     std::string handleGetPublished(Parameters&);
     Parameters getFilmDetails(int filmId);

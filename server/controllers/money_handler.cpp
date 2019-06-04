@@ -26,7 +26,7 @@ Response* MoneyHandler::handleBuyRequest(Parameters& params) {
     user->addToPurchased(film);
     RS->update(user, film->getId());
     NotificationHandler::sendBuyNotif(user, DB->getPublisherByFilmId(stoi(params["film_id"])), film);
-    return Response::redirect("/dashboard");
+    return Response::redirect("/film?film_id=" + params["film_id"]);
 }
 
 void MoneyHandler::validateBuy(Parameters& params) {

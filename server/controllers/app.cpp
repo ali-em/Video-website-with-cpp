@@ -19,7 +19,7 @@ void App::run() {
         server.get("/buy", new HandleRequest("POST buy", this));
         server.get("/", new HomeHandler("templates/home.html", this));
         server.get("/film", new FilmHandler("templates/film.html", this));
-
+        server.post("/rate", new HandleRequest("POST rate", this));
         server.get("/handcuff.png", new ShowImage("images/handcuff.png"));
         server.get("/mui.css", new ShowPage("css/mui.css"));
         server.get("/style.css", new ShowPage("css/style.css"));
@@ -63,7 +63,7 @@ Response* App::handleRequest(Request_struct& req) {
     else if (req.command == P_BUY)
         res = mh->handleBuyRequest(req.params);
     else if (req.command == P_RATE)
-        fm->handleRate(req.params);
+        res = fm->handleRate(req.params);
     else if (req.command == P_COMMENTS)
         ch->sendComment(req.params);
     else if (req.command == G_PURCHASED)

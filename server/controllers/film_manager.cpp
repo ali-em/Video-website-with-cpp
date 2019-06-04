@@ -100,7 +100,7 @@ vector<Film*> FilmManager::filterFilms(Parameters& params, vector<Film*> films, 
             result.push_back(f);
     return result;
 }
-void FilmManager::handleRate(Parameters& params) {
+Response* FilmManager::handleRate(Parameters& params) {
     User* user = login->getCurrentUser();
     Film* film = DB->getFilmById(stoi(params["film_id"]));
     if (film == NULL)
@@ -110,7 +110,7 @@ void FilmManager::handleRate(Parameters& params) {
     else
         throw PermissionDenied();
     NotificationHandler::sendRateNotif(user, DB->getPublisherByFilmId(stoi(params["film_id"])), film);
-    View::success();
+    return Response::redirect("/film?film_id=" + params["film_id"]);
 }
 void FilmManager::handleGetPurchased(Parameters& params) {
     validateGet();
