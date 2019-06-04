@@ -4,13 +4,13 @@ using namespace std;
 
 CommentHandler::CommentHandler(Database* db, Login* _login) : DB(db), login(_login) {}
 
-void CommentHandler::sendComment(Parameters& params) {
+Response* CommentHandler::sendComment(Parameters& params) {
     validateSendingComment(params);
     Film* film = DB->getFilmById(stoi(params["film_id"]));
     User* user = login->getCurrentUser();
     film->addComment(user, params["content"]);
     NotificationHandler::sendCommentNotif(user, DB->getPublisherByFilmId(stoi(params["film_id"])), film);
-    View::success();
+    return Response::redirect("/film?film_id=" + params["film_id"]);
 }
 void CommentHandler::validateSendingComment(Parameters& params) {
     if (!Tools::checkParam(params, 2, "film_id", "content"))

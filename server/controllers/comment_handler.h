@@ -10,7 +10,7 @@ class Database;
 class CommentHandler {
    public:
     CommentHandler(Database*, Login*);
-    void sendComment(Parameters&);
+    Response* sendComment(Parameters&);
     void sendReply(Parameters&);
     void deleteComment(Parameters&);
 
